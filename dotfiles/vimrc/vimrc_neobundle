@@ -1,0 +1,103 @@
+if has('vim_starting')
+	set nocompatible
+	set runtimepath+=~/.vim/bundle/neobundle.vim
+endif
+
+" Check: Is neobundle installed?
+if !empty(glob('~/.vim/bundle/'))
+
+
+	call neobundle#begin(expand('~/.vim/bundle/'))
+
+	" Plugins
+	NeoBundleFetch "Shougo/neobundle.vim"
+
+	"
+	""
+	NeoBundle 'mattn/emmet-vim'
+
+	"
+	"
+	NeoBundle "altercation/vim-colors-solarized"
+	function! _EnableSolarized()
+		set t_Co=256
+		let g:solarized_term_colors=256
+		"set background=dark
+		colorscheme solarized
+	endfunction
+	" On Mac, use the terminal's co
+	"au VimEnter * call _EnableSolarized()
+
+	" TypeScript Syntax file
+	NeoBundle 'leafgarland/typescript-vim'
+
+	" vdebug: debug plugin for PHP's XDebugger
+	NeoBundle 'joonty/vdebug'
+	NeoBundle 'majutsushi/tagbar'
+
+	NeoBundle 'ternjs/tern_for_vim'
+
+	" javascript-indenter: more smart indenting of JavaScript
+	" - Need when indents are spaces. 
+	" - brief mode: minimal indenting.
+	NeoBundle 'jiangmiao/simple-javascript-indenter'
+	let g:SimpleJsIndenter_BriefMode = 1
+
+	" Color status bar:
+	" Doesn't work well with Mac.
+	"NeoBundle 'itchyny/lightline.vim'
+
+	" omnicomplete for haskell
+	" not working
+	NeoBundle 'eagletmt/neco-ghc'
+	au FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+	NeoBundle 'lukerandall/haskellmode-vim'
+	let g:haddock_browser="abc"
+
+	" 
+	"NeoBundle 'bling/vim-airline'
+	" Off for now until configured properly
+	function! _EnableAirline()
+		"set guifont=Droid_Sans_Mono_for_Powerline:h10
+		"let g:airline_powerline_fonts = 1
+		if !exists('g:airline_symbols')
+			let g:airline_symbols = {}
+		endif
+
+		" unicode symbols
+		let g:airline_left_sep = '»'
+		let g:airline_left_sep = '▶'
+		let g:airline_right_sep = '«'
+		let g:airline_right_sep = '◀'
+		let g:airline_symbols.linenr = '␊'
+		let g:airline_symbols.linenr = '␤'
+		let g:airline_symbols.linenr = '¶'
+		let g:airline_symbols.branch = '⎇'
+		let g:airline_symbols.paste = 'ρ'
+		let g:airline_symbols.paste = 'Þ'
+		let g:airline_symbols.paste = '∥'
+		let g:airline_symbols.whitespace ='Ξ'
+
+		" See ~/.vim/bundle/vim-airline/autoload/airline/themes
+		" For some reason, 
+		"
+		AirlineTheme hybrid
+		AirlineRefresh
+	endfunction
+	"autocmd VimEnter * AirlineToggle
+	"autocmd VimEnter * call _EnableAirline()
+
+	" JavaScript syntax file.
+	" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+	" au FileType javascript call JavaScriptFold()
+	" au FileType javascript set foldmethod=syntax
+
+	"
+	filetype plugin indent on
+
+	call neobundle#end()
+
+	NeoBundleCheck
+
+endif

@@ -1,0 +1,4 @@
+" Node JS editor settings.
+
+au FileType javascript call JSWithSpaces(4)
+au BufRead *.json call JSWithSpaces(4)
