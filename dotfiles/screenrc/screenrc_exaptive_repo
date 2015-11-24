@@ -1,0 +1,2 @@
+chdir $HOME/Sites/exaptive/exaptive-core/repos
+source $HOME/.screenrc_yui/screenrc_git

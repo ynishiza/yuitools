@@ -1,0 +1,97 @@
+#!/bin/bash
+export MY_BIN="$HOME/.bin_yui"
+export TOOLS_YUI="$HOME/.tools_yui"
+export BASHRC_YUI="$HOME/.bashrc_yui"
+export BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
+
+#
+# Check if MAC
+# 
+CHECK_DARWIN=`uname | grep Darwin`
+export IS_MAC=`[[ -z $CHECK_DARWIN ]]; echo $?`
+
+
+# Auto completion with git
+if [[ -f "${MY_BIN}/git-completion.bash" ]]
+then
+	source "${MY_BIN}/git-completion.bash"
+fi
+
+#
+# PS1
+#
+# \s = Shell
+# \h = hostname
+# \H = Full hostname
+# \u = Current user
+# \w = Current directory from the user's home directory
+# \W = Current directory
+export PS1='\u@\h:\w [j=\j]$ '
+
+
+#
+# Functions
+#
+
+PrintSystemInfo() {
+	echo "Bash:$SHELL $BASH_VERSION"
+	echo "Date:"`date`
+	echo "Kernel:"`uname -a`
+	echo "User:"`whoami`
+	echo "Host:"`hostname`
+}
+# Bug: printing here caused problems when uploading with scp.
+#PrintSystemInfo
+
+
+#
+# Aliases
+#
+alias ll="ls -alF"
+alias la="ls -A"
+alias rm="rm -i"
+alias cp="cp -i"
+alias mv="mv -i"
+alias less="less -N"
+# To enable <C-S> to work in vim.
+alias vim="stty stop '' -ixoff; vim"
+
+
+# 
+alias bashrcReload="source ~/.bashrc"
+alias bashrcEdit="vim $BASHRCBASE_PATH"
+
+
+#
+# Path
+#
+# Backup
+if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
+PATH=$PATH_BAK
+
+PATH=/usr/sbin:$PATH
+PATH="$MY_BIN:$PATH"
+PATH=$HOME/.node_modules/bin:$PATH:
+export PATH_BAK
+export PATH
+
+
+#
+# Custom bashrc
+# Do this last. Otherwise, may get overwritten by default.
+#
+if [[ $IS_MAC == 1 ]]
+then
+	source "$BASHRC_YUI/bashrc_mac"
+fi
+
+#########################################################
+#					OLD STUFF							#
+#########################################################
+
+#
+# pkg-config
+#
+#export PKG_CONFIG="/opt/pkgconfig/bin/pkg-config"
+#export PKG_CONFIG_PATH="/Library/Frameworks//Mono.framework/Versions/3.2.7/lib/pkgconfig"
+

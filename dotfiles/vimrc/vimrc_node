@@ -1,0 +1,9 @@
+" Node JS editor settings.
+function! Init_NodeJS() 
+	set expandtab
+	set tabstop=2
+	set shiftwidth=2
+endfunction
+
+au FileType javascript call Init_NodeJS()
+au BufRead *.json call Init_NodeJS()

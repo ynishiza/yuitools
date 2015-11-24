@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# Mac specific settings
+#
+export TERM='xterm-color'
+
+#
+# Functions
+#
+MoveToTrash() {
+	mv "$@" ~/.Trash
+}
+
+GetPIDs() {
+	COMMAND=$1
+	#if [ -z $COMMAND ];then echo "No command."; exit 1; fi
+
+	# 
+	#PIDS=`ps -Aj | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
+	PIDS=`ps -A -o pid,user,command | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
+	PIDS_LIST=(${PIDS// /})
+
+	echo "Found ${#PIDS_LIST[@]} processes. Result stored in variables PIDS and PIDS_LIST."
+	echo ""
+
+	# Show header
+	ps -j | head -1
+	# Show processes
+	ps -Aj | grep $COMMAND | grep -v grep
+}
+
+CommandWithLess() {
+	COMMAND="$1"
+	shift 1
+	OPTIONS="$@"
+	FULL="$COMMAND $OPTIONS | less"
+	eval $FULL
+}
+
+#
+# PATH
+#
+PATH=/usr/lib:$PATH
+PATH=$HOME/local/bin:$PATH
+PATH="$TOOLS_YUI/scripts:$PATH"
+PATH="$TOOLS_YUI/scripts/Exaptive:$PATH"
+export PATH
+
+#
+# Alias
+#
+alias ytop="top -r -S -stats pid,command,user,time,state,cpu,mem,rprvt,vsize,vprvt,kprvt,kshrd,purg"
+PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
+alias ypscpu="CommandWithLess ps -Ar -o $PSCOLUMNS"
+alias ypsmem="CommandWithLess ps -Am -o $PSCOLUMNS"
+alias ypsid="ps -Ao pid,ppid,pgid,rgid,user,uid,tt,command"
+alias trash="MoveToTrash"
+alias yshutdown="sudo /sbin/shutdown -h now"
+
+# Sar
+let SARINTERVAL=10
+let SARCOUNT="(60 * 60 * 24) / SARINTERVAL"		# A day
+DoSar() {
+	TYPE=$1
+	INTERVAL=$2
+	COUNT=$3
+	echo $TYPE $INTERVAL $COUNT
+	if [[ ! $INTERVAL ]]; then INTERVAL=$SARINTERVAL; fi
+	if [[ ! $COUNT ]]
+	then 
+		let COUNT="(60 * 60 * 24) / INTERVAL"		# A day
+	fi
+	echo $TYPE $INTERVAL $COUNT
+	sar $TYPE $INTERVAL $COUNT
+}
+alias saru="DoSar -u"
+alias sard="DoSar -d"
+alias sarn="DoSar \"-n DEV\""

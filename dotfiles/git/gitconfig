@@ -1,0 +1,23 @@
+[core]
+	fileMode = false
+	editor = vim
+[user]
+	name = Yui Nishizawa
+	email = yui@exaptive.com
+[push]
+	default = nothing
+[alias]
+	logstat = log --stat
+	bv = branch -vv
+	logp = log -p
+	logpreview = log --oneline -10
+[credential]
+	helper = store
+[sendemail]
+	#smtpencryption = ssl
+	smtpserver = secure156.inmotionhosting.com
+	smtpuser = yui@exaptive.com
+	smtpserverport = 587
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3

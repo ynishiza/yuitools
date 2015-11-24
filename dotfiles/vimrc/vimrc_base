@@ -1,0 +1,217 @@
+"
+" My vimrc file
+"
+
+"---------------------------------------------------------------
+"						OPTIONS
+"
+
+" Filetype options
+" - plugin
+" - indent
+filetype plugin indent on 
+
+"
+"set background=dark
+
+"  omni complete
+set omnifunc=syntaxcomplete#Complete
+
+
+" Tabs
+set autoindent
+set tabstop=4
+set shiftwidth=4
+
+
+" list (invisibile characters)
+set listchars=tab:>-,eol:$,nbsp:»
+
+
+" Display line numbers in editor.
+set number
+
+
+" Indent automatically on new line.
+set autoindent
+
+"
+" Status
+"
+" show status bar.
+set laststatus=2
+set statusline=""
+" show line and column number.
+set ruler
+
+" Fold			
+"set foldmethod=syntax
+set foldmethod=manual
+"let javaScript_fold=1
+
+
+"
+" Ctags
+"
+" Where to look for tag files
+set tags=./tags,./ctags
+
+
+" Syntax highlighting.
+syntax enable 
+"set background=dark
+"colorscheme solarized
+
+
+"
+" Search
+"
+" Highlight matches.
+set hlsearch
+" Highlight as I type.
+set incsearch
+"set ignorecase
+
+"---------------------------------------------------------------
+"					 Language specific 
+"
+
+" Comment term in the script
+let t:comment_term="//"
+
+function! VimInit()
+	let t:comment_term="\""
+endfunction
+
+function! PythonInit()
+    "echo "python"
+	let t:comment_term="#"
+    set autoindent
+    " Use spaces instead of tabs
+	" set expandtab
+    " 4 spaces
+    set tabstop=4
+    set shiftwidth=4
+endfunction
+
+function! PHPInit()
+	let g:myvar="php"
+	let t:comment_term="//"
+endfunction
+
+function! JSInit()
+	let t:comment_term="//"
+endfunction
+
+function! BashInit()
+	let t:comment_term="#"
+endfunction
+
+function! RInit()
+	let t:comment_term="#"
+endfunction
+
+function! MakefileInit()
+	let t:comment_term="#"
+endfunction
+
+"
+function! CommentInsert()
+	"execute "'<,'>s=^=" . t:comment_term . "="
+	execute "s=^=" . t:comment_term . "="
+endfunction
+function! CommentRemove()
+	"execute "'<,'>s=^" . t:comment_term . "=="
+	execute "s=^" . t:comment_term . "=="
+endfunction
+
+function! MyTestFunct()
+	s/abc/ABC/gc
+endfunction
+
+autocmd FileType vim call VimInit()
+autocmd FileType python call PythonInit()
+autocmd FileType php call PHPInit()
+autocmd FileType javascript call JSInit()
+autocmd FileType r call RInit()
+autocmd FileType sh call BashInit()
+autocmd Filetype make call MakefileInit()
+
+
+
+"---------------------------------------------------------------
+"					  MAPPING	
+"
+" Leader
+let mapleader="\<space>"
+
+"imap <tab> <c-n>
+
+" Save with <c-s>
+map <c-s> :w<CR>
+imap <c-s> <ESC>:w<CR>
+map <c-m>s :w<CR>
+imap <c-m>s <ESC>:w<CR>
+" Search for word under cursor.
+map <c-c>f /<c-r>=expand("<cword>")<cr>
+" Search and replace word under cursor.
+map <c-c>r :%s/\<<c-r>=expand("<cword>")<cr>\>
+map <c-c>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
+" Shortcuts for my functions
+map <c-m>c :call CommentInsert()<cr>
+map <c-m>C :call CommentRemove()<cr>
+
+
+"---------------------------------------------------------------
+"						PLUGINS
+" 						
+"
+" Taglist
+"
+" See the ctags file.
+let tlist_markdown_settings="markdown;h:header"
+let tlist_r_settings = "r;f:function"
+let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method"
+map <F8> :TlistToggle<CR>
+
+
+
+"---------------------------------------------------------------
+"						MISC
+"
+
+" neobundle
+so $HOME/.vimrc_neobundle
+
+"
+" LoadCustomVim : 
+"
+function! LoadCustomVim() 
+	let mod = ":h"
+	let dir = expand("%:p" . mod)
+
+	" Default vimrc.
+	let myvimrc = resolve(expand("$MYVIMRC"))
+	"echo myvimrc
+	"
+	while dir != "/" 
+		let file = dir . "/.vimrc"
+
+		" Expand to full path
+		let fullfile = resolve(expand(file))
+		"echo file
+
+		" Found vimrc.
+		" - Ignore default vimrc.
+		if filereadable(file) && fullfile != myvimrc
+			"echo "Found custom vim: " . file
+			let g:custom_vimrc=file
+			execute "so " file ""
+			break
+		endif
+
+		let mod = mod . ":h"
+		let dir = expand("%:p" . mod)
+	endwhile
+endfunction
+call LoadCustomVim()
