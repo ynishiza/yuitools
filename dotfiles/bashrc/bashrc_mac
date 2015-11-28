@@ -17,7 +17,8 @@ GetPIDs() {
 
 	# 
 	#PIDS=`ps -Aj | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
-	PIDS=`ps -A -o pid,user,command | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
+	#PIDS=`ps -A -o pid,user,command | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
+	PIDS=$(ps ax -o pid,command | grep "$COMMAND" | grep -v grep | sed -n -E "s/^ *([0-9]+) .*$/\1/p")	
 	PIDS_LIST=(${PIDS// /})
 
 	echo "Found ${#PIDS_LIST[@]} processes. Result stored in variables PIDS and PIDS_LIST."

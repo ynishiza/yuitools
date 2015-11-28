@@ -1,6 +1,6 @@
 #!/usr/local/bin/bash
 #
-source settings.sh
+source serverConnectSettings.sh
 
 echo "Bash version: $BASH_VERSION"
 

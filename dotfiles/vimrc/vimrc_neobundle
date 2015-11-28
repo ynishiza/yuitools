@@ -35,6 +35,8 @@ if !empty(glob('~/.vim/bundle/'))
 	NeoBundle 'joonty/vdebug'
 	NeoBundle 'majutsushi/tagbar'
 
+	NeoBundle 'ternjs/tern_for_vim'
+
 	" javascript-indenter: more smart indenting of JavaScript
 	" - Need when indents are spaces. 
 	" - brief mode: minimal indenting.

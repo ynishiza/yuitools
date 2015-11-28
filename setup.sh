@@ -1,9 +1,12 @@
 #!/bin/bash
-TOOLS_SRC=`pwd -P`
+TOOLS_SRC=$(pwd -P)
+TOOLS_DIRNAME=$(dirname $TOOLS_SRC)
+TOOLS_BASENAME=$(basename $TOOLS_BASE)
 DOTFILES_SRC="${TOOLS_SRC}/dotfiles"
 TOOLS_LINK="$HOME/.tools_yui"
 DOTFILES_LINK="$HOME/.dotfiles_yui"
 TIMESTAMP=`date '+%m%d%y_%H%M%S'`
+
 # Move to real path, not link.
 cd "$TOOLS_SRC"
 
@@ -70,6 +73,7 @@ createLink "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
 createLink "${DOTFILES_LINK}/ctags/ctags_base" "$HOME/.ctags"
 createLink "${DOTFILES_LINK}/vimrc/vimrc_base" "$HOME/.vimrc"
 createLink "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc"
+createLink "${DOTFILES_LINK}/npmrc" "$HOME/.npmrc"
 createLink "${DOTFILES_LINK}/git/gitconfig" "$HOME/.gitconfig"
 createLink "${DOTFILES_LINK}/git/git-credentials" "$HOME/.git-credentials"
 # Shortcuts to some dotfiles.
@@ -89,8 +93,7 @@ bash "${TOOLS_LINK}/setup_vim.sh"
 TOOLS_BACKUP="$HOME/.tools_yui.tar"
 echo "Creating $TOOLS_BACKUP"
 
-cd ..
+cd "$(dirname "$TOOLS_SRC")"
 rm -rf "$TOOLS_BACKUP"
-tar cf "$TOOLS_BACKUP" "Tools"
+tar cf "$TOOLS_BACKUP" "$(basename "$TOOLS_SRC")"
 cd "$TOOLS_SRC"
-

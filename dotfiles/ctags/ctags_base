@@ -1,6 +1,6 @@
 --langdef=markdown
 --langmap=markdown:.markdown.md
---regex-markdown=/^(#* [ a-zA-Z0-9]+)/\1/h,header/
+--regex-markdown=/^(#* +.+)/\1/h,header/
 
 --regex-javascript=/^[ \t]*var +([A-Z][_a-zA-Z0-9]+)[ \t]+=[ \t]+function\(/\1/e,class/
 --regex-javascript=/^[ \t]*function +([A-Z][_a-zA-Z0-9]+)\(/\1/e,class/

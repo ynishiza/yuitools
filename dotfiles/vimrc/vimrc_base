@@ -97,10 +97,12 @@ endfunction
 function! PHPInit()
 	let g:myvar="php"
 	let t:comment_term="//"
+	call PythonWithTabs()
 endfunction
 
 function! JSInit()
 	let t:comment_term="//"
+	call JSWithTabs()
 endfunction
 
 function! BashInit()
@@ -137,6 +139,33 @@ autocmd FileType r call RInit()
 autocmd FileType sh call BashInit()
 autocmd Filetype make call MakefileInit()
 
+"
+" Language specific settings
+"
+
+" Python 
+function! PythonWithSpaces(x)
+	set expandtab
+	let &tabstop=a:x
+	let &shiftwidth=a:x
+endfunction
+function! PythonWithTabs()
+	set noexpandtab
+	set tabstop=4
+	set shiftwidth=4
+endfunction
+
+" JavaScript 
+function! JSWithSpaces(x)
+	set expandtab
+	let &tabstop=a:x
+	let &shiftwidth=a:x
+endfunction
+function! JSWithTabs()
+	set noexpandtab
+	set tabstop=4
+	set shiftwidth=4
+endfunction
 
 
 "---------------------------------------------------------------
