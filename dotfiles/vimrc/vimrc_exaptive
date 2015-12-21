@@ -1,3 +1,0 @@
-" Taglist
-let tlist_javascript_settings=tlist_javascript_settings_base . ";g:exaptive_method;h:exaptive_inevent;i:exaptive_outevent"
-let tlist_php_settings="php;f:function;d:constant;a:class"

@@ -1,10 +1,16 @@
 #!/bin/bash
+
+############## Setup ##############
+
+# Source
 TOOLS_SRC=$(pwd -P)
 TOOLS_DIRNAME=$(dirname $TOOLS_SRC)
 TOOLS_BASENAME=$(basename $TOOLS_BASE)
 DOTFILES_SRC="${TOOLS_SRC}/dotfiles"
+# Link
 TOOLS_LINK="$HOME/.tools_yui"
 DOTFILES_LINK="$HOME/.dotfiles_yui"
+#
 TIMESTAMP=`date '+%m%d%y_%H%M%S'`
 
 # Move to real path, not link.
@@ -18,6 +24,8 @@ then
 	echo "Bad directory. Could not find dotfiles."
 	exit 1
 fi
+
+############## Main ##############
 
 function createLink() {
 	# Option: prep
@@ -77,10 +85,10 @@ createLink "${DOTFILES_LINK}/npmrc" "$HOME/.npmrc"
 createLink "${DOTFILES_LINK}/git/gitconfig" "$HOME/.gitconfig"
 createLink "${DOTFILES_LINK}/git/git-credentials" "$HOME/.git-credentials"
 # Shortcuts to some dotfiles.
-createLink -f "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc_base"
-createLink -f "${DOTFILES_LINK}/vimrc/vimrc_base" "$HOME/.vimrc_base"
-createLink -f "${DOTFILES_LINK}/vimrc/vimrc_neobundle" "$HOME/.vimrc_neobundle"
-createLink -f "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc_base"
+#createLink -f "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc_base"
+#createLink -f "${DOTFILES_LINK}/vimrc/vimrc_base" "$HOME/.vimrc_base"
+#createLink -f "${DOTFILES_LINK}/vimrc/vimrc_neobundle" "$HOME/.vimrc_neobundle"
+#createLink -f "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc_base"
 
 #
 # Vim

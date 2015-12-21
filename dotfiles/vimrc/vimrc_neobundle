@@ -12,12 +12,10 @@ if !empty(glob('~/.vim/bundle/'))
 	" Plugins
 	NeoBundleFetch "Shougo/neobundle.vim"
 
-	"
-	""
+	" emmet: HTML plugin
 	NeoBundle 'mattn/emmet-vim'
 
-	"
-	"
+	" solarized
 	NeoBundle "altercation/vim-colors-solarized"
 	function! _EnableSolarized()
 		set t_Co=256
@@ -33,9 +31,10 @@ if !empty(glob('~/.vim/bundle/'))
 
 	" vdebug: debug plugin for PHP's XDebugger
 	NeoBundle 'joonty/vdebug'
-	NeoBundle 'majutsushi/tagbar'
 
-	NeoBundle 'ternjs/tern_for_vim'
+	" ternjs: syntax completion for JavaScript.
+	NeoBundle 'ternjs/tern_for_vim', 
+		\ { 'build' : { 'others': 'npm install' } }
 
 	" javascript-indenter: more smart indenting of JavaScript
 	" - Need when indents are spaces. 
@@ -43,19 +42,20 @@ if !empty(glob('~/.vim/bundle/'))
 	NeoBundle 'jiangmiao/simple-javascript-indenter'
 	let g:SimpleJsIndenter_BriefMode = 1
 
-	" Color status bar:
-	" Doesn't work well with Mac.
-	"NeoBundle 'itchyny/lightline.vim'
-
-	" omnicomplete for haskell
-	" not working
+	" neco-ghc: omnicomplete for haskell
+	" not working?
 	NeoBundle 'eagletmt/neco-ghc'
 	au FileType haskell setlocal omnifunc=necoghc#omnifunc
 
+	" 
 	NeoBundle 'lukerandall/haskellmode-vim'
 	let g:haddock_browser="abc"
 
-	" 
+	""""""""""""""""""""""""""" Disabled """"""""""""""""""""""""""" 
+
+	"NeoBundle 'majutsushi/tagbar'
+
+	" airline: 
 	"NeoBundle 'bling/vim-airline'
 	" Off for now until configured properly
 	function! _EnableAirline()
@@ -87,6 +87,10 @@ if !empty(glob('~/.vim/bundle/'))
 	endfunction
 	"autocmd VimEnter * AirlineToggle
 	"autocmd VimEnter * call _EnableAirline()
+
+	" Color status bar:
+	" Doesn't work well with Mac.
+	"NeoBundle 'itchyny/lightline.vim'
 
 	" JavaScript syntax file.
 	" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}

@@ -7,8 +7,7 @@ export BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 #
 # Check if MAC
 # 
-CHECK_DARWIN=`uname | grep Darwin`
-export IS_MAC=`[[ -z $CHECK_DARWIN ]]; echo $?`
+export IS_MAC=`[[ -z $(uname | grep Darwin) ]]; echo $?`
 
 
 # Auto completion with git

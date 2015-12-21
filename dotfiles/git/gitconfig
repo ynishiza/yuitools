@@ -7,10 +7,25 @@
 [push]
 	default = nothing
 [alias]
-	logstat = log --stat
+	# colors
+	# - yellow: SHA1
+	# - blue: branch
+	# - red:
+	# - green: author
 	bv = branch -vv
-	logp = log -p
-	logpreview = log --oneline -10
+	ls = log --format=\"%C(yellow) %h %Cred %cr %C(green) %cn %C(blue)%d %Creset %s  \" -10 
+	lp = log -p
+	lst = log --stat
+	#
+	# Shortcuts
+	#
+	st = status
+	br = branch
+	ci = commit
+	co = checkout
+	df = diff
+	dc = diff --cached
+	ai = add -i
 [credential]
 	helper = store
 [sendemail]
@@ -21,3 +36,5 @@
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+[color]
+	branch = 1

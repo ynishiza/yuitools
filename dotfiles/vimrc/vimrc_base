@@ -138,6 +138,7 @@ autocmd FileType javascript call JSInit()
 autocmd FileType r call RInit()
 autocmd FileType sh call BashInit()
 autocmd Filetype make call MakefileInit()
+autocmd BufRead *.md set filetype=markdown
 
 "
 " Language specific settings
@@ -179,16 +180,19 @@ let mapleader="\<space>"
 " Save with <c-s>
 map <c-s> :w<CR>
 imap <c-s> <ESC>:w<CR>
-map <c-m>s :w<CR>
-imap <c-m>s <ESC>:w<CR>
+" My commands
+" - prefix with <c-j>
+map <c-j>w :w<CR>
+imap <c-j>w <ESC>:w<CR>
 " Search for word under cursor.
-map <c-c>f /<c-r>=expand("<cword>")<cr>
+map <c-j>/ /<c-r>=expand("<cword>")<cr>
 " Search and replace word under cursor.
-map <c-c>r :%s/\<<c-r>=expand("<cword>")<cr>\>
-map <c-c>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
+map <c-j>s :%s/\<<c-r>=expand("<cword>")<cr>\>
+map <c-j>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
+map <c-j>r :so $MYVIMRC<cr>
 " Shortcuts for my functions
-map <c-m>c :call CommentInsert()<cr>
-map <c-m>C :call CommentRemove()<cr>
+map <c-j>c :call CommentInsert()<cr>
+map <c-j>C :call CommentRemove()<cr>
 
 
 "---------------------------------------------------------------
@@ -200,7 +204,9 @@ map <c-m>C :call CommentRemove()<cr>
 " See the ctags file.
 let tlist_markdown_settings="markdown;h:header"
 let tlist_r_settings = "r;f:function"
+let tlist_php_settings="php;f:function;d:constant;a:class"
 let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method"
+let tlist_javascript_settings = tlist_javascript_settings_base . ";f:function"
 map <F8> :TlistToggle<CR>
 
 
@@ -210,7 +216,7 @@ map <F8> :TlistToggle<CR>
 "
 
 " neobundle
-so $HOME/.vimrc_neobundle
+so $HOME/.vimrc_yui/vimrc_neobundle
 
 "
 " LoadCustomVim : 

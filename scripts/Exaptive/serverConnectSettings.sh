@@ -34,7 +34,7 @@ SERVER_HOSTS[aws_gnsprod]="gnsinteractivemodeling.exaptive.com"
 SERVER_USERS[aws_gnsprod]="ubuntu"
 SSH_IDENTITY[aws_gnsprod]="${EXAPTIVEAWS}/AWS PEM Keys/ubuntu-micro.pem"
 
-SERVER_HOSTS[aws_gnsdev]="gnsinteractivemodelingdev.exaptive.com"
+SERVER_HOSTS[aws_gnsdev]="gnsdev.exaptive.com"
 SERVER_USERS[aws_gnsdev]="ubuntu"
 SSH_IDENTITY[aws_gnsdev]="${EXAPTIVEAWS}/AWS PEM Keys/ubuntu-micro.pem"
 
@@ -59,6 +59,9 @@ SERVER_USERS[home]=nishizawayui
 SERVER_HOSTS[home_midori]="midorin-macbook.local"
 SERVER_USERS[home_midori]="midorin"
 
+SERVER_HOSTS[aws_dev]="dev.exaptive.com"
+SERVER_USERS[aws_dev]="ubuntu"
+SSH_IDENTITY[aws_dev]="${EXAPTIVEAWS}/AWS PEM Keys/exaptive-git.pem"
 
 
 ###################################

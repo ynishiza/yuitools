@@ -28,8 +28,7 @@ hardstatus alwayslastline
 hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW}|%{KY}%101`%{KW}|%D %M %d %Y%{= Kc} %C%A%{-}'
 
 # change command character from ctrl-a to ctrl-b (emacs users may want this)
-#escape ^Ll
-escape ^Jj
+escape ^Ll
 
 # Hide hardstatus: ctrl-a f 
 bind f eval "hardstatus ignore"

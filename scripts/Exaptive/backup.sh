@@ -5,12 +5,13 @@ DIRS=()
 DIRS[0]="$HOME/Sites"
 DIRS[1]="$HOME/Documents"
 DIRS[2]="$HOME/Dropbox (Personal)/Permanent/Computers/Tools"
+DIRS[3]="$HOME/exaptive/exaptive_stack"
 
 OPTIONS="-r -u -h --progress"
 # Don't follow symbolic links.
 OPTIONS="$OPTIONS --safe-links"
 # max size
-OPTIONS="$OPTIONS --quiet"
+#OPTIONS="$OPTIONS --quiet"
 OPTIONS="$OPTIONS --max-size=20M"
 OPTIONS="$OPTIONS --filter='- .git/' --filter='- node_modules/'"
 OPTIONS="$OPTIONS --filter='- .cabal-sandbox/'"

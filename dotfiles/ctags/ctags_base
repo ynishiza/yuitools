@@ -2,6 +2,7 @@
 --langmap=markdown:.markdown.md
 --regex-markdown=/^(#* +.+)/\1/h,header/
 
+
 --regex-javascript=/^[ \t]*var +([A-Z][_a-zA-Z0-9]+)[ \t]+=[ \t]+function\(/\1/e,class/
 --regex-javascript=/^[ \t]*function +([A-Z][_a-zA-Z0-9]+)\(/\1/e,class/
 --regex-javascript=/^\t*this\.([A-Z][_a-zA-Z0-9]+) = function/\1/e,class/
@@ -14,7 +15,9 @@
 --regex-javascript=/@method +([\._a-zA-Z0-9]+)/\1/o,method/
 --regex-javascript=/^[ \t]*(var )*([A-Z0-9_]+) *=/\2/q,constant/
 
+
 --regex-php=/class +([A-Z][a-zA-Z0-9_]+) {/\1/a,class/
+
 
 --langdef=r
 --langmap=r:.R

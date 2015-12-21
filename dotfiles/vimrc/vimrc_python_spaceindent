@@ -1,7 +1,7 @@
 " Python environment with 4 space indentation
 " Default is using tabs
-autocmd FileType python call PythonWithSpaces(2)
+autocmd FileType python call PythonWithSpaces(4)
 
 if &filetype == "python"
-	call PythonWithSpaces(2)
+	call PythonWithSpaces(4)
 endif
