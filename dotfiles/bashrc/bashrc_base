@@ -46,6 +46,8 @@ PrintSystemInfo() {
 #
 # Aliases
 #
+alias pu="pushd"
+alias po="popd"
 alias ll="ls -alF"
 alias la="ls -A"
 alias rm="rm -i"

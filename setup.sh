@@ -76,8 +76,10 @@ createLink -f "${DOTFILES_LINK}/bashrc" "$HOME/.bashrc_yui"
 createLink -f "${DOTFILES_LINK}/vimrc" "$HOME/.vimrc_yui"
 
 # Common dotfiles
-# - create link only if it doesn't exist yet. Don't want to overwrite someone else's
+# - create link only if it doesn't exist yet. 
+#   Don't want to overwrite. This is for safety.
 createLink "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
+createLink "${DOTFILES_LINK}/jshintrc/jshintrc" "$HOME/.jshintrc"
 createLink "${DOTFILES_LINK}/ctags/ctags_base" "$HOME/.ctags"
 createLink "${DOTFILES_LINK}/vimrc/vimrc_base" "$HOME/.vimrc"
 createLink "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc"

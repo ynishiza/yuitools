@@ -15,6 +15,9 @@ if !empty(glob('~/.vim/bundle/'))
 	" emmet: HTML plugin
 	NeoBundle 'mattn/emmet-vim'
 
+	" syntactic
+	NeoBundle 'scrooloose/syntastic'
+
 	" solarized
 	NeoBundle "altercation/vim-colors-solarized"
 	function! _EnableSolarized()

@@ -26,6 +26,7 @@
 	df = diff
 	dc = diff --cached
 	ai = add -i
+	cia = commit --amend
 [credential]
 	helper = store
 [sendemail]

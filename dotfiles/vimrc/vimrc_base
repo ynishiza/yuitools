@@ -120,9 +120,15 @@ endfunction
 "
 function! CommentInsert()
 	"execute "'<,'>s=^=" . t:comment_term . "="
+	if !exists("t:comment_term")
+		let t:comment_term = "//"
+	endif
 	execute "s=^=" . t:comment_term . "="
 endfunction
 function! CommentRemove()
+	if !exists("t:comment_term")
+		let t:comment_term = "//"
+	endif
 	"execute "'<,'>s=^" . t:comment_term . "=="
 	execute "s=^" . t:comment_term . "=="
 endfunction
@@ -138,7 +144,10 @@ autocmd FileType javascript call JSInit()
 autocmd FileType r call RInit()
 autocmd FileType sh call BashInit()
 autocmd Filetype make call MakefileInit()
+
+" Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
+autocmd BufRead *.json set filetype=json
 
 "
 " Language specific settings
