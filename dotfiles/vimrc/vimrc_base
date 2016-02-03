@@ -23,6 +23,10 @@ set autoindent
 set tabstop=4
 set shiftwidth=4
 
+" Backspace
+" - use backspace to delete eol, indents, and start of an insert.
+set backspace=eol,indent,start
+
 
 " list (invisibile characters)
 set listchars=tab:>-,eol:$,nbsp:»
@@ -143,7 +147,7 @@ autocmd FileType php call PHPInit()
 autocmd FileType javascript call JSInit()
 autocmd FileType r call RInit()
 autocmd FileType sh call BashInit()
-autocmd Filetype make call MakefileInit()
+autocmd FileType make call MakefileInit()
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -189,6 +193,10 @@ let mapleader="\<space>"
 " Save with <c-s>
 map <c-s> :w<CR>
 imap <c-s> <ESC>:w<CR>
+" Close with <c-q>
+map <c-q> :tabc<CR>
+imap <c-q> <ESC>:tabc<CR>
+
 " My commands
 " - prefix with <c-j>
 map <c-j>w :w<CR>
@@ -214,7 +222,7 @@ map <c-j>C :call CommentRemove()<cr>
 let tlist_markdown_settings="markdown;h:header"
 let tlist_r_settings = "r;f:function"
 let tlist_php_settings="php;f:function;d:constant;a:class"
-let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method"
+let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method;u:@construct"
 let tlist_javascript_settings = tlist_javascript_settings_base . ";f:function"
 map <F8> :TlistToggle<CR>
 

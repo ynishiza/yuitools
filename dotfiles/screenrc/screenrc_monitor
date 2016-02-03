@@ -2,15 +2,13 @@ chdir $HOME
 source $HOME/.screenrc
 
 #
-screen -t top 
-ytop
+screen -t top
 
 screen -t nettop
 
 #
 screen -t vim(tools) 
 exec vim $HOME/.tools_yui/
-exec ./backup_service.sh
 
 #
 #screen -t R R -e "library(Rserve); Rserve(debug=T)"
@@ -19,6 +17,7 @@ exec ./backup_service.sh
 #screen -t mysql mysqld
 
 screen -t free
+exec ./backup_service.sh
 
 
 

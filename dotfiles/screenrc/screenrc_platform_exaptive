@@ -1,0 +1,12 @@
+chdir $HOME/exaptive_stack/exaptive
+source $HOME/.screenrc
+
+screen -t git
+# Doesn't seem to work.
+#eval ! eval 'echo test'
+
+#screen -t vim(dataflow)
+#
+#screen -t vim(city-client)
+#
+#screen -t vim(server)
