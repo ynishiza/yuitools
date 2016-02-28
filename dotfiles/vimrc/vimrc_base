@@ -137,6 +137,12 @@ function! CommentRemove()
 	execute "s=^" . t:comment_term . "=="
 endfunction
 
+function! MarkdownInit()
+	set expandtab
+	set tabstop=2
+	set shiftwidth=2
+endfunction
+
 function! MyTestFunct()
 	s/abc/ABC/gc
 endfunction
@@ -148,6 +154,7 @@ autocmd FileType javascript call JSInit()
 autocmd FileType r call RInit()
 autocmd FileType sh call BashInit()
 autocmd FileType make call MakefileInit()
+autocmd FileType markdown call MarkdownInit()
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -251,7 +258,7 @@ function! LoadCustomVim()
 
 		" Expand to full path
 		let fullfile = resolve(expand(file))
-		"echo file
+"		echo file
 
 		" Found vimrc.
 		" - Ignore default vimrc.

@@ -42,47 +42,6 @@ PrintSystemInfo() {
 # Bug: printing here caused problems when uploading with scp.
 #PrintSystemInfo
 
-RenameFiles() {
-	local delim="/"
-
-	#
-	# Input
-	#
-	local searchdir=$1
-	local search=$2
-	local replace=$3
-
-	# Validate
-	if [[ ! -d $searchdir ]]; then echo "No such directory $searchdir"; fi
-	if [[ ! $search ]]; then echo "Missing search term"; return; fi
-	if [[ ! $replace ]]; then echo "Missing search term"; return; fi
-
-
-	#
-	# Main
-	#
-	local srcfiles=$(eval "find \"$searchdir\" | sed -n -e '/$search/p'")
-	srcfiles=(${srcfiles// /})
-	local destfiles=$(eval "find \"$searchdir\" | sed -n -e 's/$search/$replace/p'")
-	destfiles=(${destfiles// /})
-
-	if [[ ${#srcfiles} == 0 ]]; then echo "No files found."; return; fi
-
-	# Step 1) Confirm
-	for i in ${!srcfiles[@]}
-	do
-		echo "${srcfiles[$i]}-> ${destfiles[$i]}"
-	done
-	echo "Rename? (y/n)"
-	read check
-	if [[ $check != "y" ]]; then echo "Stop"; return; fi
-
-	# Step 2) Perform
-	for i in ${!srcfiles[@]}
-	do
-		mv "${srcfiles[$i]}" "${destfiles[$i]}"
-	done
-}
 
 #
 # Aliases
@@ -95,6 +54,8 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias less="less -N"
+alias doublequote="sed -e 's/\(.*\)/\"\1\"/'"
+alias singlequote="sed -e \"s/\(.*\)/'\1'/\""
 # To enable <C-S> to work in vim.
 alias vim="stty stop '' -ixoff; vim"
 
