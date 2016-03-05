@@ -1,3 +1,3 @@
---regex-javascript=/^[ \t]*describe\((.*), *function\(/\1/j,describe/
---regex-javascript=/^[ \t]*it\((.*), *function\(/\1/k,it/
+--regex-javascript=/^[ \t]*describe\((.*), /\1/j,describe/
+--regex-javascript=/^[ \t]*it\((.*), /\1/k,it/
 

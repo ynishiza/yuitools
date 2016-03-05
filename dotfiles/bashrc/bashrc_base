@@ -56,13 +56,13 @@ alias mv="mv -i"
 alias less="less -N"
 alias doublequote="sed -e 's/\(.*\)/\"\1\"/'"
 alias singlequote="sed -e \"s/\(.*\)/'\1'/\""
+alias timecmds="/usr/bin/time /bin/bash -c"
 # To enable <C-S> to work in vim.
 alias vim="stty stop '' -ixoff; vim"
 
 
 # 
-alias bashrcReload="source ~/.bashrc"
-alias bashrcEdit="vim $BASHRCBASE_PATH"
+alias bashrc="source ~/.bashrc"
 
 
 #

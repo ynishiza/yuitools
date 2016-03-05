@@ -194,29 +194,39 @@ endfunction
 "
 " Leader
 let mapleader="\<space>"
-
-"imap <tab> <c-n>
+imap <c-j> <ESC>
 
 " Save with <c-s>
-map <c-s> :w<CR>
+map <leader>s :w<CR>
+map <c-s> <ESC>:w<CR>
 imap <c-s> <ESC>:w<CR>
 " Close with <c-q>
+" Doesn't work?
 map <c-q> :tabc<CR>
 imap <c-q> <ESC>:tabc<CR>
 
 " My commands
 " - prefix with <c-j>
-map <c-j>w :w<CR>
-imap <c-j>w <ESC>:w<CR>
+map <leader>s :w<CR>
 " Search for word under cursor.
-map <c-j>/ /<c-r>=expand("<cword>")<cr>
+map <leader>f /<c-r>=expand("<cword>")<cr>
 " Search and replace word under cursor.
-map <c-j>s :%s/\<<c-r>=expand("<cword>")<cr>\>
-map <c-j>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
-map <c-j>r :so $MYVIMRC<cr>
+map <leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>
+map <leader>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
+map <leader>l :so $MYVIMRC<cr>
 " Shortcuts for my functions
-map <c-j>c :call CommentInsert()<cr>
-map <c-j>C :call CommentRemove()<cr>
+map <leader>c :call CommentInsert()<cr>
+map <leader>C :call CommentRemove()<cr>
+
+" Tern
+map <leader>td :TernDoc<cr>
+map <leader>td :TernDef<cr>
+map <leader>tb :TernDocBrowse<cr>
+map <leader>tpd :TernDefPreview<cr>
+map <leader>tt :TernType<cr>
+map <leader>tr :TernRefs<cr>
+map <leader>tR :TernRename<cr>
+
 
 
 "---------------------------------------------------------------
@@ -233,6 +243,10 @@ let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:cons
 let tlist_javascript_settings = tlist_javascript_settings_base . ";f:function"
 map <F8> :TlistToggle<CR>
 
+"
+" Tern
+" 
+let g:tern_show_argument_hints="on_hold"
 
 
 "---------------------------------------------------------------
