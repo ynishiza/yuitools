@@ -51,6 +51,9 @@ export PATH
 # Alias
 #
 alias ytop="top -r -S -stats pid,command,cpu,mem,user,time,state,rprvt,vsize,vprvt,kprvt,kshrd,purg"
+alias ls="ls -F"
+alias ll="ls -alFG" 	# G for color
+alias la="ls -AG"
 PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
 alias ypscpu="CommandWithLess ps -Ar -o $PSCOLUMNS"
 alias ypsmem="CommandWithLess ps -Am -o $PSCOLUMNS"

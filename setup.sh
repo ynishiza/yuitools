@@ -74,6 +74,7 @@ createLink -f "${TOOLS_LINK}/bin" "$HOME/.bin_yui"
 createLink -f "${DOTFILES_LINK}/screenrc" "$HOME/.screenrc_yui"
 createLink -f "${DOTFILES_LINK}/bashrc" "$HOME/.bashrc_yui"
 createLink -f "${DOTFILES_LINK}/vimrc" "$HOME/.vimrc_yui"
+createLink -f "${DOTFILES_LINK}/tmux" "$HOME/.tmux_yui"
 
 # Common dotfiles
 # - create link only if it doesn't exist yet. 
