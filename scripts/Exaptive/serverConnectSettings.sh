@@ -16,6 +16,18 @@ declare -A SERVER_USERS=()
 declare -A SSH_IDENTITY=()
 declare -A SERVER_HOMES=()
 
+# password: rtest
+SERVER_HOSTS[fmi_p4_rtest]="p4-node001"
+SERVER_USERS[fmi_p4_rtest]="rtest"
+
+# password: Exaptive3
+SERVER_HOSTS[fmi_p4_ynishizawa]="p4-node001"
+SERVER_USERS[fmi_p4_ynishizawa]="ynishizawa"
+
+# password: Exaptive3
+SERVER_HOSTS[fmi_kbdev004_ynishizawa]="kbdev004"
+SERVER_USERS[fmi_kbdev004_ynishizawa]="ynishizawa"
+
 SERVER_HOSTS[aws_jira]="54.84.14.56"
 SERVER_USERS[aws_jira]="ec2-user"
 SSH_IDENTITY[aws_jira]="${EXAPTIVEAWS}/AWS PEM keys/aws-jira.pem"

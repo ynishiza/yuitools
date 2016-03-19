@@ -19,6 +19,7 @@ set omnifunc=syntaxcomplete#Complete
 
 
 " Tabs
+set smarttab
 set autoindent
 set tabstop=4
 set shiftwidth=4
@@ -27,9 +28,17 @@ set shiftwidth=4
 " - use backspace to delete eol, indents, and start of an insert.
 set backspace=eol,indent,start
 
+" Timeout
+" - ttimeout: timeout on key code
+set ttimeout
+set ttimeoutlen=100
 
 " list (invisibile characters)
 set listchars=tab:>-,eol:$,nbsp:»
+
+" wildmenu
+" - smarter tab completion in commandline
+set wildmenu
 
 
 " Display line numbers in editor.
@@ -52,6 +61,20 @@ set ruler
 "set foldmethod=syntax
 set foldmethod=manual
 "let javaScript_fold=1
+
+" History
+if &history < 1000
+	set history=1000
+endif
+
+" Scrolloff
+" - minimal lines to keep visible
+if !&scrolloff
+	set scrolloff=1
+endif
+if !&sidescrolloff
+	set sidescrolloff=1
+endif
 
 
 "
@@ -76,6 +99,7 @@ set hlsearch
 set incsearch
 "set ignorecase
 
+
 "---------------------------------------------------------------
 "					 Language specific 
 "
@@ -83,11 +107,11 @@ set incsearch
 " Comment term in the script
 let t:comment_term="//"
 
-function! VimInit()
+function! InitVim()
 	let t:comment_term="\""
 endfunction
 
-function! PythonInit()
+function! InitPython()
     "echo "python"
 	let t:comment_term="#"
     set autoindent
@@ -98,27 +122,35 @@ function! PythonInit()
     set shiftwidth=4
 endfunction
 
-function! PHPInit()
+function! InitPHP()
 	let g:myvar="php"
 	let t:comment_term="//"
 	call PythonWithTabs()
 endfunction
 
-function! JSInit()
+function! InitJs()
 	let t:comment_term="//"
 	call JSWithTabs()
+	call InitTern()
 endfunction
 
-function! BashInit()
+function! InitBash()
 	let t:comment_term="#"
 endfunction
 
-function! RInit()
+function! InitR()
 	let t:comment_term="#"
 endfunction
 
-function! MakefileInit()
+function! InitMakefile()
 	let t:comment_term="#"
+endfunction
+
+function! InitGitmerge()
+	" local
+	nmap <leader>dl :diffget 1<cr>
+	" remote
+	nmap <leader>dr :diffget 3<cr>
 endfunction
 
 "
@@ -137,7 +169,7 @@ function! CommentRemove()
 	execute "s=^" . t:comment_term . "=="
 endfunction
 
-function! MarkdownInit()
+function! InitMarkdown()
 	set expandtab
 	set tabstop=2
 	set shiftwidth=2
@@ -147,14 +179,14 @@ function! MyTestFunct()
 	s/abc/ABC/gc
 endfunction
 
-autocmd FileType vim call VimInit()
-autocmd FileType python call PythonInit()
-autocmd FileType php call PHPInit()
-autocmd FileType javascript call JSInit()
-autocmd FileType r call RInit()
-autocmd FileType sh call BashInit()
-autocmd FileType make call MakefileInit()
-autocmd FileType markdown call MarkdownInit()
+autocmd FileType vim call InitVim()
+autocmd FileType python call InitPython()
+autocmd FileType php call InitPHP()
+autocmd FileType javascript call InitJs()
+autocmd FileType r call InitR()
+autocmd FileType sh call InitBash()
+autocmd FileType make call InitMakefile()
+autocmd FileType markdown call InitMarkdown()
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -188,45 +220,62 @@ function! JSWithTabs()
 	set shiftwidth=4
 endfunction
 
+function! RemoveTrailingWhitespace()
+	execute "%s/\\s\\+$//g"
+endfunction
+
+function! InitTern()
+	" Tern
+	map <leader>td :TernDoc<cr>
+	map <leader>td :TernDef<cr>
+	map <leader>tb :TernDocBrowse<cr>
+	map <leader>tpd :TernDefPreview<cr>
+	map <leader>tt :TernType<cr>
+	map <leader>tr :TernRefs<cr>
+	map <leader>tR :TernRename<cr>
+endfunction
+
+
 
 "---------------------------------------------------------------
 "					  MAPPING	
 "
-" Leader
-let mapleader="\<space>"
-imap <c-j> <ESC>
+imap <c-c> <ESC>
+imap <c-k> <ESC>
 
 " Save with <c-s>
-map <leader>s :w<CR>
-map <c-s> <ESC>:w<CR>
+map <c-s> :w<CR>
 imap <c-s> <ESC>:w<CR>
 " Close with <c-q>
 " Doesn't work?
 map <c-q> :tabc<CR>
 imap <c-q> <ESC>:tabc<CR>
 
+" Clipboard
+"
+" - mac only? + registry is clipboard
+" copy/paste
+vmap <c-c> "+y		
+nmap <c-v> "+p
+imap <c-v> <ESC>"+p
+" select all
+nmap <c-a> gg^vGG$		
+
 " My commands
-" - prefix with <c-j>
+"
+" - Leader
+let mapleader="\<space>"
 map <leader>s :w<CR>
+map <leader>q :tabclose<CR>
+map <leader>l :so $MYVIMRC<cr>
 " Search for word under cursor.
 map <leader>f /<c-r>=expand("<cword>")<cr>
 " Search and replace word under cursor.
 map <leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>
 map <leader>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
-map <leader>l :so $MYVIMRC<cr>
 " Shortcuts for my functions
 map <leader>c :call CommentInsert()<cr>
 map <leader>C :call CommentRemove()<cr>
-
-" Tern
-map <leader>td :TernDoc<cr>
-map <leader>td :TernDef<cr>
-map <leader>tb :TernDocBrowse<cr>
-map <leader>tpd :TernDefPreview<cr>
-map <leader>tt :TernType<cr>
-map <leader>tr :TernRefs<cr>
-map <leader>tR :TernRename<cr>
-
 
 
 "---------------------------------------------------------------

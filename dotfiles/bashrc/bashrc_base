@@ -35,7 +35,7 @@ LIGHTBLUE="$(tput setaf 6)"
 WHITE="$(tput setaf 7)"
 DEFAULT="$(tput setaf 9)"
 RESET="$(tput sgr0)"
-export PS1='${WHITE}\u${RESET}@${WHITE}\h${RESET}:${GREEN}\w${RESET} [j=${RED}\j${RESET}] >> '
+export PS1='${WHITE}\u${RESET}@${WHITE}\h${RESET}:${BLUE}\w${RESET} [j=${RED}\j${RESET}] >> '
 
 
 #
@@ -58,15 +58,15 @@ PrintSystemInfo() {
 #
 alias pu="pushd"
 alias po="popd"
-alias ll="ls -alFG"
-alias la="ls -AG"
+alias ll="ls -alF"
+alias la="ls -A"
 alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias less="less -N"
 alias doublequote="sed -e 's/\(.*\)/\"\1\"/'"
 alias singlequote="sed -e \"s/\(.*\)/'\1'/\""
-alias timecmds="/usr/bin/time /bin/bash -c"
+alias timecmd="/usr/bin/time /bin/bash -c"
 # To enable <C-S> to work in vim.
 alias vim="stty stop '' -ixoff; vim"
 
