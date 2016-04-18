@@ -16,6 +16,8 @@ declare -A SERVER_USERS=()
 declare -A SSH_IDENTITY=()
 declare -A SERVER_HOMES=()
 
+SERVER_HOSTS[exaptive_staging]="staging.exaptive.com"
+SERVER_USERS[exaptive_staging]="exaptive"
 # password: rtest
 SERVER_HOSTS[fmi_p4_rtest]="p4-node001"
 SERVER_USERS[fmi_p4_rtest]="rtest"

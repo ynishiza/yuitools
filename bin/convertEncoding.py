@@ -8,4 +8,6 @@ toEncoding = sys.argv[3]
 
 with open(filename, 'r') as f:
     s = f.read()
-    print s.decode(fromEncoding).encode(toEncoding)
+    result = s.decode(fromEncoding).encode(toEncoding)
+    if toEncoding == "base64": result = result.replace("\n", "")
+    print result

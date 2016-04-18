@@ -1,6 +1,7 @@
 [core]
 	fileMode = false
 	editor = vim
+	whitespace = trailing-space
 [user]
 	name = Yui Nishizawa
 	email = yui@exaptive.com
@@ -13,7 +14,9 @@
 	# - red:
 	# - green: author
 	bv = branch -vv
-	ls = log --format=\"%C(yellow) %h %Cred %cr %C(green) %cn %C(blue)%d %Creset %s  \" -10 
+	list = log --format=\"%C(yellow) %h %Cred %cr %C(green) %cn %C(blue)%d %Creset %s  \" 
+	ls = !git list -10
+	lsg = !git list --graph 
 	lp = log -p
 	lst = log --stat
 	#

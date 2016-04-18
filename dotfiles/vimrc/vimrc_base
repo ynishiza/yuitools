@@ -7,6 +7,7 @@
 "
 
 " Filetype options
+"
 " - plugin
 " - indent
 filetype plugin indent on 
@@ -16,7 +17,6 @@ filetype plugin indent on
 
 "  omni complete
 set omnifunc=syntaxcomplete#Complete
-
 
 " Tabs
 set smarttab
@@ -106,6 +106,7 @@ set incsearch
 
 " Comment term in the script
 let t:comment_term="//"
+let t:comment_term_end=""
 
 function! InitVim()
 	let t:comment_term="\""
@@ -120,18 +121,25 @@ function! InitPython()
     " 4 spaces
     set tabstop=4
     set shiftwidth=4
+	set softtabstop=4
+	set textwidth=79
+	call PythonWithSpaces(4)
 endfunction
 
 function! InitPHP()
 	let g:myvar="php"
 	let t:comment_term="//"
-	call PythonWithTabs()
 endfunction
 
 function! InitJs()
 	let t:comment_term="//"
 	call JSWithTabs()
 	call InitTern()
+endfunction
+
+function! InitCss() 
+	let t:comment_term="/\\* "
+	let t:comment_term_end=" \\*/"
 endfunction
 
 function! InitBash()
@@ -156,17 +164,21 @@ endfunction
 "
 function! CommentInsert()
 	"execute "'<,'>s=^=" . t:comment_term . "="
-	if !exists("t:comment_term")
-		let t:comment_term = "//"
+	if exists("t:comment_term")
+		execute "s=^=" . t:comment_term . "="
 	endif
-	execute "s=^=" . t:comment_term . "="
+	if exists("t:comment_term_end")
+		execute "s=\\(.*\\)=\\1" . t:comment_term_end . "=" 
+	endif
 endfunction
 function! CommentRemove()
-	if !exists("t:comment_term")
-		let t:comment_term = "//"
+	if exists("t:comment_term")
+		execute "s=^" . t:comment_term . "=="
 	endif
 	"execute "'<,'>s=^" . t:comment_term . "=="
-	execute "s=^" . t:comment_term . "=="
+	if exists("t:comment_term_end")
+		execute "s=" . t:comment_term_end . "$=="
+	endif
 endfunction
 
 function! InitMarkdown()
@@ -187,6 +199,7 @@ autocmd FileType r call InitR()
 autocmd FileType sh call InitBash()
 autocmd FileType make call InitMakefile()
 autocmd FileType markdown call InitMarkdown()
+autocmd Filetype css call InitCss()
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -302,9 +315,6 @@ let g:tern_show_argument_hints="on_hold"
 "						MISC
 "
 
-" neobundle
-so $HOME/.vimrc_yui/vimrc_neobundle
-
 "
 " LoadCustomVim : 
 "
@@ -337,3 +347,11 @@ function! LoadCustomVim()
 	endwhile
 endfunction
 call LoadCustomVim()
+
+
+
+"---------------------------------------------------------------
+"						Include
+" neobundle
+so $HOME/.vimrc_yui/vimrc_neobundle
+so $HOME/.vimrc_yui/vimrc_syntastic
