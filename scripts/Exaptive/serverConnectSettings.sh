@@ -18,6 +18,9 @@ declare -A SERVER_HOMES=()
 
 SERVER_HOSTS[exaptive_staging]="staging.exaptive.com"
 SERVER_USERS[exaptive_staging]="exaptive"
+
+SERVER_HOSTS[exaptive_city]="exaptive.city"
+SERVER_USERS[exaptive_city]="exaptive"
 # password: rtest
 SERVER_HOSTS[fmi_p4_rtest]="p4-node001"
 SERVER_USERS[fmi_p4_rtest]="rtest"

@@ -30,6 +30,8 @@
 	dc = diff --cached
 	ai = add -i
 	cia = commit --amend
+	uncommit = reset --soft HEAD~
+	last = log -1 -p
 [credential]
 	helper = store
 [sendemail]
