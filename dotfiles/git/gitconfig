@@ -32,6 +32,7 @@
 	cia = commit --amend
 	uncommit = reset --soft HEAD~
 	last = log -1 -p
+	dfc = diff --cached
 [credential]
 	helper = store
 [sendemail]
