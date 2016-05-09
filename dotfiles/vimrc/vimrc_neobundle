@@ -44,14 +44,17 @@ if !empty(glob('~/.vim/bundle/'))
 	" solarized
 	"
 	NeoBundle "altercation/vim-colors-solarized"
-	function! _EnableSolarized()
-		set t_Co=256
-		let g:solarized_term_colors=256
-		"set background=dark
+	function! _EnableSolarizedForiTerm2()
+"		set t_Co=256
+"		let g:solarized_term_colors=256
+"
+		set background=dark
+		let g:solarized_visibility = "high"
+		let g:solarized_contrast = "high"
 		colorscheme solarized
 	endfunction
-	" On Mac, use the terminal's co
-	"au VimEnter * call _EnableSolarized()
+	" On Mac, use the terminal's color
+	au VimEnter * call _EnableSolarizedForiTerm2()
 
 
 	"
