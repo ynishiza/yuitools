@@ -5,7 +5,7 @@ DIRS=()
 DIRS[0]="$HOME/Sites"
 DIRS[1]="$HOME/Documents"
 DIRS[2]="$HOME/Dropbox (Personal)/Permanent/Computers/Tools"
-DIRS[3]="$HOME/exaptive/exaptive_stack"
+DIRS[3]="$HOME/Projects/exaptive/exaptive_stack"
 
 OPTIONS="-r -u -h --progress"
 # Don't follow symbolic links.
@@ -41,4 +41,5 @@ done
 #find "$TARGET" -name "node_modules" -type d -exec rm -rf {} \;
 
 # Delete swaps
-find "$TARGET" -iname "*.swp" -delete
+#find "$TARGET" -iname "*.swp" -delete
+find "$TARGET" -iregex ".*/\.[a-zA-Z0-9_ \.]*s[uvw].$" -delete

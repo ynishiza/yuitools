@@ -33,6 +33,7 @@
 	uncommit = reset --soft HEAD~
 	last = log -1 -p
 	dfc = diff --cached
+	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [[ $A == 'y' ]]; then git reset --hard HEAD; fi"
 [credential]
 	helper = store
 [sendemail]

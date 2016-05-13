@@ -10,7 +10,8 @@
 "
 " - plugin
 " - indent
-filetype plugin indent on 
+filetype plugin on 
+filetype indent on
 
 "
 "set background=dark
@@ -86,8 +87,6 @@ set tags=./tags,./ctags
 
 " Syntax highlighting.
 syntax enable 
-"set background=dark
-"colorscheme solarized
 
 
 "
@@ -148,6 +147,9 @@ endfunction
 
 function! InitR()
 	let t:comment_term="#"
+	set expandtab
+	set tabstop=2
+	set shiftwidth=2
 endfunction
 
 function! InitMakefile()
