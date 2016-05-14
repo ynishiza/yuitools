@@ -5,8 +5,10 @@
 # Source
 TOOLS_SRC=$(pwd -P)
 TOOLS_DIRNAME=$(dirname $TOOLS_SRC)
-TOOLS_BASENAME=$(basename $TOOLS_BASE)
+TOOLS_BASENAME=$(basename $TOOLS_SRC)
 DOTFILES_SRC="${TOOLS_SRC}/dotfiles"
+IS_MAC=`[[ -z $(uname | grep Darwin) ]]; echo $?`
+
 # Link
 TOOLS_LINK="$HOME/.tools_yui"
 DOTFILES_LINK="$HOME/.dotfiles_yui"
@@ -26,6 +28,14 @@ then
 fi
 
 ############## Main ##############
+
+function installBrew() {
+	if [[ $IS_MAC && -z $(which brew) ]]
+	then
+		echo "Installing brew"
+		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
+	fi
+}
 
 function createLink() {
 	# Option: prep
@@ -61,6 +71,12 @@ function createLink() {
 }
 
 #
+# Tools
+#
+installBrew
+
+
+#
 # Links
 #
 createLink -f "$TOOLS_SRC" "${TOOLS_LINK}"
@@ -92,6 +108,7 @@ createLink "${DOTFILES_LINK}/git/git-credentials" "$HOME/.git-credentials"
 #createLink -f "${DOTFILES_LINK}/vimrc/vimrc_base" "$HOME/.vimrc_base"
 #createLink -f "${DOTFILES_LINK}/vimrc/vimrc_neobundle" "$HOME/.vimrc_neobundle"
 #createLink -f "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc_base"
+
 
 #
 # Vim
