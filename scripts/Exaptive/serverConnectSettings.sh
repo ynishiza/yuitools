@@ -21,6 +21,24 @@ SERVER_USERS[exaptive_staging]="exaptive"
 
 SERVER_HOSTS[exaptive_city]="exaptive.city"
 SERVER_USERS[exaptive_city]="exaptive"
+
+SERVER_HOSTS[aws_city]="city.exaptive.com"
+SERVER_USERS[aws_city]="yui"
+SSH_IDENTITY[aws_city]="${HOME}/.ssh/id_rsa"
+
+SERVER_HOSTS[aws_dev]="dev.exaptive.com"
+SERVER_USERS[aws_dev]="ubuntu"
+SSH_IDENTITY[aws_dev]="${EXAPTIVEAWS}/AWS PEM Keys/exaptive-git.pem"
+
+SERVER_HOSTS[home_yui]="yui-home.local"
+SERVER_USERS[home_yui]=nishizawayui
+
+SERVER_HOSTS[home]="180.220.94.181"
+SERVER_USERS[home]=nishizawayui
+
+SERVER_HOSTS[home_midori]="midorin-macbook.local"
+SERVER_USERS[home_midori]="midorin"
+
 # password: rtest
 SERVER_HOSTS[fmi_p4_rtest]="p4-node001"
 SERVER_USERS[fmi_p4_rtest]="rtest"
@@ -62,23 +80,6 @@ SSH_IDENTITY[gns_sim]="${BASE}/pem/exaptive-gns-privatekey.pem"
 SERVER_HOSTS[gns_sim2]="52.21.60.201"
 SERVER_USERS[gns_sim2]="exaptive"
 SSH_IDENTITY[gns_sim2]="${BASE}/pem/exaptive-gns-privatekey.pem"
-
-SERVER_HOSTS[aws_city]="city.exaptive.com"
-SERVER_USERS[aws_city]="yui"
-SSH_IDENTITY[aws_city]="${HOME}/.ssh/id_rsa"
-
-SERVER_HOSTS[home_yui]="yui-home.local"
-SERVER_USERS[home_yui]=nishizawayui
-
-SERVER_HOSTS[home]="180.220.94.181"
-SERVER_USERS[home]=nishizawayui
-
-SERVER_HOSTS[home_midori]="midorin-macbook.local"
-SERVER_USERS[home_midori]="midorin"
-
-SERVER_HOSTS[aws_dev]="dev.exaptive.com"
-SERVER_USERS[aws_dev]="ubuntu"
-SSH_IDENTITY[aws_dev]="${EXAPTIVEAWS}/AWS PEM Keys/exaptive-git.pem"
 
 
 ###################################

@@ -263,8 +263,8 @@ map <c-s> :w<CR>
 imap <c-s> <ESC>:w<CR>
 " Close with <c-q>
 " Doesn't work?
-map <c-q> :tabc<CR>
-imap <c-q> <ESC>:tabc<CR>
+"map <c-w> :tabc<CR>
+"imap <c-w> <ESC>:tabc<CR>
 
 " Clipboard
 "
@@ -281,7 +281,7 @@ nmap <c-a> gg^vGG$
 " - Leader
 let mapleader="\<space>"
 map <leader>s :w<CR>
-map <leader>q :tabclose<CR>
+map <leader>w :tabclose<CR>
 map <leader>l :so $MYVIMRC<cr>
 " Search for word under cursor.
 map <leader>f /<c-r>=expand("<cword>")<cr>
@@ -301,7 +301,7 @@ map <leader>C :call CommentRemove()<cr>
 "
 " See the ctags file.
 let tlist_markdown_settings="markdown;h:header"
-let tlist_r_settings = "r;f:function"
+let tlist_r_settings = "r;f:function;c:class"
 let tlist_php_settings="php;f:function;d:constant;a:class"
 let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method;u:@construct"
 let tlist_javascript_settings = tlist_javascript_settings_base . ";f:function"

@@ -1,0 +1,14 @@
+
+# 13 = Japan
+# chooseCRANmirror(ind=13)
+
+# Where packages are installed.
+.libPaths("~/local/lib/R")
+
+options(
+  menu.graphics = FALSE
+)
+
+if (interactive()) {
+  suppressMessages(library(devtools))
+}

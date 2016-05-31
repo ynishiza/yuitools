@@ -23,4 +23,6 @@
 --langdef=r
 --langmap=r:.R
 --regex-r=/^([a-zA-Z0-9_\.]+) <- function/\1/f,function/
+--regex-r=/^([a-zA-Z0-9_\.]+) <- setRefClass/\1/c,class/
+--regex-r=/^([a-zA-Z0-9_\.]+) <- setClass/\1/c,class/
 --regex-r=/^([a-zA-Z0-9_\.]+) <- (NA|NULL|"|'|[0-9]+:[0-9]+|list|data|matrix|array|c|character|numeric|vector)/\1/v,value/
