@@ -280,6 +280,7 @@ nmap <c-a> gg^vGG$
 "
 " - Leader
 let mapleader="\<space>"
+let maplocalleader=","
 map <leader>s :w<CR>
 map <leader>w :tabclose<CR>
 map <leader>l :so $MYVIMRC<cr>

@@ -24,7 +24,7 @@ export PATH
 # Exaptive language
 #
 # - Used by the Exaptive domains to find the language directory.
-EXAPTIVE_LANGUAGE_PATH="$HOME/Projects/stack/exaptive/language"
+EXAPTIVE_LANGUAGE_PATH="$HOME/Projects/exaptive_stack/exaptive/language"
 export EXAPTIVE_LANGUAGE_PATH
 
 

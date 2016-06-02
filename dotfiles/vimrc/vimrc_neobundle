@@ -24,14 +24,13 @@ if !empty(glob('~/.vim/bundle/'))
 	" - see vimrc_syntastic for settings.
 	NeoBundle 'scrooloose/syntastic'
 
-
 	"
 	" Nvim-R: R plugin. Provides omnicompletion
 	"
 	NeoBundle 'jalvesaq/Nvim-R'
 	function! _initNvimR()
 		" omnicomplete: show the arguments of a function.
-		" let R_show_args = 1
+		let R_show_args = 1
 	endfunction
 	au Filetype r call _initNvimR()
 
