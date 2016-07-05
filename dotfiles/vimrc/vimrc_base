@@ -133,7 +133,6 @@ endfunction
 function! InitJs()
 	let t:comment_term="//"
 	call JSWithTabs()
-	call InitTern()
 endfunction
 
 function! InitCss() 
@@ -206,6 +205,7 @@ autocmd Filetype css call InitCss()
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
 autocmd BufRead *.json set filetype=json
+autocmd BufRead *.rst set filetype=markdown
 
 "
 " Language specific settings
@@ -238,18 +238,6 @@ endfunction
 function! RemoveTrailingWhitespace()
 	execute "%s/\\s\\+$//g"
 endfunction
-
-function! InitTern()
-	" Tern
-	map <leader>td :TernDoc<cr>
-	map <leader>td :TernDef<cr>
-	map <leader>tb :TernDocBrowse<cr>
-	map <leader>tpd :TernDefPreview<cr>
-	map <leader>tt :TernType<cr>
-	map <leader>tr :TernRefs<cr>
-	map <leader>tR :TernRename<cr>
-endfunction
-
 
 
 "---------------------------------------------------------------
@@ -304,14 +292,10 @@ map <leader>C :call CommentRemove()<cr>
 let tlist_markdown_settings="markdown;h:header"
 let tlist_r_settings = "r;f:function;c:class"
 let tlist_php_settings="php;f:function;d:constant;a:class"
-let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method;u:@construct"
+let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method;u:@construct;j:describe;k:it"
 let tlist_javascript_settings = tlist_javascript_settings_base . ";f:function"
 map <F8> :TlistToggle<CR>
 
-"
-" Tern
-" 
-let g:tern_show_argument_hints="on_hold"
 
 
 "---------------------------------------------------------------

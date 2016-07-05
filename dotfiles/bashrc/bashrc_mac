@@ -6,6 +6,10 @@
 #alias tmux="TERM=screen-256color-bce tmux"
 #alias tmux="tmux -2"
 
+# Allow forward search with Ctrl-S
+stty stop undef
+
+
 #
 # Functions
 #

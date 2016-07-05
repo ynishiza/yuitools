@@ -12,6 +12,11 @@ if !empty(glob('~/.vim/bundle/'))
 	" Plugins
 	NeoBundleFetch "Shougo/neobundle.vim"
 
+	"
+	" Commentary
+	"
+	NeoBundle 'tpope/vim-commentary'
+
 
 	"
 	" emmet: HTML plugin
@@ -47,9 +52,9 @@ if !empty(glob('~/.vim/bundle/'))
 
 		" note: 
 		" object_usage_inter disabled. Complains about variables outside of scope.
-		let g:syntastic_r_lintr_linters = "with_defaults(camel_case_linter = NULL, object_usage_linter = NULL,  line_length_linter(120))"
+		" let g:syntastic_r_lintr_linters = "with_defaults(camel_case_linter = NULL, object_usage_linter = NULL,  line_length_linter(120))"
 	endfunction
-	au Filetype r call _InitLintr()
+	call _InitLintr()
  
 
 	"
@@ -86,6 +91,18 @@ if !empty(glob('~/.vim/bundle/'))
 	"
 	NeoBundle 'ternjs/tern_for_vim',
 		\ { 'build' : { 'others': 'npm install' } }
+	let g:tern_show_argument_hints="on_hold"
+	function! InitTern()
+		" Tern
+		map <leader>td :TernDoc<cr>
+		map <leader>td :TernDef<cr>
+		map <leader>tb :TernDocBrowse<cr>
+		map <leader>tpd :TernDefPreview<cr>
+		map <leader>tt :TernType<cr>
+		map <leader>tr :TernRefs<cr>
+		map <leader>tR :TernRename<cr>
+	endfunction
+	au FileType javascript call InitTern()
 
 
 	"

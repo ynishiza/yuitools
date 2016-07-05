@@ -1,5 +1,5 @@
 --langdef=markdown
---langmap=markdown:.markdown.md
+--langmap=markdown:.markdown.md.rst
 --regex-markdown=/^(##* +.+)/\1/h,header/
 
 
@@ -15,6 +15,9 @@
 --regex-javascript=/@property +([\._a-zA-Z0-9]+)/\1/n,property/
 --regex-javascript=/@method +([\._#a-zA-Z0-9]+)/\1/o,method/
 --regex-javascript=/^[ \t]*(var )*([A-Z0-9_]+) *=/\2/q,constant/
+
+--regex-javascript=/^[ \t]*describe\((.*), /\1/j,describe/
+--regex-javascript=/^[ \t]*it\((.*), /\1/k,it/
 
 
 --regex-php=/class +([A-Z][a-zA-Z0-9_]+) {/\1/a,class/

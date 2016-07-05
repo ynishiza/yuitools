@@ -6,7 +6,7 @@ if [[ ! -d $DIR ]]; then echo "$1 is not a directory"; exit 1; fi
 
 delete_swap() {
 	local regex=$1
-	local cmd="find $DIR -type f -iregex \"$regex\""
+	local cmd="find $DIR -type f -iregex \"$regex\" -not -iregex \"\.svg$\""
 	local files=$(eval $cmd)
 
 	if [[ ! $files ]]; then return; fi
@@ -17,7 +17,7 @@ delete_swap() {
 	if [[ $ANSWER == "y" ]]; then echo "Remove"; rm -f $files; fi
 }
 
-SWPREGEX="s[uvw][n-z]"
+SWPREGEX="s[uvw][a-z]"
 DIRSWP_REGEX=".*/\.${SWPREGEX}$"
 FILESWP_REGEX=".*/\.[a-zA-Z0-9_ \.]*\.${SWPREGEX}$"
 

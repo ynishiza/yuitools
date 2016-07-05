@@ -36,6 +36,8 @@
 	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [[ $A == 'y' ]]; then git reset --hard HEAD; fi"
 	bva = branch -vv -a
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
+	dfs = diff --stat
+	upstream = "!f() { git branch --set-upstream-to=$1; }; f"
 [credential]
 	helper = store
 [sendemail]
