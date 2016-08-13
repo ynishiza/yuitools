@@ -13,31 +13,35 @@
 	# - blue: branch
 	# - red:
 	# - green: author
-	bv = branch -vv
 	list = log --format=\"%C(yellow) %h %Cred %cr %C(green) %an %C(blue)%d %Creset %s  \" 
 	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %an %C(blue)%d %Creset %s \" 
 	lsg = log --graph 
 	lp = log -p
 	lst = log --stat
+
 	#
 	# Shortcuts
 	#
 	st = status
-	br = branch
-	ci = commit
+	b = branch
+	c = commit
 	co = checkout
 	df = diff
 	dc = diff --cached
 	ai = add -i
-	cia = commit --amend
+	ca = commit --amend
+
 	uncommit = reset --soft HEAD~
 	last = log --stat -1 -p
 	dfc = diff --cached
 	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [[ $A == 'y' ]]; then git reset --hard HEAD; fi"
+	bv = branch -vv
 	bva = branch -vv -a
+	bd = branch -d
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
 	dfs = diff --stat
 	upstream = "!f() { git branch --set-upstream-to=$1; }; f"
+	bf = branch -f
 [credential]
 	helper = store
 [sendemail]

@@ -1,10 +1,7 @@
 " Python environment with 4 space indentation
 " Default is using tabs
-function! _BasePython()
-	call PythonWithSpaces(4)
+function! __InitPython()
+	call EditWithSpaces(4)
 endfunction
 
-autocmd FileType python call _BasePython()
-if &filetype == "python"
-	call _BasePython()
-endif
+autocmd FileType python call __InitPython()

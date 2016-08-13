@@ -2,13 +2,15 @@ source ~/.tmux.conf
 #set-option default-path ~/Projects/exaptive_stack/exaptive
 new-session -c ~/Projects/exaptive_stack/exaptive -s platform
 
-rename-window -t 0 git
-
 new-window -c ~/Projects/exaptive_stack/exaptive/client/dataflow
-rename-window -t 1 'vim(dataflow)'
-
 new-window -c ~/Projects/exaptive_stack/exaptive/server/city-server
-rename-window -t 2 'vim(server)'
-
+new-window -c ~/Projects/exaptive_stack/exaptive/domains/R
+new-window -c ~/Projects/exaptive_stack/exaptive/domains/python
 new-window -c ~/Projects/exaptive_stack/exaptive/local-data
-rename-window -t 3 'vim(local-data)'
+
+rename-window -t 0 git
+rename-window -t 1 'vim(dataflow)'
+rename-window -t 2 'vim(server)'
+rename-window -t 3 'vim(R)'
+rename-window -t 4 'vim(python)'
+rename-window -t 5 'vim(local-data)'

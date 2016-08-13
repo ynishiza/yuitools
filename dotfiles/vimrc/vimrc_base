@@ -122,7 +122,7 @@ function! InitPython()
     set shiftwidth=4
 	set softtabstop=4
 	set textwidth=79
-	call PythonWithSpaces(4)
+	call EditWithSpaces(4)
 endfunction
 
 function! InitPHP()
@@ -201,6 +201,7 @@ autocmd FileType sh call InitBash()
 autocmd FileType make call InitMakefile()
 autocmd FileType markdown call InitMarkdown()
 autocmd Filetype css call InitCss()
+autocmd Filetype json call JSWithSpaces(2)
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -208,31 +209,31 @@ autocmd BufRead *.json set filetype=json
 autocmd BufRead *.rst set filetype=markdown
 
 "
+autocmd BufRead .eslintrc set filetype=json
+autocmd BufRead .jshintrc set filetype=json
+
+"
 " Language specific settings
 "
 
-" Python 
-function! PythonWithSpaces(x)
-	set expandtab
-	let &tabstop=a:x
-	let &shiftwidth=a:x
-endfunction
-function! PythonWithTabs()
-	set noexpandtab
-	set tabstop=4
-	set shiftwidth=4
-endfunction
-
 " JavaScript 
 function! JSWithSpaces(x)
+	call EditWithSpaces(a:x)
+endfunction
+function! JSWithTabs()
+	call EditWithTabs(4)
+endfunction
+
+function! EditWithSpaces(x)
 	set expandtab
 	let &tabstop=a:x
 	let &shiftwidth=a:x
 endfunction
-function! JSWithTabs()
+
+function! EditWithTabs(x)
 	set noexpandtab
-	set tabstop=4
-	set shiftwidth=4
+	let &tabstop=a:x
+	let &shiftwidth=a:x
 endfunction
 
 function! RemoveTrailingWhitespace()
@@ -259,7 +260,6 @@ imap <c-s> <ESC>:w<CR>
 " - mac only? + registry is clipboard
 " copy/paste
 vmap <c-c> "+y		
-nmap <c-v> "+p
 imap <c-v> <ESC>"+p
 " select all
 nmap <c-a> gg^vGG$		

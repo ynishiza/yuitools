@@ -1,2 +1,2 @@
 au FileType javascript call JSWithTabs()
-let g:syntactic_javascript_checkers
+let g:syntactic_javascript_checkers = ["eslint"]
