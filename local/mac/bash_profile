@@ -1,6 +1,6 @@
 #!/bin/bash
 export SCRIPTSDIR="$HOME/Dropbox (Personal)/Permanent/Computers/Tools/Mac"
-source ~/.bashrc_base
+source ~/.bashrc
 
 #
 # PATH

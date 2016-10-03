@@ -5,6 +5,7 @@ new-session -c ~/Projects/exaptive_stack/exaptive -s platform
 new-window -c ~/Projects/exaptive_stack/exaptive/client/dataflow
 new-window -c ~/Projects/exaptive_stack/exaptive/server/city-server
 new-window -c ~/Projects/exaptive_stack/exaptive/domains/R
+new-window -c ~/Projects/exaptive_stack/exaptive
 new-window -c ~/Projects/exaptive_stack/exaptive/domains/python
 new-window -c ~/Projects/exaptive_stack/exaptive/local-data
 

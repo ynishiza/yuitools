@@ -1,0 +1,5 @@
+options(
+	menu.graphics=FALSE,
+	browserNLdisabled=TRUE
+)
+.libPaths('~/local/lib/R')

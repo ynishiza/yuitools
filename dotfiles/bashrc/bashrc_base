@@ -19,6 +19,8 @@ fi
 #
 # PS1
 #
+# See: http://www.gnu.org/software/bash/manual/bashref.html#Controlling-the-Prompt
+#
 # \s = Shell
 # \h = hostname
 # \H = Full hostname
@@ -35,7 +37,7 @@ LIGHTBLUE="$(tput setaf 6)"
 WHITE="$(tput setaf 7)"
 DEFAULT="$(tput setaf 9)"
 RESET="$(tput sgr0)"
-export PS1='${WHITE}\u${RESET}@${WHITE}\h${RESET}:${BLUE}\w${RESET} [j=${RED}\j${RESET}] >> '
+export PS1='${WHITE}\u${RESET}@${WHITE}\h${RESET}:${BLUE}\W${RESET} [j=${RED}\j${RESET}] >> '
 
 
 #
@@ -83,6 +85,7 @@ if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
 PATH=$PATH_BAK
 
 PATH=/usr/sbin:$PATH
+PATH=/usr/local/bin:/usr/sbin:$PATH
 PATH="$MY_BIN:$PATH"
 PATH=$HOME/.node_modules/bin:$PATH:
 export PATH_BAK

@@ -240,6 +240,10 @@ function! RemoveTrailingWhitespace()
 	execute "%s/\\s\\+$//g"
 endfunction
 
+function! SpacesToTabs()
+	execute "%s/^\\(\\(  \\)*\\)  /\\1\\t/g"
+endfunction
+
 
 "---------------------------------------------------------------
 "					  MAPPING	

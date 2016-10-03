@@ -16,20 +16,34 @@ declare -A SERVER_USERS=()
 declare -A SSH_IDENTITY=()
 declare -A SERVER_HOMES=()
 
-SERVER_HOSTS[exaptive_staging]="staging.exaptive.com"
-SERVER_USERS[exaptive_staging]="exaptive"
 
-SERVER_HOSTS[exaptive_city]="exaptive.city"
-SERVER_USERS[exaptive_city]="exaptive"
+#
+# City
+#
+SERVER_HOSTS[city_prod]="exaptive.city"
+SERVER_USERS[city_prod]="exaptive"
+SERVER_HOSTS[city_staging]="staging.exaptive.city"
+SERVER_USERS[city_staging]="exaptive"
+SERVER_HOSTS[city_bamboo]="bamboo.exaptive.com"
+SERVER_USERS[city_bamboo]="exaptive"
+SERVER_HOSTS[city_dev]="dev.exaptive.city"
+SERVER_USERS[city_dev]="exaptive"
+SERVER_HOSTS[dockerreg]="dockerreg.exaptive.com"
+SERVER_USERS[dockerreg]="yui"
 
-SERVER_HOSTS[aws_city]="city.exaptive.com"
-SERVER_USERS[aws_city]="yui"
-SSH_IDENTITY[aws_city]="${HOME}/.ssh/id_rsa"
 
-SERVER_HOSTS[aws_dev]="dev.exaptive.com"
-SERVER_USERS[aws_dev]="ubuntu"
-SSH_IDENTITY[aws_dev]="${EXAPTIVEAWS}/AWS PEM Keys/exaptive-git.pem"
+#
+# Internal
+#
+SERVER_HOSTS[aws_jira]="54.84.14.56"
+SERVER_USERS[aws_jira]="ec2-user"
+SSH_IDENTITY[aws_jira]="${EXAPTIVEAWS}/AWS PEM keys/aws-jira.pem"
+SSH_OPTIONS[aws_seracare]=""
 
+
+#
+# Home
+#
 SERVER_HOSTS[home_yui]="yui-home.local"
 SERVER_USERS[home_yui]=nishizawayui
 
@@ -39,6 +53,10 @@ SERVER_USERS[home]=nishizawayui
 SERVER_HOSTS[home_midori]="midorin-macbook.local"
 SERVER_USERS[home_midori]="midorin"
 
+
+#
+# FMI
+#
 # password: rtest
 SERVER_HOSTS[fmi_p4_rtest]="p4-node001"
 SERVER_USERS[fmi_p4_rtest]="rtest"
@@ -51,11 +69,6 @@ SERVER_USERS[fmi_p4_ynishizawa]="ynishizawa"
 SERVER_HOSTS[fmi_kbdev004_ynishizawa]="kbdev004"
 SERVER_USERS[fmi_kbdev004_ynishizawa]="ynishizawa"
 
-SERVER_HOSTS[aws_jira]="54.84.14.56"
-SERVER_USERS[aws_jira]="ec2-user"
-SSH_IDENTITY[aws_jira]="${EXAPTIVEAWS}/AWS PEM keys/aws-jira.pem"
-SSH_OPTIONS[aws_seracare]=""
-
 SERVER_HOSTS[aws_seracare]="seracare.exaptive.com"
 SERVER_USERS[aws_seracare]="ubuntu"
 SSH_IDENTITY[aws_seracare]="${EXAPTIVEAWS}/AWS PEM Keys/ubuntu-micro.pem"
@@ -65,6 +78,10 @@ SERVER_HOSTS[aws_rserve]="54.235.243.130"
 SERVER_USERS[aws_rserve]="ubuntu"
 SSH_IDENTITY[aws_rserve]="${EXAPTIVEAWS}/pem/UbuntuServerKey.pem"
 
+
+#
+# GNS
+#
 SERVER_HOSTS[aws_gnsprod]="gnsinteractivemodeling.exaptive.com"
 SERVER_USERS[aws_gnsprod]="ubuntu"
 SSH_IDENTITY[aws_gnsprod]="${EXAPTIVEAWS}/AWS PEM Keys/ubuntu-micro.pem"
@@ -80,6 +97,18 @@ SSH_IDENTITY[gns_sim]="${BASE}/pem/exaptive-gns-privatekey.pem"
 SERVER_HOSTS[gns_sim2]="52.21.60.201"
 SERVER_USERS[gns_sim2]="exaptive"
 SSH_IDENTITY[gns_sim2]="${BASE}/pem/exaptive-gns-privatekey.pem"
+
+
+# 
+# Misc
+#
+SERVER_HOSTS[aws_city]="city.exaptive.com"
+SERVER_USERS[aws_city]="yui"
+SSH_IDENTITY[aws_city]="${HOME}/.ssh/id_rsa"
+
+SERVER_HOSTS[aws_dev]="dev.exaptive.com"
+SERVER_USERS[aws_dev]="ubuntu"
+SSH_IDENTITY[aws_dev]="${EXAPTIVEAWS}/AWS PEM Keys/exaptive-git.pem"
 
 
 ###################################
