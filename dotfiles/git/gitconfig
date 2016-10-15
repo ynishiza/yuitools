@@ -54,3 +54,5 @@
 	conflictstyle = diff3
 [color]
 	branch = 1
+[gitreview]
+	remote = origin

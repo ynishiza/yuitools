@@ -1,5 +1,5 @@
 "
-"if exists(':SyntasticInfo')
+if !empty(glob('~/.vim/bundle/syntastic'))
 	set statusline+=%#warningmsg#
 	set statusline+=%{SyntasticStatuslineFlag()}
 	set statusline+=%*
@@ -35,4 +35,4 @@
 	function! JSEnableEslint()
 		let g:syntastic_javascript_checkers = ["eslint"]
 	endfunction
-"endif
+endif

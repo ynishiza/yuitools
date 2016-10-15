@@ -3,6 +3,10 @@ if has('vim_starting')
 	set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
+function _BundleInstalled(name)
+	return !empty(glob('~/.vim/bundle/' . a:name))
+endfunction
+
 " Check: Is neobundle installed?
 if !empty(glob('~/.vim/bundle/'))
 
@@ -62,6 +66,9 @@ if !empty(glob('~/.vim/bundle/'))
 	"
 	NeoBundle "altercation/vim-colors-solarized"
 	function! _EnableSolarizedForiTerm2()
+		if !_BundleInstalled('vim-colors-solarized') 
+			return
+		endif
 "		set t_Co=256
 "		let g:solarized_term_colors=256
 "

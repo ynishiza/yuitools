@@ -5,7 +5,7 @@ DIRS=()
 DIRS[0]="$HOME/Sites"
 DIRS[1]="$HOME/Documents"
 DIRS[2]="$HOME/Dropbox (Personal)/Permanent/Computers/Tools"
-DIRS[3]="$HOME/Projects/platform/vms/fusion_platform/exaptive_stack"
+DIRS[3]="$HOME/Projects/exaptive/platform/vagrant/exaptive_stack"
 
 OPTIONS="-r -u -h --progress"
 # Don't follow symbolic links.
@@ -16,6 +16,7 @@ OPTIONS="$OPTIONS --max-size=20M"
 OPTIONS="$OPTIONS --filter='- .git/' --filter='- node_modules/'"
 OPTIONS="$OPTIONS --filter='- .cabal-sandbox/'"
 OPTIONS="$OPTIONS --filter='- *.swp'"
+OPTIONS="$OPTIONS --delete"
 
 
 # Log
