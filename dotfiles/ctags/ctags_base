@@ -10,7 +10,8 @@
 --regex-javascript=/(proto\.[_a-zA-Z0-9]+) = function/\1/d,class_property/
 
 --regex-javascript=/@construct +([_a-zA-Z0-9]+)/\1/u,construct/
---regex-javascript=/@class +([A-Z][_a-zA-Z0-9]+)/\1/t,class/
+--regex-javascript=/@class +([A-Za-z][_a-zA-Z0-9]+)/\1/t,class/
+--regex-javascript=/@constructs +([_a-zA-Z0-9]+)/\1/t,class/
 --regex-javascript=/@module +([\._a-zA-Z0-9]+)/\1/r,module/
 --regex-javascript=/@property +([\._a-zA-Z0-9]+)/\1/n,property/
 --regex-javascript=/@method +([\._#a-zA-Z0-9]+)/\1/o,method/

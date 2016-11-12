@@ -2,8 +2,6 @@
 #
 # watch command
 #
-COMMAND=$1
-SLEEP=$2
 
 printUsage() {
 	echo "watch COMMAND [SLEEP]"
@@ -15,10 +13,17 @@ then
 	exit 1
 fi
 
-if [[ ! "$SLEEP" ]]
+getopts n: OPTNAME
+if [[ $OPTNAME == "n" ]]
 then
+	SLEEP=$OPTARG
+	shift 2
+else
 	SLEEP=2
 fi
+
+COMMAND=$@
+echo $COMMAND
 
 while :
 do

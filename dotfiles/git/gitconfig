@@ -42,6 +42,7 @@
 	dfs = diff --stat
 	upstream = "!f() { git branch --set-upstream-to=$1; }; f"
 	bf = branch -f
+	fo = fetch origin --prune
 [credential]
 	helper = store
 [sendemail]
