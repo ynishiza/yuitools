@@ -89,8 +89,8 @@ createLink -f "${TOOLS_LINK}/bin" "$HOME/.bin_yui"
 # Dotfile dirs
 createLink -f "${DOTFILES_LINK}/screenrc" "$HOME/.screenrc_yui"
 createLink -f "${DOTFILES_LINK}/bashrc" "$HOME/.bashrc_yui"
-createLink -f "${DOTFILES_LINK}/vimrc" "$HOME/.vimrc_yui"
 createLink -f "${DOTFILES_LINK}/tmux" "$HOME/.tmux_yui"
+
 
 # Common dotfiles
 # - create link only if it doesn't exist yet. 
@@ -99,7 +99,7 @@ createLink "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
 createLink "${DOTFILES_LINK}/vimperatorrc" "$HOME/.vimperatorrc"
 createLink "${DOTFILES_LINK}/jshintrc/jshintrc" "$HOME/.jshintrc"
 createLink "${DOTFILES_LINK}/ctags/ctags_base" "$HOME/.ctags"
-createLink "${DOTFILES_LINK}/vimrc/vimrc_base" "$HOME/.vimrc"
+createLink "${DOTFILES_LINK}/vimrc/vimrc_init" "$HOME/.vimrc"
 createLink "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc"
 createLink "${DOTFILES_LINK}/npmrc" "$HOME/.npmrc"
 createLink "${DOTFILES_LINK}/git/gitconfig" "$HOME/.gitconfig"

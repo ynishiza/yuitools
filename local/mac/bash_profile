@@ -2,30 +2,26 @@
 export SCRIPTSDIR="$HOME/Dropbox (Personal)/Permanent/Computers/Tools/Mac"
 source ~/.bashrc
 
+
 #
 # PATH
 #
-
-# node
+# npm package commands
 PATH=$HOME/.node_modules/bin:$HOME/scripts:$PATH:
 # mysql
 PATH="$PATH:/opt/pkgconfig/bin:/usr/local/mysql/bin"
 # mongodb
 #PATH="$PATH:/Applications/mongodb/bin"
 
+
+#
 # Homebrew
+#
 # ctags for vim
 PATH="/usr/local/Cellar/ctags/5.8_1/bin:$PATH"
 # python3
 #PATH="/usr/local/Cellar/python3/3.4.3/bin:$PATH"
 export PATH
-
-#
-# Exaptive language
-#
-# - Used by the Exaptive domains to find the language directory.
-EXAPTIVE_LANGUAGE_PATH="$HOME/Projects/exaptive_stack/exaptive/language"
-export EXAPTIVE_LANGUAGE_PATH
 
 
 #
@@ -42,4 +38,15 @@ export PYTHONPATH
 NODE_PATH='/usr/local/lib/jsctags:${NODE_PATH}'
 export NODE_PATH
 
+
+#
+# Other Variables
+#
+# EXAPTIVE_LANGUAGE_PATH: Used by the Exaptive domains to find the language directory.
+export EXAPTIVE_LANGUAGE_PATH="$HOME/Projects/exaptive_stack/exaptive/language"
+
+# GATK_PATH: 
 export GATK_PATH="$HOME/Documents/Projects/Seracare/GATK/GenomeAnalysisTK.jar"
+
+# iTune
+export ITUNES_MUSIC="$HOME/Music/iTunes/iTunes Media/Music"
