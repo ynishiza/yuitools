@@ -32,11 +32,13 @@ ln $LINKOPT "$TOOLSDIR/dotfiles/vimrc" "$VIMRCDIR/avail.d"
 
 # Copy initial set of enabled vimrcs
 pushd "$VIMRCDIR/conf.d"
-ln -s "../avail.d/vimrc_base" .
-ln -s "../avail.d/vimrc_language"
-ln -s "../avail.d/vimrc_neobundle"
-ln -s "../avail.d/vimrc_syntastic"
-ln -s "../avail.d/vimrc_tern"
-ln -s "../avail.d/vimrc_taglist"
+ln -s "../avail.d/00_sensible.vim" .
+ln -s "../avail.d/10_base.vim"
+ln -s "../avail.d/10_mappings.vim"
+ln -s "../avail.d/10_language.vim"
+ln -s "../avail.d/20_neobundle.vim"
+ln -s "../avail.d/30_syntastic.vim"
+ln -s "../avail.d/30_tern.vim"
+ln -s "../avail.d/30_taglist.vim"
 popd
 # cp -P -f "$TOOLSDIR/vim/vimrc.d/conf.d"/vim_* "$VIMRCDIR/conf.d"
