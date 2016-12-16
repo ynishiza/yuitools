@@ -40,5 +40,6 @@ ln -s "../avail.d/20_neobundle.vim"
 ln -s "../avail.d/30_syntastic.vim"
 ln -s "../avail.d/30_tern.vim"
 ln -s "../avail.d/30_taglist.vim"
+ln -s "../avail.d/99_custom_vimrc.vim"
 popd
 # cp -P -f "$TOOLSDIR/vim/vimrc.d/conf.d"/vim_* "$VIMRCDIR/conf.d"
