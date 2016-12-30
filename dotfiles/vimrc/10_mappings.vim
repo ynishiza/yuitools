@@ -9,15 +9,6 @@ imap <c-s> <ESC>:w<CR>
 "map <c-w> :tabc<CR>
 "imap <c-w> <ESC>:tabc<CR>
 
-" Clipboard
-"
-" - mac only? + registry is clipboard
-" copy/paste
-vmap <c-c> "+y		
-imap <c-v> <ESC>"+p
-" select all
-nmap <c-a> gg^vGG$		
-
 " My commands
 "
 " - Leader
@@ -32,6 +23,15 @@ map <leader>f /<c-r>=expand("<cword>")<cr>
 map <leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>
 map <leader>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
 " Shortcuts for my functions
-map <leader>c :call CommentInsert()<cr>
-map <leader>C :call CommentRemove()<cr>
+" map <leader>c :call CommentInsert()<cr>
+" map <leader>C :call CommentRemove()<cr>
 
+
+" Clipboard
+"
+" - mac only? + registry is clipboard
+" copy/paste
+vmap <leader>c "+y
+map <leader>v <ESC>"+p
+" select all
+nmap <c-a> gg^vGG$		
