@@ -16,9 +16,12 @@ if !empty(glob('~/.vim/bundle/syntastic'))
 
 	nmap <leader>e :Errors<cr>
 
-	"
-	let g:syntastic_error_symbol = "✗"
-	let g:syntastic_warning_symbol = "⚠"
+	" note: disabled custom symbols.
+	" Error if symbol not available?
+	" let g:syntastic_error_symbol = "✗"
+	" let g:syntastic_warning_symbol = "⚠"
+	let g:syntastic_error_symbol = "x"
+	let g:syntastic_warning_symbol = "w"
 
 	" Default checkers
 	" let g:syntastic_python_checkers = ["pyflakes", "pep8", "flake8"]
