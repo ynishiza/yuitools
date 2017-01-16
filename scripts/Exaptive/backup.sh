@@ -3,7 +3,7 @@ TARGET="$HOME/Dropbox (Personal)/Backups/work"
 #TARGET2="$HOME/Google Drive/Backups/work"
 DIRS=()
 DIRS[0]="$HOME/Sites"
-DIRS[1]="$HOME/Documents"
+# DIRS[1]="$HOME/Documents"
 DIRS[2]="$HOME/Dropbox (Personal)/Permanent/Computers/Tools"
 DIRS[3]="$HOME/Projects/exaptive/platform/vagrant/exaptive_stack"
 
