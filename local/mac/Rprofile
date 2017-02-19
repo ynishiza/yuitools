@@ -2,4 +2,4 @@ options(
 	menu.graphics=FALSE,
 	browserNLdisabled=TRUE
 )
-.libPaths('~/local/lib/R')
+.libPaths(c(.libPaths(), '~/local/lib/R'))

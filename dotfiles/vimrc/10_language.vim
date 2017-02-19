@@ -20,7 +20,7 @@ function! InitPython()
     set tabstop=4
     set shiftwidth=4
 	set softtabstop=4
-	set textwidth=79
+	" set textwidth=79
 	call EditWithSpaces(4)
 endfunction
 
