@@ -13,8 +13,17 @@ OPTIONS="$OPTIONS --safe-links"
 # max size
 #OPTIONS="$OPTIONS --quiet"
 OPTIONS="$OPTIONS --max-size=20M"
-OPTIONS="$OPTIONS --filter='- .git/' --filter='- node_modules/'"
+
+# Node.js
+OPTIONS="$OPTIONS --filter='- .git/'"
+OPTIONS="$OPTIONS --filter='- node_modules/'"
+# Haskell caches
 OPTIONS="$OPTIONS --filter='- .cabal-sandbox/'"
+# Python caches
+OPTIONS="$OPTIONS --filter='- *.pyc'"
+OPTIONS="$OPTIONS --filter='- __pycache__'"
+OPTIONS="$OPTIONS --filter='- .tox/'"
+# Vim swap
 OPTIONS="$OPTIONS --filter='- *.swp'"
 OPTIONS="$OPTIONS --delete"
 
