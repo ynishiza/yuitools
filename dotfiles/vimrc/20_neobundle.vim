@@ -46,6 +46,10 @@ if NeoBundleInstalled()
 	" syntactic: syntax check
 	NeoBundle 'scrooloose/syntastic'
 
+	" ack: grep replacement
+	NeoBundle 'mileszs/ack.vim'
+
+	NeoBundle 'Valloric/YouCompleteMe'
 
 	""""""""""""""""""""""""""" HTML """""""""""""""""""""""""""
 	" emmet: HTML plugin
