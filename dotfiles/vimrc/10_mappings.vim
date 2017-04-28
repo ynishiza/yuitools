@@ -28,6 +28,14 @@ map <leader>f /<c-r>=expand("<cword>")<cr>
 map <leader>r :%s/\<<c-r>=expand("<cword>")<cr>\>
 map <leader>g :vimgrep /\<<c-r>=expand("<cword>")<cr>\>/ 
 
+" Tabs
+"
+map <leader>tn :tabedit<cr>
+" Current buffer in new tab
+map <leader>t% :tabedit %<cr>
+map <leader>t# :tabedit #<cr>
+map <leader>tq :tabclose<cr>
+
 
 " Clipboard
 "
