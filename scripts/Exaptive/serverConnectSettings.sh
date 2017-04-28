@@ -37,6 +37,8 @@ SERVER_USERS[city_ppi]="exaptive"
 SSH_IDENTITY[aws_jira]="${EXAPTIVEAWS}/AWS PEM keys/aws-jira.pem"
 SERVER_HOSTS[dockerreg]="dockerreg.exaptive.com"
 SERVER_USERS[dockerreg]="yui"
+SERVER_HOSTS[jenkins]="jenkins.exaptive.com"
+SERVER_USERS[jenkins]="exaptive"
 
 
 #
