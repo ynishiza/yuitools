@@ -3,4 +3,4 @@
 #
 export LANG=en_gb.UTF-8
 
-source ~/.dotfiles_yui/bashrc/bashrc_base
+source ~/.tools_yui/dotfiles/bashrc/bashrc_base

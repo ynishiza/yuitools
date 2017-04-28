@@ -28,6 +28,7 @@
 	c = commit
 	co = checkout
 	df = diff
+	f = fetch
 	
 	dfc = diff --cached
 	ai = add -i
