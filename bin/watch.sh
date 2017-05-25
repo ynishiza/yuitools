@@ -4,7 +4,7 @@
 #
 
 printUsage() {
-	echo "watch COMMAND [SLEEP]"
+	echo "watch [-n SLEEP ] COMMAND"
 }
 
 if [[ $# == 0 ]]
@@ -23,7 +23,7 @@ else
 fi
 
 COMMAND=$@
-echo $COMMAND
+echo "$COMMAND"
 
 while :
 do
