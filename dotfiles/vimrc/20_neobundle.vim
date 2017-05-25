@@ -42,14 +42,20 @@ if NeoBundleInstalled()
 	" airline: vim powerline
 	NeoBundle 'bling/vim-airline'
 
-
-	" syntactic: syntax check
-	NeoBundle 'scrooloose/syntastic'
-
 	" ack: grep replacement
 	NeoBundle 'mileszs/ack.vim'
 
 	NeoBundle 'Valloric/YouCompleteMe'
+
+
+	""""""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
+
+	" syntactic: syntax check
+	NeoBundle 'scrooloose/syntastic'
+
+	" TypeScript syntastic plugin
+	NeoBundle 'Quramy/tsuquyomi'
+
 
 	""""""""""""""""""""""""""" HTML """""""""""""""""""""""""""
 	" emmet: HTML plugin
@@ -87,6 +93,8 @@ if NeoBundleInstalled()
 	" au FileType javascript call JavaScriptFold()
 	" au FileType javascript set foldmethod=syntax
 
+	" TypeScript syntax file
+	NeoBundle 'leafgarland/typescript-vim'
 
 	""""""""""""""""""""""""""" Haskell """""""""""""""""""""""""""
 

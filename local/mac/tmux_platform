@@ -1,6 +1,6 @@
 source ~/.tmux.conf
 #set-option default-path ~/Projects/exaptive_stack/exaptive
-new-session -c ~/Projects/exaptive_stack/exaptive -s platform
+# new-session -c ~/Projects/exaptive_stack/exaptive -s platform
 
 new-window -c ~/Projects/exaptive_stack/exaptive/client/dataflow
 new-window -c ~/Projects/exaptive_stack/exaptive/server/city-server

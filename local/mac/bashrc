@@ -4,3 +4,11 @@
 export LANG=en_gb.UTF-8
 
 source ~/.tools_yui/dotfiles/bashrc/bashrc_base
+
+#
+# Aliases
+#
+if [[ $IS_MAC ]];
+then
+	alias grip_authenticated='grip --user=yui.nishizawa@gmail.com --pass=Qs3qt3PV'
+fi

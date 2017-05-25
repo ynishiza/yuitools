@@ -108,9 +108,10 @@ autocmd BufRead *.md set filetype=markdown
 autocmd BufRead *.json set filetype=json
 autocmd BufRead *.rst set filetype=markdown
 
-"
+" JSON
 autocmd BufRead .eslintrc set filetype=json
 autocmd BufRead .jshintrc set filetype=json
+autocmd BufRead Jenkinsfile set filetype=groovy
 
 "
 " Language specific settings
