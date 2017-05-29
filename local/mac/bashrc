@@ -12,3 +12,5 @@ if [[ $IS_MAC ]];
 then
 	alias grip_authenticated='grip --user=yui.nishizawa@gmail.com --pass=Qs3qt3PV'
 fi
+
+source ~/.iterm2_shell_integration.`basename $SHELL`

@@ -50,3 +50,5 @@ export GATK_PATH="$HOME/Documents/Projects/Seracare/GATK/GenomeAnalysisTK.jar"
 
 # iTune
 export ITUNES_MUSIC="$HOME/Music/iTunes/iTunes Media/Music"
+
+test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

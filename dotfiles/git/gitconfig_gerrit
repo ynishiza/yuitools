@@ -1,5 +1,5 @@
 [alias]
-    gfetch = fetch gerrit --prune
+    gfetch = fetch gerrit --prune --tags
     gchange = "!f() { branch=$1; shift 1; git push gerrit HEAD:refs/for/$branch $@; }; f"
     gdraft = "!f() { branch=$1; shift 1; git push gerrit HEAD:refs/drafts/$branch $@; }; f"
     gcm = "!f() { git push gerrit HEAD:refs/for/master $@; }; f"

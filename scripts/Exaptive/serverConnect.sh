@@ -14,7 +14,7 @@ main() {
 		vim settings.sh;;
 	"ssh") 
 		if [[ $# != 1 ]];then echo "$0 ssh SERVER_NAME"; exit 1; fi
-		_connect_to_server $@;;
+		_connect_to_server "$@";;
 	"upload") 
 		if [[ $# != 3 ]]; then echo "$0 upload SERVER_NAME SRC(local path) DEST(remote directory)"; exit 1; fi
 		_scp_server "upload" "$1" "$2" "$3";;
@@ -72,8 +72,8 @@ _connect_to_server() {
 	# Execute
 	#
 	COMMAND="ssh $OPTIONS $USER@$HOST"
-	echo $COMMAND
-	eval $COMMAND
+	echo "$COMMAND"
+	eval "$COMMAND"
 	# This does not work if paths have spaces.
 	#ssh "$OPTIONS" $USER@$HOST
 }

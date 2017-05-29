@@ -18,7 +18,7 @@ function! InitPython()
 	" set expandtab
     " 4 spaces
     set tabstop=4
-    set shiftwidth=4
+    set shiftwidth=0
 	set softtabstop=4
 	" set textwidth=79
 	call EditWithSpaces(4)
@@ -47,7 +47,7 @@ function! InitR()
 	let t:comment_term="#"
 	set expandtab
 	set tabstop=2
-	set shiftwidth=2
+	set shiftwidth=0
 	set textwidth=80
 endfunction
 
@@ -85,7 +85,7 @@ endfunction
 function! InitMarkdown()
 	set expandtab
 	set tabstop=2
-	set shiftwidth=2
+	set shiftwidth=0
 endfunction
 
 function! MyTestFunct()

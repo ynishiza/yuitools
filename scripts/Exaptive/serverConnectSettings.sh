@@ -8,8 +8,9 @@
 ##		Exaptive's servers
 ###################################
 HOME="/Users/yuinishizawa"
-EXAPTIVEAWS="$HOME/AWS"
+EXAPTIVEAWS="$HOME/Dropbox (Exaptive, Inc.)/Exaptive/IT  (internal)/Amazon Web Services"
 BASE="$HOME/.tools_yui/scripts/Exaptive"
+echo "$EXAPTIVEAWS"
 
 declare -A SERVER_HOSTS=()
 declare -A SERVER_USERS=()
@@ -39,6 +40,10 @@ SERVER_HOSTS[dockerreg]="dockerreg.exaptive.com"
 SERVER_USERS[dockerreg]="yui"
 SERVER_HOSTS[jenkins]="jenkins.exaptive.com"
 SERVER_USERS[jenkins]="exaptive"
+
+SERVER_HOSTS[domainhost1]="domainhost1.exaptive.city"
+SERVER_USERS[domainhost1]="ubuntu"
+SSH_IDENTITY[domainhost1]="${EXAPTIVEAWS}/CityProdAccount/PemKeys/cityprod.pem"
 
 
 #

@@ -19,7 +19,7 @@ set omnifunc=syntaxcomplete#Complete
 set smarttab
 set autoindent
 set tabstop=4
-set shiftwidth=4
+set shiftwidth=0
 
 " Backspace
 " - use backspace to delete eol, indents, and start of an insert.
@@ -55,7 +55,7 @@ set statusline=""
 " show line and column number.
 set ruler
 
-" Fold			
+" Fold
 "set foldmethod=syntax
 set foldmethod=manual
 "let javaScript_fold=1
