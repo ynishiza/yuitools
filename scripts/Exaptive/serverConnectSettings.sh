@@ -45,6 +45,10 @@ SERVER_HOSTS[domainhost1]="domainhost1.exaptive.city"
 SERVER_USERS[domainhost1]="ubuntu"
 SSH_IDENTITY[domainhost1]="${EXAPTIVEAWS}/CityProdAccount/PemKeys/cityprod.pem"
 
+SERVER_HOSTS[jenkins]="jenkins.exaptive.com"
+SERVER_USERS[jenkins]="ubuntu"
+SSH_IDENTITY[jenkins]="${EXAPTIVEAWS}/AWS PEM keys/jenkins.pem"
+
 
 #
 # Internal
