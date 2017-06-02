@@ -28,6 +28,8 @@
 	c = commit
 	co = checkout
 	df = diff
+	dfword = diff --word-diff
+	dt = difftool
 	f = fetch
 	
 	dfc = diff --cached
@@ -59,3 +61,7 @@
 	branch = 1
 [gitreview]
 	remote = origin
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = false

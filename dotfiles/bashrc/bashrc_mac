@@ -17,31 +17,13 @@ MoveToTrash() {
 	mv "$@" ~/.Trash
 }
 
-GetPIDs() {
-	COMMAND=$1
-	#if [ -z $COMMAND ];then echo "No command."; exit 1; fi
-
-	# 
-	#PIDS=`ps -Aj | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
-	#PIDS=`ps -A -o pid,user,command | grep $COMMAND | grep -v grep | tr -s ' ' | cut -f2 -d' '`
-	PIDS=$(ps ax -o pid,command | grep "$COMMAND" | grep -v grep | sed -n -E "s/^ *([0-9]+) .*$/\1/p")	
-	PIDS_LIST=(${PIDS// /})
-
-	echo "Found ${#PIDS_LIST[@]} processes. Result stored in variables PIDS and PIDS_LIST."
-	echo ""
-
-	# Show header
-	ps -j | head -1
-	# Show processes
-	ps -Aj | grep $COMMAND | grep -v grep
-}
-
 CommandWithLess() {
 	COMMAND="$1"
 	shift 1
-	OPTIONS="$@"
+	OPTIONS="$*"
+	echo $OPTIONS
 	FULL="$COMMAND $OPTIONS | less"
-	eval $FULL
+	eval "$FULL"
 }
 
 #
@@ -74,14 +56,12 @@ DoSar() {
 	TYPE=$1
 	INTERVAL=$2
 	COUNT=$3
-	echo $TYPE $INTERVAL $COUNT
 	if [[ ! $INTERVAL ]]; then INTERVAL=$SARINTERVAL; fi
 	if [[ ! $COUNT ]]
 	then 
-		let COUNT="(60 * 60 * 24) / INTERVAL"		# A day
+		let COUNT="$SARCOUNT"
 	fi
-	echo $TYPE $INTERVAL $COUNT
-	sar $TYPE $INTERVAL $COUNT
+	sar "$TYPE $INTERVAL $COUNT"
 }
 alias saru="DoSar -u"
 alias sard="DoSar -d"

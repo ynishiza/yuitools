@@ -7,7 +7,7 @@ export BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 #
 # Check if MAC
 # 
-export IS_MAC=`[[ -z $(uname | grep Darwin) ]]; echo $?`
+export IS_MAC=$([[ -z $(uname | grep Darwin) ]]; echo $?)
 
 
 # Auto completion with git
@@ -46,10 +46,10 @@ export PS1="${WHITE}\u${RESET}@${WHITE}\h${RESET}:${BLUE}\W${RESET} [j=${RED}\j$
 
 PrintSystemInfo() {
 	echo "Bash:$SHELL $BASH_VERSION"
-	echo "Date:"`date`
-	echo "Kernel:"`uname -a`
-	echo "User:"`whoami`
-	echo "Host:"`hostname`
+	echo "Date:$(date)"
+	echo "Kernel:$(uname -a)"
+	echo "User:$(whoami)"
+	echo "Host:$(hostname)"
 }
 # Bug: printing here caused problems when uploading with scp.
 #PrintSystemInfo
@@ -66,21 +66,23 @@ alias rm="rm -i"
 alias cp="cp -i"
 alias mv="mv -i"
 alias less="less -N"
+
 alias doublequote="sed -e 's/\(.*\)/\"\1\"/'"
 alias singlequote="sed -e \"s/\(.*\)/'\1'/\""
 alias timecmd="/usr/bin/time /bin/bash -c"
+
 # To enable <C-S> to work in vim.
 alias vim="stty stop '' -ixoff; vim"
 
-
-# 
-alias bashrc="source ~/.bashrc"
+# Include local node_modules in path
+# https://stackoverflow.com/questions/9679932/how-to-use-package-installed-locally-in-node-modules
+alias npm-exec='PATH=$(npm bin):$PATH'
 
 
 #
 # Path
 #
-# Backup
+# Take backup so that if this bashrc is reloaded, we don't duplicate paths.
 if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
 PATH=$PATH_BAK
 
@@ -100,14 +102,3 @@ if [[ $IS_MAC == 1 ]]
 then
 	source "$BASHRC_YUI/bashrc_mac"
 fi
-
-#########################################################
-#					OLD STUFF							#
-#########################################################
-
-#
-# pkg-config
-#
-#export PKG_CONFIG="/opt/pkgconfig/bin/pkg-config"
-#export PKG_CONFIG_PATH="/Library/Frameworks//Mono.framework/Versions/3.2.7/lib/pkgconfig"
-

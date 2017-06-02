@@ -1,0 +1,13 @@
+# Copy this to $HOME/.config/git/ignore
+#
+
+# Vim
+.vimrc
+# Vim swap files
+.*.sw[a-z]
+
+# tern
+.tern-project
+
+# macos
+.DS_Store

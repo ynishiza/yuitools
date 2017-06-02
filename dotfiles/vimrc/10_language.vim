@@ -18,7 +18,7 @@ function! InitPython()
 	" set expandtab
     " 4 spaces
     set tabstop=4
-    set shiftwidth=0
+    set shiftwidth=4
 	set softtabstop=4
 	" set textwidth=79
 	call EditWithSpaces(4)
