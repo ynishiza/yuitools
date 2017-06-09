@@ -11,3 +11,6 @@
 
 # macos
 .DS_Store
+
+# my locals
+localyui

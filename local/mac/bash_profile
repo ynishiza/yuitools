@@ -45,7 +45,7 @@ export NODE_PATH
 # EXAPTIVE_LANGUAGE_PATH: Used by the Exaptive domains to find the language directory.
 export EXAPTIVE_LANGUAGE_PATH="$HOME/Projects/exaptive_stack/exaptive/node_modules"
 
-# GATK_PATH: 
+# GATK_PATH:
 export GATK_PATH="$HOME/Documents/Projects/Seracare/GATK/GenomeAnalysisTK.jar"
 
 # iTune

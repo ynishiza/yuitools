@@ -34,6 +34,8 @@
 	
 	dfc = diff --cached
 	ai = add -i
+	ap = add -p
+	au = add --update
 	ca = commit --amend
 	caa = commit --amend -a
 

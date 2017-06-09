@@ -1,5 +1,5 @@
 "---------------------------------------------------------------
-"					 Language specific 
+"					 Language specific
 "
 
 " Comment term in the script
@@ -34,7 +34,7 @@ function! InitJs()
 	call JSWithTabs()
 endfunction
 
-function! InitCss() 
+function! InitCss()
 	let t:comment_term="/\\* "
 	let t:comment_term_end=" \\*/"
 endfunction
@@ -69,7 +69,7 @@ function! CommentInsert()
 		execute "s=^=" . t:comment_term . "="
 	endif
 	if exists("t:comment_term_end")
-		execute "s=\\(.*\\)=\\1" . t:comment_term_end . "=" 
+		execute "s=\\(.*\\)=\\1" . t:comment_term_end . "="
 	endif
 endfunction
 function! CommentRemove()
@@ -117,7 +117,7 @@ autocmd BufRead Jenkinsfile set filetype=groovy
 " Language specific settings
 "
 
-" JavaScript 
+" JavaScript
 function! JSWithSpaces(x)
 	call EditWithSpaces(a:x)
 endfunction
@@ -141,8 +141,7 @@ function! RemoveTrailingWhitespace()
 	execute "%s/\\s\\+$//g"
 endfunction
 
-function! SpacesToTabs()
-	execute "%s/^\\(\\(  \\)*\\)  /\\1\\t/g"
-endfunction
-
-
+" commands
+command! -nargs=0 RemoveTrailingWhitespace call RemoveTrailingWhitespace()
+command! -nargs=1 EditWithTabs call EditWithTabs(<f-args>)
+command! -nargs=1 EditWithSpaces call EditWithSpaces(<f-args>)

@@ -29,7 +29,7 @@ map <leader>l :so $MYVIMRC<cr>
 " Search for word under cursor.
 map <leader>f/ /<c-r>=expand("<cword>")<cr>
 " Search and replace word under cursor.
-map <leader>fs :%s/\<<c-r>=expand("<cword>")<cr>\>
+map <leader>fs :%s/\(\<<c-r>=expand("<cword>")<cr>\>\)
 map <leader>fg :grep "\<<c-r>=expand("<cword>")<cr>\>"
 
 " == Tabs ==
