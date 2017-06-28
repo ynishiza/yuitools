@@ -3,6 +3,7 @@
 #
 export LANG=en_gb.UTF-8
 
+
 source ~/.tools_yui/dotfiles/bashrc/bashrc_base
 
 #

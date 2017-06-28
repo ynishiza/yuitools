@@ -138,10 +138,22 @@ function! EditWithTabs(x)
 endfunction
 
 function! RemoveTrailingWhitespace()
-	execute "%s/\\s\\+$//g"
+	%s/\s\+$//ge
+endfunction
+
+function! ArgdoMacro(x)
+	argdo execute "normal @" . a:x | update
+endfunction
+
+function! Rename(old, new)
+	let l:command = "%s/\\v(<" . a:old . ">)/" . a:new . "/gce"
+	argdo execute l:command | update
 endfunction
 
 " commands
 command! -nargs=0 RemoveTrailingWhitespace call RemoveTrailingWhitespace()
 command! -nargs=1 EditWithTabs call EditWithTabs(<f-args>)
 command! -nargs=1 EditWithSpaces call EditWithSpaces(<f-args>)
+command! -nargs=1 ArgdoMacro call ArgdoMacro(<f-args>)
+command! -nargs=+ ArgRename call Rename(<f-args>)
+

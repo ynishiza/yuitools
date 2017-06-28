@@ -14,7 +14,7 @@ if neobundle#is_installed('lintr')
 "		nmap <leader>e :SyntasticCheck<cr>:Errors<cr>
 		let g:syntastic_enable_r_lintr_checker = 1
 
-		" note: 
+		" note:
 		" object_usage_inter disabled. Complains about variables outside of scope.
 		" let g:syntastic_r_lintr_linters = "with_defaults(camel_case_linter = NULL, object_usage_linter = NULL,  line_length_linter(120))"
 	endfunction
@@ -37,8 +37,9 @@ if neobundle#is_installed('vim-colors-solarized')
 		let g:solarized_contrast = "high"
 		colorscheme solarized
 	endfunction
+
 	" On Mac, use the terminal's color
-	au VimEnter * call _EnableSolarizedForiTerm2()
+	call _EnableSolarizedForiTerm2()
 endif
 
 
@@ -68,9 +69,12 @@ if neobundle#is_installed('vim-airline')
 		" See ~/.vim/bundle/vim-airline/autoload/airline/themes
 		" For some reason,
 		"
-		AirlineTheme hybrid
 		AirlineRefresh
 	endfunction
-"	autocmd VimEnter * AirlineToggle
-"	autocmd VimEnter * call _EnableAirline()
+
+	"" Theme selection
+	" See https://github.com/vim-airline/vim-airline-themes/tree/master/autoload/airline/themes
+	let g:airline_theme = "solarized"
+
+	"	autocmd VimEnter * call _EnableAirline()
 endif

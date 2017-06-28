@@ -93,6 +93,8 @@ if NeoBundleInstalled()
 	" au FileType javascript call JavaScriptFold()
 	" au FileType javascript set foldmethod=syntax
 
+	NeoBundle 'pangloss/vim-javascript'
+
 	" TypeScript syntax file
 	NeoBundle 'leafgarland/typescript-vim'
 

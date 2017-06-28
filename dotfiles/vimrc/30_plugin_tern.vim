@@ -11,4 +11,5 @@ function! InitTern()
 	map <leader>tr :TernRefs<cr>
 	map <leader>tR :TernRename<cr>
 endfunction
+
 au FileType javascript call InitTern()
