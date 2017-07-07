@@ -31,7 +31,7 @@ endfunction
 
 function! InitJs()
 	let t:comment_term="//"
-	call JSWithTabs()
+	call JSWithSpaces(2)
 endfunction
 
 function! InitCss()
@@ -83,9 +83,7 @@ function! CommentRemove()
 endfunction
 
 function! InitMarkdown()
-	set expandtab
-	set tabstop=2
-	set shiftwidth=0
+	:EditWithSpaces 2
 endfunction
 
 function! MyTestFunct()
@@ -102,6 +100,13 @@ autocmd FileType make call InitMakefile()
 autocmd FileType markdown call InitMarkdown()
 autocmd Filetype css call InitCss()
 autocmd Filetype json call JSWithSpaces(2)
+
+autocmd BufWrite
+			\ *.sh,
+			\*.py,*.r,*.php,
+			\*.json,*.js,*vimrc,
+			\*.md,*.markdown
+			\ :RemoveTrailingWhitespace
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -124,36 +129,3 @@ endfunction
 function! JSWithTabs()
 	call EditWithTabs(4)
 endfunction
-
-function! EditWithSpaces(x)
-	set expandtab
-	let &tabstop=a:x
-	let &shiftwidth=a:x
-endfunction
-
-function! EditWithTabs(x)
-	set noexpandtab
-	let &tabstop=a:x
-	let &shiftwidth=a:x
-endfunction
-
-function! RemoveTrailingWhitespace()
-	%s/\s\+$//ge
-endfunction
-
-function! ArgdoMacro(x)
-	argdo execute "normal @" . a:x | update
-endfunction
-
-function! Rename(old, new)
-	let l:command = "%s/\\v(<" . a:old . ">)/" . a:new . "/gce"
-	argdo execute l:command | update
-endfunction
-
-" commands
-command! -nargs=0 RemoveTrailingWhitespace call RemoveTrailingWhitespace()
-command! -nargs=1 EditWithTabs call EditWithTabs(<f-args>)
-command! -nargs=1 EditWithSpaces call EditWithSpaces(<f-args>)
-command! -nargs=1 ArgdoMacro call ArgdoMacro(<f-args>)
-command! -nargs=+ ArgRename call Rename(<f-args>)
-

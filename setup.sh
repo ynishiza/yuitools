@@ -52,7 +52,7 @@ function createLink() {
 	DEST=$2
 
 	if [[ -e "$DEST" || -L "$DEST" ]]
-	then 
+	then
 		if [[ $FORCE ]]
 		then
 			echo "createLink: $DEST already exists. Removing."
@@ -85,7 +85,7 @@ createLink -f "${TOOLS_LINK}/bin" "$HOME/.bin_yui"
 
 #
 # Scripts
-# 
+#
 # Dotfile dirs
 # createLink -f "${DOTFILES_LINK}/screenrc" "$HOME/.screenrc_yui"
 # createLink -f "${DOTFILES_LINK}/bashrc" "$HOME/.bashrc_yui"
@@ -93,7 +93,7 @@ createLink -f "${TOOLS_LINK}/bin" "$HOME/.bin_yui"
 
 
 # Common dotfiles
-# - create link only if it doesn't exist yet. 
+# - create link only if it doesn't exist yet.
 #   Don't want to overwrite. This is for safety.
 cp -i "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
 cp -i "${DOTFILES_LINK}/vimrc/init.vim" "$HOME/.vimrc"

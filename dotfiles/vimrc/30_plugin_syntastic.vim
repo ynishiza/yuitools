@@ -14,7 +14,7 @@ if !empty(glob('~/.vim/bundle/syntastic'))
 	let g:syntastic_auto_loc_list = 0
 	let g:syntastic_check_on_wq = 0
 
-	nmap <leader>ee :Errors<cr>
+	nmap <leader>E :Errors<cr>
 
 	" note: disabled custom symbols.
 	" Error if symbol not available?

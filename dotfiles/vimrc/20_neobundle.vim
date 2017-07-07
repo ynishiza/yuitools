@@ -47,6 +47,8 @@ if NeoBundleInstalled()
 
 	NeoBundle 'Valloric/YouCompleteMe'
 
+	NeoBundle 'tpope/vim-unimpaired'
+
 
 	""""""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
 

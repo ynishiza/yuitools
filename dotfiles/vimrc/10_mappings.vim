@@ -50,7 +50,7 @@ map <leader>tq :tabclose<cr>
 
 
 " Reload
-map <leader>l :so $MYVIMRC<cr>
+map <leader>r :so $MYVIMRC<cr>
 
 
 " Search
@@ -61,6 +61,14 @@ map <leader>fs :%s/\v(<<c-r>=expand("<cword>")<cr>>)/
 map <leader>fg :grep "\<<c-r>=expand("<cword>")<cr>\>"
 " Clear search highlights
 nmap <leader>ff :nohlsearch<cr>
+
+
+"" location list
+map <leader>ll :ll<cr>
+map <leader>ln :lnext<cr>
+map <leader>lp :lprevious<cr>
+map <leader>lw :lwindow<cr>
+map <leader>lc :lclose<cr>
 
 
 
@@ -75,9 +83,9 @@ nmap <c-a> gg^vGG$
 
 
 " Location list
-nmap ]l :lnext<cr>
-nmap [l :lprevious<cr>
-nmap <leader>lc :lclose<cr>
+" nmap ]l :lnext<cr>
+" nmap [l :lprevious<cr>
+" nmap <leader>lc :lclose<cr>
 
 
 " Escape shortcut

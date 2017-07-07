@@ -49,6 +49,9 @@ SERVER_HOSTS[jenkins]="jenkins.exaptive.com"
 SERVER_USERS[jenkins]="ubuntu"
 SSH_IDENTITY[jenkins]="${EXAPTIVEAWS}/AWS PEM keys/jenkins.pem"
 
+SERVER_HOSTS[city_rc]="rc.exaptive.city"
+SERVER_USERS[city_rc]="yui"
+
 
 #
 # Internal
@@ -117,7 +120,7 @@ SERVER_USERS[gns_sim2]="exaptive"
 SSH_IDENTITY[gns_sim2]="${BASE}/pem/exaptive-gns-privatekey.pem"
 
 
-# 
+#
 # Misc
 #
 SERVER_HOSTS[aws_city]="city.exaptive.com"

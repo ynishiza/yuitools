@@ -46,6 +46,7 @@ setupVimrc() {
 	pushd "$VIMRCDIR/conf.d"
 	ln -sf "../avail.d/00_sensible.vim" .
 	ln -sf "../avail.d/10_base.vim"
+	ln -sf "../avail.d/10_editing.vim"
 	ln -sf "../avail.d/10_mappings.vim"
 	ln -sf "../avail.d/10_language.vim"
 	ln -sf "../avail.d/20_neobundle.vim"
