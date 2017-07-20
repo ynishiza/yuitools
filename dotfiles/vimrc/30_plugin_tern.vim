@@ -1,5 +1,5 @@
 function! InitTern()
-	let g:tern_request_timeout = 5
+	let g:tern_request_timeout = 10
 	let g:tern_show_argument_hints="on_hold"
 
 	" Tern
@@ -10,6 +10,7 @@ function! InitTern()
 	map <leader>tt :TernType<cr>
 	map <leader>tr :TernRefs<cr>
 	map <leader>tR :TernRename<cr>
+	map <leader>te :call tern#Enable()<cr>
 endfunction
 
 au FileType javascript call InitTern()
