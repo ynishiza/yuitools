@@ -7,6 +7,11 @@ if neobundle#is_installed('Nvim-R')
 endif
 
 
+if neobundle#is_installed('simple-javascript-indenter')
+	map <leader>n :NERDTreeToggle<cr>
+endif
+
+
 if neobundle#is_installed('lintr')
 	function! _InitLintr()
 		" note: check only passively, since lintr is a bit slow.

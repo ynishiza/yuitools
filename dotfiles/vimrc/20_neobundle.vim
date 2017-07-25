@@ -38,6 +38,8 @@ if NeoBundleInstalled()
 	" solarized: color scheme
 	NeoBundle "altercation/vim-colors-solarized"
 
+	" NERDTREE
+	NeoBundle 'scrooloose/nerdtree'
 
 	" airline: vim powerline
 	NeoBundle 'bling/vim-airline'

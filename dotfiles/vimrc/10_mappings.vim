@@ -41,6 +41,16 @@ map <leader>w :q<CR>
 map <leader>q :qa<CR>
 
 
+"" Buffers
+map <leader>bo :ls!<cr>:b 
+map <leader>bs :ls<cr>
+map <leader>bS :ls!<cr>
+map <leader>bn :bn<cr>
+map <leader>bp :bp<cr>
+map <leader>bf :bf<cr>
+map <leader>bl :bl<cr>
+
+
 "" Tabs
 map <leader>tn :tabedit<cr>
 " Current buffer in new tab
@@ -71,7 +81,6 @@ map <leader>lw :lwindow<cr>
 map <leader>lc :lclose<cr>
 
 
-
 "" Clipboard
 " - mac only? + registry is clipboard
 " copy/paste
@@ -82,10 +91,8 @@ map <leader>V <ESC>"+P
 nmap <c-a> gg^vGG$
 
 
-" Location list
-" nmap ]l :lnext<cr>
-" nmap [l :lprevious<cr>
-" nmap <leader>lc :lclose<cr>
+" Repeat last command
+nmap <leader>. @:
 
 
 " Escape shortcut

@@ -41,7 +41,7 @@ function! CRename(old, new)
 endfunction
 
 function! CSubstitute(old, new)
-	cdo call Substitute("%", a:old, a:new, "ce") | update
+	cdo call Substitute("%", a:old, a:new, "cge") | update
 endfunction
 
 " commands
