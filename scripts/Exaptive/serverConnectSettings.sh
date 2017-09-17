@@ -33,6 +33,8 @@ SERVER_HOSTS[city_feature]="featurebranch.exaptive.city"
 SERVER_USERS[city_feature]="exaptive"
 SERVER_HOSTS[city_feature2]="featurebranch2.exaptive.city"
 SERVER_USERS[city_feature2]="exaptive"
+SERVER_HOSTS[city_emerald]="emerald.exaptive.city"
+SERVER_USERS[city_emerald]="exaptive"
 SERVER_HOSTS[city_labs]="labs.exaptive.city"
 SERVER_USERS[city_labs]="exaptive"
 SERVER_HOSTS[city_ppi]="ppi.exaptive.city"
@@ -52,7 +54,7 @@ SERVER_USERS[jenkins_ubuntu]="ubuntu"
 SSH_IDENTITY[jenkins_ubuntu]="${EXAPTIVEAWS}/AWS PEM keys/jenkins.pem"
 
 SERVER_HOSTS[city_rc]="rc.exaptive.city"
-SERVER_USERS[city_rc]="yui"
+SERVER_USERS[city_rc]="exaptive"
 
 
 #

@@ -7,7 +7,7 @@
 "
 "  <F1> = F1
 "  <F2> = F2
-"  
+"
 "  <S-A> = Shift-A
 "  <C-A> = Control-A (control on Mac)
 "  <M-A> = Meta-A (alt/option on Mac)
@@ -42,7 +42,8 @@ map <leader>q :qa<CR>
 
 
 "" Buffers
-map <leader>bo :ls!<cr>:b 
+map <leader>bo :ls<cr>:b
+map <leader>bd :ls!<cr>:bd
 map <leader>bs :ls<cr>
 map <leader>bS :ls!<cr>
 map <leader>bn :bn<cr>

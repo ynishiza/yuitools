@@ -31,14 +31,11 @@ if NeoBundleInstalled()
 	NeoBundleFetch "Shougo/neobundle.vim"
 	
 
-	" Commentary: easy commenting out
-	NeoBundle 'tpope/vim-commentary'
-
  
 	" solarized: color scheme
 	NeoBundle "altercation/vim-colors-solarized"
 
-	" NERDTREE
+	" NERDTREE: file explorer
 	NeoBundle 'scrooloose/nerdtree'
 
 	" airline: vim powerline
@@ -47,9 +44,17 @@ if NeoBundleInstalled()
 	" ack: grep replacement
 	NeoBundle 'mileszs/ack.vim'
 
+	" YouCompleteMe: autocompletion
 	NeoBundle 'Valloric/YouCompleteMe'
 
+	" vim-unimpaired: bracket mapping
 	NeoBundle 'tpope/vim-unimpaired'
+
+	" vim-surround: quoting/parenthesizing tool
+	NeoBundle 'tpope/vim-surround'
+
+	" Commentary: easy commenting out
+	NeoBundle 'tpope/vim-commentary'
 
 
 	""""""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
