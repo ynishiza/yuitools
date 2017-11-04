@@ -1,0 +1,5 @@
+FZF_DEFAULT_OPTS="--preview='head -100 {}'"
+if  which fzf > /dev/null;
+then
+	export FZF_DEFAULT_OPTS
+fi

@@ -102,3 +102,4 @@ if [[ $IS_MAC == 1 ]]
 then
 	source "$BASHRC_YUI/bashrc_mac"
 fi
+source "$BASHRC_YUI/bashrc_fzf"

@@ -5,7 +5,8 @@ DIRS=()
 DIRS[0]="$HOME/Sites"
 # DIRS[1]="$HOME/Documents"
 DIRS[2]="$HOME/Dropbox (Personal)/Permanent/Computers/Tools"
-DIRS[3]="$HOME/Projects/exaptive/platform/vagrant/exaptive_stack"
+# DIRS[3]="$HOME/Projects/exaptive/platform/vagrant/exaptive_stack"
+DIRS[3]="$HOME/Projects/exaptive/platform/vagrant/ubuntu16/exaptive_stack"
 
 OPTIONS="-r -u -h --progress"
 # Don't follow symbolic links.

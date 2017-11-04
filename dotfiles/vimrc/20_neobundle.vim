@@ -53,6 +53,12 @@ if NeoBundleInstalled()
 	" vim-surround: quoting/parenthesizing tool
 	NeoBundle 'tpope/vim-surround'
 
+	" undotree: undo tree
+	NeoBundle 'mbbill/undotree'
+
+	" fzf: fuzzy find plugin
+	NeoBundle 'junegunn/fzf'
+
 	" Commentary: easy commenting out
 	NeoBundle 'tpope/vim-commentary'
 
