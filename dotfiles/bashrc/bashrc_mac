@@ -13,15 +13,11 @@ stty stop undef
 #
 # Functions
 #
-MoveToTrash() {
-	mv "$@" ~/.Trash
-}
-
 CommandWithLess() {
 	COMMAND="$1"
 	shift 1
 	OPTIONS="$*"
-	echo $OPTIONS
+	echo "$OPTIONS"
 	FULL="$COMMAND $OPTIONS | less"
 	eval "$FULL"
 }
@@ -46,7 +42,6 @@ PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
 alias ypscpu="CommandWithLess ps -Ar -o $PSCOLUMNS"
 alias ypsmem="CommandWithLess ps -Am -o $PSCOLUMNS"
 alias ypsid="ps -Ao pid,ppid,pgid,rgid,user,uid,tt,command"
-alias trash="MoveToTrash"
 alias yshutdown="sudo /sbin/shutdown -h now"
 
 # Sar

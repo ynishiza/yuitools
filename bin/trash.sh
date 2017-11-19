@@ -44,7 +44,7 @@ ResolvePathConflictIfAny() {
 	dir=$(dirname "$destpath")
 	filename=$(basename "$destpath")
 
-	while [[ -f "$resolved_destpath" ]]
+	while [[ -e "$resolved_destpath" ]]
 	do
 		resolved_destpath="${dir}/${filename}_$index"
 		index=$((index + 1))
