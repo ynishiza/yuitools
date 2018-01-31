@@ -30,6 +30,7 @@
 	df = diff
 	dfword = diff --word-diff
 	dt = difftool
+	mt = mergetool
 	f = fetch
 	
 	dfc = diff --cached

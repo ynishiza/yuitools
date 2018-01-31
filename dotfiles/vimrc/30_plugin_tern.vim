@@ -1,5 +1,5 @@
 function! InitTern()
-	let g:tern_request_timeout = 10
+	let g:tern_request_timeout = 2
 	let g:tern_show_argument_hints="on_hold"
 
 	" Tern

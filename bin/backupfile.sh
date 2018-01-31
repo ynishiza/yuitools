@@ -42,7 +42,7 @@ do
 	esac
 done
 
-# Rest 
+# Rest
 shift $((OPTIND - 1))
 FILES=(${*// /})
 
@@ -53,7 +53,7 @@ FILES=(${*// /})
 if [[ ! $BACKUP_NAME ]]
 then
 	echo "Missing backup name"
-	printUsage 
+	printUsage
 	exit 1
 fi
 printLog "Creating backup '$BACKUP_NAME'"
