@@ -1,20 +1,21 @@
 #!/bin/bash
 
-DIR=$1
-if [[ ! $DIR ]]; then echo "No directory provided"; exit 1; fi
-if [[ ! -d $DIR ]]; then echo "$1 is not a directory"; exit 1; fi
-
 delete_swap() {
-	local regex=$1
-	local cmd="find $DIR -type f -iregex \"$regex\" -not -iregex \"\.svg$\""
-	local files=$(eval $cmd)
+	local dir=$1
+	local regex=$2
+	local cmd="find $dir -type f -iregex \"$regex\" -not -iregex \"\.svg$\""
+	local files=
+	files=$(eval "$cmd")
+
+	if [[ ! $dir ]]; then echo "No directory provided"; exit 1; fi
+	if [[ ! -d $dir ]]; then echo "$1 is not a directory"; exit 1; fi
 
 	if [[ ! $files ]]; then return; fi
 	echo "$files"
 	echo "Delete these files? (y/n)"
 
-	read ANSWER
-	if [[ $ANSWER == "y" ]]; then echo "Remove"; rm -f $files; fi
+	read -r ANSWER
+	if [[ $ANSWER == "y" ]]; then echo "Remove"; rm -f "$files"; fi
 }
 
 SWPREGEX="s[uvw][a-z]"
@@ -22,5 +23,8 @@ DIRSWP_REGEX=".*/\.${SWPREGEX}$"
 FILESWP_REGEX=".*/\.[a-zA-Z0-9_ \.]*\.${SWPREGEX}$"
 
 
-delete_swap "$DIRSWP_REGEX"
-delete_swap "$FILESWP_REGEX"
+for dir in "$@"
+do
+	delete_swap "$dir" "$DIRSWP_REGEX"
+	delete_swap "$dir" "$FILESWP_REGEX"
+done

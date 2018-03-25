@@ -28,16 +28,16 @@ fi
 # \u = Current user
 # \w = Current directory from the user's home directory
 # \W = Current directory
-BLACK="\e[30m"
-RED="\e[31m"
-GREEN="\e[32m"
-YELLOW="\e[33m"
-BLUE="\e[34m"
-MAGENTA="\e[35m"
-CYAN="\e[36m"
-WHITE="\e[37m"
-RESET="\e[0m"
-export PS1="${WHITE}\u${RESET}@${WHITE}\H${RESET}:${BLUE}\W${RESET} [j=${BLUE}\j${RESET}] >> "
+BLACK="\[\e[30m\]"
+RED="\[\e[31m\]"
+GREEN="\[\e[32m\]"
+YELLOW="\[\e[33m\]"
+BLUE="\[\e[34m\]"
+MAGENTA="\[\e[35m\]"
+CYAN="\[\e[36m\]"
+WHITE="\[\e[37m\]"
+RESET="\[\e[0m\]"
+export PS1="${WHITE}\u${RESET}@${WHITE}\H${RESET}:${BLUE}\W${RESET} [j=${RED}\j${RESET}] >> "
 
 
 #
