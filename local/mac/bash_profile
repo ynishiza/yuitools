@@ -6,12 +6,22 @@ source ~/.bashrc
 #
 # PATH
 #
+addToPathIfExists() {
+	local path="$1"
+	if [[ -d $path ]];
+	then
+		PATH="$path:$PATH"
+
+	fi
+}
+
+addToPathIfExists "$HOME/scripts"
 # npm package commands
-PATH=$HOME/.node_modules/bin:$HOME/scripts:$PATH:
+addToPathIfExists "$HOME/.node_modules/bin"
 # mysql
-PATH="$PATH:/opt/pkgconfig/bin:/usr/local/mysql/bin"
-# mongodb
-#PATH="$PATH:/Applications/mongodb/bin"
+addToPathIfExists "/opt/pkgconfig/bin:/usr/local/mysql/bin"
+# Latex
+addToPathIfExists "/Library/Tex/texbin"
 
 
 #
@@ -50,5 +60,8 @@ export GATK_PATH="$HOME/Documents/Projects/Seracare/GATK/GenomeAnalysisTK.jar"
 
 # iTune
 export ITUNES_MUSIC="$HOME/Music/iTunes/iTunes Media/Music"
+
+# SSL
+export SSLKEYLOGFILE=$HOME/.sslkeylog
 
 test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"

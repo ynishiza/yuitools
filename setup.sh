@@ -1,22 +1,22 @@
 #!/bin/bash
+# shellcheck disable=SC1090
+set -o errexit
+set -o pipefail
+set -o nounset
 
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$__dir/setup_setting.sh"
 ############## Setup ##############
 
 # Source
-TOOLS_SRC=$(pwd -P)
-TOOLS_DIRNAME=$(dirname $TOOLS_SRC)
-TOOLS_BASENAME=$(basename $TOOLS_SRC)
 DOTFILES_SRC="${TOOLS_SRC}/dotfiles"
-IS_MAC=`[[ -z $(uname | grep Darwin) ]]; echo $?`
 
 # Link
-TOOLS_LINK="$HOME/.tools_yui"
-DOTFILES_LINK="$HOME/.dotfiles_yui"
-#
-TIMESTAMP=`date '+%m%d%y_%H%M%S'`
+DOTFILES_LINK="${TOOLS_BASE}/dotfiles"
 
 # Move to real path, not link.
-cd "$TOOLS_SRC"
+pushd "$TOOLS_SRC"
+
 
 #
 # Validate
@@ -27,15 +27,8 @@ then
 	exit 1
 fi
 
-############## Main ##############
 
-function installBrew() {
-	if [[ $IS_MAC && -z $(which brew) ]]
-	then
-		echo "Installing brew"
-		/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-	fi
-}
+############## Main ##############
 
 function createLink() {
 	# Option: prep
@@ -45,7 +38,7 @@ function createLink() {
 	FORCE=""
 
 	# Option: force
-	getopts f OPTNAME
+	getopts f OPTNAME || true
 	if [[ $OPTNAME == "f" ]]; then FORCE="1"; shift 1; fi
 
 	SRC=$1
@@ -55,68 +48,40 @@ function createLink() {
 	then
 		if [[ $FORCE ]]
 		then
-			echo "createLink: $DEST already exists. Removing."
-			rm -f $DEST
+			echo "createLink: $DEST already exists. Replacing."
+			rm -f "$DEST"
 		else
 			echo "createLink: $DEST already exists. Skipping."
 			return
 		fi
-		# Do nothing if it already exists.
-#		BACKUPDEST="${DEST}_bak_$TIMESTAMP"
-#		echo "$DEST exists. Moving to backup."
-#		mv -f "$DEST" "$BACKUPDEST"
 	fi
 
 	ln -s "$SRC" "$DEST"
 }
 
-#
-# Tools
-#
-installBrew
-
 
 #
 # Links
 #
-createLink -f "$TOOLS_SRC" "${TOOLS_LINK}"
-createLink -f "$DOTFILES_SRC" "$DOTFILES_LINK"
-createLink -f "${TOOLS_LINK}/bin" "$HOME/.bin_yui"
-
-#
-# Scripts
-#
-# Dotfile dirs
-# createLink -f "${DOTFILES_LINK}/screenrc" "$HOME/.screenrc_yui"
-# createLink -f "${DOTFILES_LINK}/bashrc" "$HOME/.bashrc_yui"
-# createLink -f "${DOTFILES_LINK}/tmux" "$HOME/.tmux_yui"
+createLink -f "$TOOLS_SRC" "${TOOLS_BASE}"
+createLink -f "${TOOLS_BASE}/bin" "$HOME/.bin_yui"
 
 
 # Common dotfiles
 # - create link only if it doesn't exist yet.
 #   Don't want to overwrite. This is for safety.
-cp -i "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
-cp -i "${DOTFILES_LINK}/vimrc/init.vim" "$HOME/.vimrc"
-cp -i "${DOTFILES_LINK}/screenrc/screenrc_base" "$HOME/.screenrc"
-cp -i "${DOTFILES_LINK}/ctags/ctags_base" "$HOME/.ctags"
-cp -i "${DOTFILES_LINK}/git/git-credentials" "$HOME/.git-credentials"
-cp -i "${DOTFILES_LINK}/vimperatorrc" "$HOME/.vimperatorrc"
-cp -i "${DOTFILES_LINK}/npmrc" "$HOME/.npmrc"
-cp -i "${DOTFILES_LINK}/git/gitconfig" "$HOME/.gitconfig"
+createLink "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
+createLink "${DOTFILES_LINK}/vimrc/init.vim" "$HOME/.vimrc"
+createLink "${DOTFILES_LINK}/ctags/ctags_base" "$HOME/.ctags"
+createLink "${DOTFILES_LINK}/git/git-credentials" "$HOME/.git-credentials"
+createLink "${DOTFILES_LINK}/vimperatorrc" "$HOME/.vimperatorrc"
+createLink "${DOTFILES_LINK}/npmrc" "$HOME/.npmrc"
+createLink "${DOTFILES_LINK}/git/gitconfig" "$HOME/.gitconfig"
 
 
-#
-# Vim
-#
-bash "${TOOLS_LINK}/setup_vim.sh"
+popd
 
-#
-# Backup
-#
-TOOLS_BACKUP="$HOME/.tools_yui.tar"
-echo "Creating $TOOLS_BACKUP"
-
-cd "$(dirname "$TOOLS_SRC")"
-rm -rf "$TOOLS_BACKUP"
-tar cf "$TOOLS_BACKUP" "$(basename "$TOOLS_SRC")"
-cd "$TOOLS_SRC"
+# Other setup
+bash "${TOOLS_BASE}/setup_vim.sh"
+bash "${TOOLS_BASE}/setup_tools.sh"
+bash "${TOOLS_BASE}/create_backup.sh"

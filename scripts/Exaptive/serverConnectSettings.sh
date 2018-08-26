@@ -22,24 +22,31 @@ declare -A SERVER_HOMES=()
 # City
 #
 SERVER_HOSTS[city_prod]="exaptive.city"
-SERVER_USERS[city_prod]="exaptive"
+SERVER_USERS[city_prod]="yui"
 SERVER_HOSTS[city_staging]="staging.exaptive.city"
-SERVER_USERS[city_staging]="exaptive"
+SERVER_USERS[city_staging]="yui"
 SERVER_HOSTS[city_bamboo]="bamboo.exaptive.com"
-SERVER_USERS[city_bamboo]="exaptive"
+SERVER_USERS[city_bamboo]="yui"
 SERVER_HOSTS[city_dev]="dev.exaptive.city"
-SERVER_USERS[city_dev]="exaptive"
+SERVER_USERS[city_dev]="yui"
 SERVER_HOSTS[city_feature]="featurebranch.exaptive.city"
-SERVER_USERS[city_feature]="exaptive"
+SERVER_USERS[city_feature]="yui"
 SERVER_HOSTS[city_feature2]="featurebranch2.exaptive.city"
-SERVER_USERS[city_feature2]="exaptive"
+SERVER_USERS[city_feature2]="yui"
 SERVER_HOSTS[city_emerald]="emerald.exaptive.city"
-SERVER_USERS[city_emerald]="exaptive"
+SERVER_USERS[city_emerald]="yui"
 SERVER_HOSTS[city_labs]="labs.exaptive.city"
-SERVER_USERS[city_labs]="exaptive"
+SERVER_USERS[city_labs]="yui"
 SERVER_HOSTS[city_ppi]="ppi.exaptive.city"
-SERVER_USERS[city_ppi]="exaptive"
+SERVER_USERS[city_ppi]="yui"
+SERVER_HOSTS[city_cvbio]="cvbio.exaptive.city"
+SERVER_USERS[city_cvbio]="yui"
+
+SERVER_HOSTS[cognet]="cognitive.exaptive.city"
+SERVER_USERS[cognet]="yui"
+
 SSH_IDENTITY[aws_jira]="${EXAPTIVEAWS}/AWS PEM keys/aws-jira.pem"
+
 SERVER_HOSTS[dockerreg]="dockerreg.exaptive.com"
 SERVER_USERS[dockerreg]="yui"
 SERVER_HOSTS[jenkins]="jenkins.exaptive.com"
@@ -54,7 +61,8 @@ SERVER_USERS[jenkins_ubuntu]="ubuntu"
 SSH_IDENTITY[jenkins_ubuntu]="${EXAPTIVEAWS}/AWS PEM keys/jenkins.pem"
 
 SERVER_HOSTS[city_rc]="rc.exaptive.city"
-SERVER_USERS[city_rc]="exaptive"
+SERVER_USERS[city_rc]="ubuntu"
+SSH_IDENTITY[city_rc]="${EXAPTIVEAWS}/CityProdAccount/PemKeys/cityprod.pem"
 
 
 #

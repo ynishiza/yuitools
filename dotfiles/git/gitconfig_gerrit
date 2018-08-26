@@ -1,6 +1,9 @@
 [alias]
     gfetch = "!git fetch ${GERRIT_REPO:-origin} --prune --tags"
-    ; gchange = "!f() { branch=$1; shift 1; git push origin HEAD:refs/for/$branch $@; }; f"
-    ; gdraft = "!f() { branch=$1; shift 1; git push origin HEAD:refs/drafts/$branch $@; }; f"
-    gcm = "!f() { git push ${GERRIT_REPO:-origin} HEAD:refs/for/${GERRIT_BRANCH:-master} $@; }; f"
-    gdm = "!f() { git push ${GERRIT_REPO:-origin} HEAD:refs/drafts/${GERRIT_BRANCH:-master} $@; }; f"
+    gpc = "!f() { git push ${GERRIT_REPO:-origin} HEAD:refs/for/${GERRIT_BRANCH:-master} $@; }; f"
+    gpd = "!f() { git push ${GERRIT_REPO:-origin} HEAD:refs/drafts/${GERRIT_BRANCH:-master} $@; }; f"
+
+	; git gfc CHANGE_NUMBER PATCH_NUMBER
+	; e.g. git gfc 1920 1
+    gfc = "!f() { if [ $# != 2 ]; then echo 'git gfc CHANGE_NUMBER PATCH_NUMBER'; exit 1; fi; git fetch ${GERRIT_REPO:-origin} refs/changes/${1:2:2}/$1/$2; }; f"
+

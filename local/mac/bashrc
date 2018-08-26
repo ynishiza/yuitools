@@ -6,12 +6,20 @@ export LANG=en_gb.UTF-8
 
 source ~/.tools_yui/dotfiles/bashrc/bashrc_base
 
-#
-# Aliases
+## Aliases
 #
 if [[ $IS_MAC ]];
 then
 	alias grip_authenticated='grip --user=yui.nishizawa@gmail.com --pass=Qs3qt3PV'
 fi
 
+
+## Tools
+# iterm
 source ~/.iterm2_shell_integration.`basename $SHELL`
+
+# autojump
+[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
+
+# z
+[[ -s ~/.z.sh ]] && source ~/.z.sh

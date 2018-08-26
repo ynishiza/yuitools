@@ -3,9 +3,11 @@ set -o errexit
 set -o pipefail
 set -o nounset
 
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$__dir/setup_setting.sh"
+
 SCRIPTNAME=$(basename "$0")
 TOOLS_BACKUP="$HOME/.tools_yui.tar"
-echo "Creating $TOOLS_BACKUP"
 
 if [[ ! -f "$SCRIPTNAME" ]]
 then
@@ -13,7 +15,8 @@ then
 	exit 1
 fi
 
-TOOLS_SRC=$(pwd -P)
+echo "Backingup $TOOLS_SRC as $TOOLS_BACKUP"
+
 cd "$(dirname "$TOOLS_SRC")"
 rm -f "$TOOLS_BACKUP"
 tar cf "$TOOLS_BACKUP" "$(basename "$TOOLS_SRC")"

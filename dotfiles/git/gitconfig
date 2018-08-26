@@ -41,7 +41,7 @@
 	caa = commit --amend -a
 
 	uncommit = reset --soft HEAD~
-	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ $A == 'y' ]; then git reset --hard HEAD; fi"
+	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ "$A" = 'y' ]; then git reset --hard HEAD; fi"
 	bv = branch -vv
 	bva = branch -vv -a
 	bd = branch -d

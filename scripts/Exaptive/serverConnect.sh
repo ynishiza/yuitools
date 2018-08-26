@@ -1,14 +1,22 @@
 #!/usr/local/bin/bash
 #
-source serverConnectSettings.sh
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "${__dir}/serverConnectSettings.sh"
 
 set -o errexit
 set -o pipefail
+
+# Uncomment to debug
+# set -x
+
+# Not set due to optional parameters
 # set -o nounset
 
 echo "Bash version: $BASH_VERSION"
 
 main() {
+	if [[ $# == 0 ]]; then _print_usage; exit 1; fi
+
 	local COMMAND=$1
 	shift 1
 
@@ -23,13 +31,15 @@ main() {
 		if [[ $# != 3 ]]; then echo "$0 upload SERVER_NAME SRC(local path) DEST(remote directory)"; exit 1; fi
 		_scp_server "upload" "$1" "$2" "$3";;
 	"tunnel")
-		if [[ $# != 3 ]]; then echo "$0 tunnel SERVER_NAME LOCALPORT REMOTEPORT"; exit; fi
-		OPTIONS="-fN -L $2:localhost:$3"
+		if [[ $# != 2 ]]; then _print_tunnelusasge; exit; fi
+		OPTIONS="-N -L $2"
 		_connect_to_server "$1" "$OPTIONS";;
 	"download")
 		if [[ $# != 3 ]]; then echo "$0 download SERVER_NAME SRC(remote path) DEST(dest directory)"; exit 1; fi
 		_scp_server "download" "$1" "$3" "$2";;
-	*) echo "$(basename "$0")"" list|ssh|upload|download|tunnel";;
+	*)
+		_print_usage
+		;;
 	esac
 }
 
@@ -43,6 +53,21 @@ _print_servers() {
 	do
 		echo "$key:"$'\t\t'"${SERVER_USERS[$key]}@${SERVER_HOSTS[$key]}"
 	done
+}
+
+_print_usage() {
+	cat <<END
+$(basename "$0") list|ssh|upload|download|tunnel
+END
+}
+_print_tunnelusasge() {
+	cat <<END
+tunnel SPEC
+
+where SPEC is of the form
+
+	LOCALPORT:REMOTEHOST:REMOTEPORT
+END
 }
 
 

@@ -4,21 +4,30 @@ export TOOLS_YUI="$HOME/.tools_yui"
 export BASHRC_YUI="${TOOLS_YUI}/dotfiles/bashrc"
 export BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 
+## Settings
 #
-# Check if MAC
+# EDITOR: default editor
+export EDITOR=vim
+
+## Check if MAC
 # 
 export IS_MAC=$([[ -z $(uname | grep Darwin) ]]; echo $?)
 
 
-# Auto completion with git
-if [[ -f "${MY_BIN}/git-completion.bash" ]]
-then
-	source "${MY_BIN}/git-completion.bash"
-fi
-
-
+## Tools
 #
-# PS1
+loadSourceIfExist() {
+	local source_path="$1"
+	if [[ -f "$source_path" ]];
+	then
+		source "$source_path"
+	fi
+}
+loadSourceIfExist "${MY_BIN}/git-completion.bash"
+loadSourceIfExist "${MY_BIN}/tmuxinator.bash"
+
+
+## PS1
 #
 # See PROMPTING in man bash
 #
@@ -54,8 +63,7 @@ PrintSystemInfo() {
 # Bug: printing here caused problems when uploading with scp.
 
 
-#
-# Aliases
+## Aliases
 #
 alias pu="pushd"
 alias po="popd"
@@ -78,8 +86,7 @@ alias vim="stty stop '' -ixoff; vim"
 alias npm-exec='PATH=$(npm bin):$PATH'
 
 
-#
-# Path
+## Path
 #
 # Take backup so that if this bashrc is reloaded, we don't duplicate paths.
 if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
@@ -93,10 +100,9 @@ export PATH_BAK
 export PATH
 
 
+## Custom bashrc
 #
-# Custom bashrc
 # Do this last. Otherwise, may get overwritten by default.
-#
 if [[ $IS_MAC == 1 ]]
 then
 	source "$BASHRC_YUI/bashrc_mac"

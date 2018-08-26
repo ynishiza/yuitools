@@ -6,16 +6,28 @@ delete_swap() {
 	local cmd="find $dir -type f -iregex \"$regex\" -not -iregex \"\.svg$\""
 	local files=
 	files=$(eval "$cmd")
+	files=($files)
 
 	if [[ ! $dir ]]; then echo "No directory provided"; exit 1; fi
 	if [[ ! -d $dir ]]; then echo "$1 is not a directory"; exit 1; fi
 
-	if [[ ! $files ]]; then return; fi
-	echo "$files"
+	if [[ ${#files} = 0 ]]; then return; fi
+	(IFS=$'\n' && echo "${files[*]}")
 	echo "Delete these files? (y/n)"
 
 	read -r ANSWER
-	if [[ $ANSWER == "y" ]]; then echo "Remove"; rm -f "$files"; fi
+	if [[ $ANSWER == "y" ]]; then
+		remove_files "${files[@]}"
+	else
+		echo "Cancelled"
+	fi
+}
+
+remove_files() {
+	for file in "$@"
+	do
+		rm -f "$file"
+	done
 }
 
 SWPREGEX="s[uvw][a-z]"

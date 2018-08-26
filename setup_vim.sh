@@ -1,34 +1,38 @@
 #!/bin/bash
+# shellcheck disable=SC1090
 set -o pipefail
 set -o errexit
 set -o nounset
+#set -x
 
-declare TOOLSDIR
-declare IS_MAC
+__dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+source "$__dir/setup_setting.sh"
+
 declare VIMDIR
 declare VIMRCDIR
 
-TOOLSDIR="$HOME/.tools_yui"
-IS_MAC=$([[ -z $(uname | grep Darwin) ]]; echo $?)
+LOG="/tmp/setup_vimlog.txt"
 VIMDIR="$HOME/.vim"
 VIMRCDIR="$VIMDIR/vimrc.d"
 
+
 main() {
+	echo "" > "$LOG"
 	setupNeoBundle
 	setupDefaultPlugins
 	setupVimrc
 }
 
 setupNeoBundle() {
-	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install_neobundle.sh
-	bash install_neobundle.sh || true
+	curl https://raw.githubusercontent.com/Shougo/neobundle.vim/master/bin/install.sh > install_neobundle.sh 2>>"$LOG"
+	bash install_neobundle.sh  >>"$LOG"|| true
 	# Cleanup
 	rm -f install_neobundle.sh
 }
 
 setupDefaultPlugins() {
 	if [[ ! -d "$VIMDIR" ]]; then mkdir "$VIMDIR"; fi
-	rsync -r "$TOOLSDIR/vim/" "$HOME/.vim" 
+	rsync -r "$TOOLS_BASE/vim/" "$HOME/.vim"
 }
 
 setupVimrc() {
@@ -38,8 +42,8 @@ setupVimrc() {
 	# -f=force
 	# -h=do not follow target if target is symbolic link (mac only)
 	LINKOPT=""
-	if [[ $IS_MAC == 1 ]]; then LINKOPT="-s -f -h"; else LINKOPT="-s -f"; fi
-	ln $LINKOPT "$TOOLSDIR/dotfiles/vimrc" "$VIMRCDIR/avail.d"
+	if [[ -n $IS_MAC ]]; then LINKOPT="-s -f -h"; else LINKOPT="-s -f"; fi
+	eval "ln $LINKOPT \"$TOOLS_BASE/dotfiles/vimrc\" \"$VIMRCDIR/avail.d\""
 
 
 	# Copy initial set of enabled vimrcs
@@ -58,7 +62,8 @@ setupVimrc() {
 	ln -sf "../avail.d/99_custom_vimrc.vim"
 	popd
 
-	# cp -P -f "$TOOLSDIR/vim/vimrc.d/conf.d"/vim_* "$VIMRCDIR/conf.d"
+	# cp -P -f "$TOOLS_BASE/vim/vimrc.d/conf.d"/vim_* "$VIMRCDIR/conf.d"
 }
 
+echo "logs in ${LOG}"
 main
