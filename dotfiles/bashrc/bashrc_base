@@ -1,110 +1,129 @@
 #!/bin/bash
-export MY_BIN="$HOME/.bin_yui"
-export TOOLS_YUI="$HOME/.tools_yui"
-export BASHRC_YUI="${TOOLS_YUI}/dotfiles/bashrc"
-export BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
+MY_BIN="$HOME/.yui_bin"
+TOOLS_YUI="$HOME/.yui_tools"
+BASHRC_YUI="${TOOLS_YUI}/dotfiles/bashrc"
+BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 
-## Settings
-#
-# EDITOR: default editor
-export EDITOR=vim
+# [[ -n $IS_MAC ]] if is mac.
+IS_MAC=$( uname | grep Darwin || echo '' )
 
-## Check if MAC
-# 
-export IS_MAC=$([[ -z $(uname | grep Darwin) ]]; echo $?)
+main() {
+	echo "Loading ${BASH_SOURCE[0]}"
+	setupEnv
+	setupAliases
+	setupPS1
+	loadTools
 
-
-## Tools
-#
-loadSourceIfExist() {
-	local source_path="$1"
-	if [[ -f "$source_path" ]];
+	## Custom bashrc
+	#
+	# Do this last. Otherwise, may get overwritten by default.
+	if [[ -n $IS_MAC ]]
 	then
-		source "$source_path"
+		source "$BASHRC_YUI/bashrc_mac"
 	fi
+	source "$BASHRC_YUI/bashrc_fzf"
 }
-loadSourceIfExist "${MY_BIN}/git-completion.bash"
-loadSourceIfExist "${MY_BIN}/tmuxinator.bash"
 
-
-## PS1
-#
-# See PROMPTING in man bash
-#
-# \s = Shell
-# \h = hostname
-# \H = Full hostname
-# \u = Current user
-# \w = Current directory from the user's home directory
-# \W = Current directory
-BLACK="\[\e[30m\]"
-RED="\[\e[31m\]"
-GREEN="\[\e[32m\]"
-YELLOW="\[\e[33m\]"
-BLUE="\[\e[34m\]"
-MAGENTA="\[\e[35m\]"
-CYAN="\[\e[36m\]"
-WHITE="\[\e[37m\]"
-RESET="\[\e[0m\]"
-export PS1="${WHITE}\u${RESET}@${WHITE}\H${RESET}:${BLUE}\W${RESET} [j=${RED}\j${RESET}] >> "
-
-
-#
-# Functions
-#
-
-PrintSystemInfo() {
-	echo "Bash:$SHELL $BASH_VERSION"
-	echo "Date:$(date)"
-	echo "Kernel:$(uname -a)"
-	echo "User:$(whoami)"
-	echo "Host:$(hostname)"
+loadTools() {
+	## Tools
+	#
+	loadSourceIfExist() {
+		local source_path="$1"
+		if [[ -f "$source_path" ]];
+		then
+			source "$source_path"
+		fi
+	}
+	loadSourceIfExist "${MY_BIN}/git-completion.bash"
+	loadSourceIfExist "${MY_BIN}/tmuxinator.bash"
 }
-# Bug: printing here caused problems when uploading with scp.
+
+setupPS1() {
+	## PS1
+	#
+	# See PROMPTING in man bash
+	#
+	# \s = Shell
+	# \h = hostname
+	# \H = Full hostname
+	# \u = Current user
+	# \w = Current directory from the user's home directory
+	# \W = Current directory
+	BLACK="\[\e[30m\]"
+	RED="\[\e[31m\]"
+	GREEN="\[\e[32m\]"
+	YELLOW="\[\e[33m\]"
+	BLUE="\[\e[34m\]"
+	MAGENTA="\[\e[35m\]"
+	CYAN="\[\e[36m\]"
+	WHITE="\[\e[37m\]"
+	RESET="\[\e[0m\]"
+	export PS1="${WHITE}\u${RESET}@${WHITE}\H${RESET}:${BLUE}\W${RESET} [j=${RED}\j${RESET}] >> "
+}
 
 
-## Aliases
-#
-alias pu="pushd"
-alias po="popd"
-alias ll="ls -alF"
-alias la="ls -A"
-alias rm="rm -i"
-alias cp="cp -i"
-alias mv="mv -i"
-alias less="less -N"
+setupAliases() {
+	alias pu="pushd"
+	alias po="popd"
+	alias ll="ls -alF"
+	alias la="ls -A"
+	alias rm="rm -i"
+	alias cp="cp -i"
+	alias mv="mv -i"
+	alias less="less -N"
 
-alias doublequote="sed -e 's/\(.*\)/\"\1\"/'"
-alias singlequote="sed -e \"s/\(.*\)/'\1'/\""
-alias timecmd="/usr/bin/time /bin/bash -c"
+	alias doublequote="sed -e 's/\(.*\)/\"\1\"/'"
+	alias singlequote="sed -e \"s/\(.*\)/'\1'/\""
+	alias timecmd="/usr/bin/time /bin/bash -c"
 
-# To enable <C-S> to work in vim.
-alias vim="stty stop '' -ixoff; vim"
+	# To enable <C-S> to work in vim.
+	alias vim="stty stop '' -ixoff; vim"
 
-# Include local node_modules in path
-# https://stackoverflow.com/questions/9679932/how-to-use-package-installed-locally-in-node-modules
-alias npm-exec='PATH=$(npm bin):$PATH'
-
-
-## Path
-#
-# Take backup so that if this bashrc is reloaded, we don't duplicate paths.
-if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
-PATH=$PATH_BAK
-
-PATH=/usr/sbin:$PATH
-PATH=/usr/local/bin:/usr/sbin:$PATH
-PATH="$MY_BIN:$PATH"
-PATH=$HOME/.node_modules/bin:$PATH:
-export PATH_BAK
-export PATH
+	# Include local node_modules in path
+	# https://stackoverflow.com/questions/9679932/how-to-use-package-installed-locally-in-node-modules
+	alias npm-exec='PATH=$(npm bin):$PATH'
+}
 
 
-## Custom bashrc
-#
-# Do this last. Otherwise, may get overwritten by default.
-if [[ $IS_MAC == 1 ]]
-then
-	source "$BASHRC_YUI/bashrc_mac"
-fi
-source "$BASHRC_YUI/bashrc_fzf"
+setupFunction() {
+	PrintSystemInfo() {
+		echo "Bash:$SHELL $BASH_VERSION"
+		echo "Date:$(date)"
+		echo "Kernel:$(uname -a)"
+		echo "User:$(whoami)"
+		echo "Host:$(hostname)"
+	}
+	# Bug: printing here caused problems when uploading with scp.
+}
+
+
+setupEnv() {
+	## Settings
+	#
+	# EDITOR: default editor
+	export EDITOR=vim
+
+	setupPath
+}
+
+setupPath() {
+	## Path
+	#
+	# Take backup so that if this bashrc is reloaded, we don't duplicate paths.
+	if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
+	PATH=$PATH_BAK
+
+	PATH=/usr/sbin:$PATH
+	PATH=/usr/local/bin:/usr/sbin:$PATH
+	PATH="$MY_BIN:$PATH"
+	PATH=$HOME/.node_modules/bin:$PATH:
+	export PATH_BAK
+	export PATH
+}
+
+setupCustomVariables() {
+	# Nothing yet
+	: 
+}
+
+main

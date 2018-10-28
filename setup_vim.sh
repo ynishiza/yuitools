@@ -12,7 +12,7 @@ declare VIMDIR
 declare VIMRCDIR
 
 LOG="/tmp/setup_vimlog.txt"
-VIMDIR="$HOME/.vim"
+declare VIMDIR="$HOME/.vim"
 VIMRCDIR="$VIMDIR/vimrc.d"
 
 
@@ -47,7 +47,8 @@ setupVimrc() {
 
 
 	# Copy initial set of enabled vimrcs
-	pushd "$VIMRCDIR/conf.d"
+	(
+	cd "$VIMRCDIR/conf.d"
 	ln -sf "../avail.d/00_sensible.vim" .
 	ln -sf "../avail.d/10_base.vim"
 	ln -sf "../avail.d/10_editing.vim"
@@ -60,7 +61,7 @@ setupVimrc() {
 	ln -sf "../avail.d/30_plugin_taglist.vim"
 	ln -sf "../avail.d/90_highlights.vim"
 	ln -sf "../avail.d/99_custom_vimrc.vim"
-	popd
+	)
 
 	# cp -P -f "$TOOLS_BASE/vim/vimrc.d/conf.d"/vim_* "$VIMRCDIR/conf.d"
 }

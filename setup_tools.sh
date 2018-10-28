@@ -1,6 +1,7 @@
 #!/bin/bash
 #shellcheck disable=SC1090
 set -eu -o pipefail
+# set -o xtrace
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$__dir/setup_setting.sh"

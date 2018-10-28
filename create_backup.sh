@@ -7,7 +7,7 @@ __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$__dir/setup_setting.sh"
 
 SCRIPTNAME=$(basename "$0")
-TOOLS_BACKUP="$HOME/.tools_yui.tar"
+TOOLS_BACKUP="$HOME/.yui_tools.tar"
 
 if [[ ! -f "$SCRIPTNAME" ]]
 then

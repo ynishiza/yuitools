@@ -69,7 +69,7 @@ map <leader>r :so $MYVIMRC<cr>
 map <leader>f/ /<c-r>=expand("<cword>")<cr>
 " Search and replace word under cursor.
 map <leader>fs :%s/\v(<<c-r>=expand("<cword>")<cr>>)/
-map <leader>fg :grep "\<<c-r>=expand("<cword>")<cr>\>"
+map <leader>fg :grep "\<<c-r>=expand("<cword>")<cr>\>" -r
 " Clear search highlights
 nmap <leader>ff :nohlsearch<cr>
 
