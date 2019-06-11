@@ -6,32 +6,42 @@
 "
 " g:custom_vimrc 		The path of the vimrc loaded
 "
-function! LoadCustomVim() 
-	let mod = ":h"
-	let dir = expand("%:p" . mod)
-
-	" Default vimrc.
-	let myvimrc = resolve(expand("$MYVIMRC"))
-	"echo myvimrc
-	"
-	while dir != "/" 
-		let file = dir . "/.vimrc"
-
-		" Expand to full path
-		let fullfile = resolve(expand(file))
-
-		" Found vimrc.
-		" - Ignore default vimrc.
-		if filereadable(file) && fullfile != myvimrc
-			"echo "Found custom vim: " . file
-			let g:custom_vimrc=file
-			execute "so " file ""
-			break
+" case: define and run LoadCustomVim exactly once.
+" Need to check this explicitly, especially with neovim.
+if !exists("*LoadCustomVim")
+	function LoadCustomVim() 
+		" case: loaded already
+		if exists('g:custom_vimrc') 
+			return
 		endif
 
-		let mod = mod . ":h"
-		let dir = expand("%:p" . mod)
-	endwhile
-endfunction
+		let l:mod = ":h"
+		let l:dir = expand("%:p" . l:mod)
 
-call LoadCustomVim()
+		" Default vimrc.
+		let myvimrc = resolve(expand("$MYVIMRC"))
+		let g:custom_vimrc = ""
+		"echo myvimrc
+		"
+		while l:dir != "/" 
+			let l:file = l:dir . "/.vimrc"
+
+			" Expand to full path
+			let l:fullfile = resolve(expand(l:file))
+
+			" Found vimrc.
+			" - Ignore default vimrc.
+			if filereadable(l:file) && l:fullfile != myvimrc
+				"echo "Found custom vim: " . l:file
+				let g:custom_vimrc=l:file
+				execute "so " l:file ""
+				break
+			endif
+
+			let l:mod = l:mod . ":h"
+			let l:dir = expand("%:p" . l:mod)
+		endwhile
+	endfunction
+
+	call LoadCustomVim()
+endif

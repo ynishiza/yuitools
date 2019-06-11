@@ -7,6 +7,8 @@
 # Vim swap files
 .*.sw[a-z]
 .sw[a-z]
+# Vim undo files
+.*.un~
 
 # tern
 .tern-project

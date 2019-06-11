@@ -8,6 +8,8 @@ let t:comment_term_end=""
 
 function! InitVim()
 	let t:comment_term="\""
+	call EditWithSpaces(2)
+  set undofile
 endfunction
 
 function! InitPython()
@@ -22,25 +24,30 @@ function! InitPython()
 	set softtabstop=4
 	" set textwidth=79
 	call EditWithSpaces(4)
+  set undofile
 endfunction
 
 function! InitPHP()
 	let g:myvar="php"
 	let t:comment_term="//"
+  set undofile
 endfunction
 
 function! InitJs()
 	let t:comment_term="//"
 	call JSWithSpaces(2)
+  set undofile
 endfunction
 
 function! InitCss()
 	let t:comment_term="/\\* "
 	let t:comment_term_end=" \\*/"
+  set undofile
 endfunction
 
-function! InitBash()
+function! InitShell()
 	let t:comment_term="#"
+  set undofile
 endfunction
 
 function! InitR()
@@ -49,10 +56,12 @@ function! InitR()
 	set tabstop=2
 	set shiftwidth=0
 	set textwidth=80
+  set undofile
 endfunction
 
 function! InitMakefile()
 	let t:comment_term="#"
+  set undofile
 endfunction
 
 function! InitGitmerge()
@@ -84,6 +93,24 @@ endfunction
 
 function! InitMarkdown()
 	:EditWithSpaces 2
+  set textwidth=0
+  set undofile
+endfunction
+
+function! LatexInit()
+	let g:tex_flavor="latex"
+
+	" tex files very slow
+	" https://stackoverflow.com/questions/8300982/vim-running-slow-with-latex-files
+	set norelativenumber
+	set nocursorline
+	:NoMatchParen
+
+	" Too slow
+	set foldmethod=manual
+	set nofoldenable
+	let g:syntastic_tex_checkers=[]
+  set undofile
 endfunction
 
 function! MyTestFunct()
@@ -95,11 +122,12 @@ autocmd FileType python call InitPython()
 autocmd FileType php call InitPHP()
 autocmd FileType javascript call InitJs()
 autocmd FileType r call InitR()
-autocmd FileType sh call InitBash()
+autocmd FileType sh call InitShell()
 autocmd FileType make call InitMakefile()
 autocmd FileType markdown call InitMarkdown()
 autocmd Filetype css call InitCss()
 autocmd Filetype json call JSWithSpaces(2)
+autocmd BufRead *.tex call LatexInit()
 
 autocmd BufWrite
 			\ *.sh,
@@ -113,6 +141,7 @@ autocmd BufWrite
 autocmd BufRead *.md set filetype=markdown
 autocmd BufRead *.json set filetype=json
 autocmd BufRead *.rst set filetype=markdown
+autocmd BufRead *.conf set filetype=conf
 
 " JSON
 autocmd BufRead .eslintrc set filetype=json

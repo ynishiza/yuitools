@@ -1,149 +1,159 @@
 if has('vim_starting')
-	set nocompatible
-	set runtimepath+=~/.vim/bundle/neobundle.vim
+  set nocompatible
+  set runtimepath+=~/.vim/bundle/neobundle.vim
 endif
 
-function _BundleInstalled(name)
-	return !empty(glob('~/.vim/bundle/' . a:name))
+function! _BundleInstalled(name)
+  return !empty(glob('~/.vim/bundle/' . a:name))
 endfunction
 
 " Returns true if NeoBundle is installed
-function NeoBundleInstalled()
-	return !empty(glob('~/.vim/bundle'))
+function! NeoBundleInstalled()
+  return !empty(glob('~/.vim/bundle'))
 endfunction
 
 if NeoBundleInstalled()
-	" Note: Skip initialization for vim-tiny or vim-small.
-	if 0 | endif
+  " Note: Skip initialization for vim-tiny or vim-small.
+  if 0 | endif
 
-	if has('vim_starting')
-		if &compatible
-			set nocompatible               " Be iMproved
-		endif
+  if has('vim_starting')
+    if &compatible
+      set nocompatible               " Be iMproved
+    endif
 
-		" Required:
-		set runtimepath+=~/.vim/bundle/neobundle.vim/
-	endif
+    " Required:
+    set runtimepath+=~/.vim/bundle/neobundle.vim/
+  endif
 
-	call neobundle#begin(expand('~/.vim/bundle/'))
+  call neobundle#begin(expand('~/.vim/bundle/'))
 
-	" Plugins
-	NeoBundleFetch "Shougo/neobundle.vim"
-	
+  " Plugins
+  NeoBundleFetch "Shougo/neobundle.vim"
 
- 
-	" solarized: color scheme
-	NeoBundle "altercation/vim-colors-solarized"
+  " solarized: color scheme
+  NeoBundle "altercation/vim-colors-solarized"
 
-	" NERDTREE: file explorer
-	NeoBundle 'scrooloose/nerdtree'
+  " gpg editing
+  NeoBundle "jamessan/vim-gnupg"
 
-	" airline: vim powerline
-	NeoBundle 'bling/vim-airline'
+  " NERDTREE: file explorer
+  NeoBundle 'scrooloose/nerdtree'
 
-	" ack: grep replacement
-	NeoBundle 'mileszs/ack.vim'
+  " airline: vim powerline
+  NeoBundle 'bling/vim-airline'
 
-	" YouCompleteMe: autocompletion
-	NeoBundle 'Valloric/YouCompleteMe'
+  " ack: grep replacement
+  NeoBundle 'mileszs/ack.vim'
 
-	" vim-unimpaired: bracket mapping
-	NeoBundle 'tpope/vim-unimpaired'
+  " YouCompleteMe: autocompletion
+  NeoBundle 'Valloric/YouCompleteMe'
 
-	" vim-surround: quoting/parenthesizing tool
-	NeoBundle 'tpope/vim-surround'
+  " vim-unimpaired: bracket mapping
+  NeoBundle 'tpope/vim-unimpaired'
 
-	" undotree: undo tree
-	NeoBundle 'mbbill/undotree'
+  " vim-surround: quoting/parenthesizing tool
+  NeoBundle 'tpope/vim-surround'
 
-	" fzf: fuzzy find plugin
-	NeoBundle 'junegunn/fzf'
+  " undotree: undo tree visualization
+  NeoBundle 'mbbill/undotree'
 
-	" Commentary: easy commenting out
-	NeoBundle 'tpope/vim-commentary'
+  " fzf: fuzzy find plugin
+  NeoBundle 'junegunn/fzf'
 
+  " Commentary: easy commenting out
+  NeoBundle 'tpope/vim-commentary'
 
-	""""""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
+  " vim-table-mode: creating tables
+  NeoBundle 'dhruvasagar/vim-table-mode'
 
-	" syntactic: syntax check
-	NeoBundle 'scrooloose/syntastic'
+  " undotree:
+  NeoBundle 'mbbill/undotree'
 
-	" TypeScript syntastic plugin
-	NeoBundle 'Quramy/tsuquyomi'
+  """"""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
 
+  " syntactic: syntax check
+  NeoBundle 'scrooloose/syntastic'
 
-	""""""""""""""""""""""""""" HTML """""""""""""""""""""""""""
-	" emmet: HTML plugin
-	NeoBundle 'mattn/emmet-vim'
-
-
-	""""""""""""""""""""""""""" R """""""""""""""""""""""""""
-	" Nvim-R: R plugin. Provides omnicompletion
-	NeoBundle 'jalvesaq/Nvim-R'
+  " TypeScript syntastic plugin
+  NeoBundle 'Quramy/tsuquyomi'
 
 
-	" lintr: Lint R
-	NeoBundle 'jimhester/lintr'
-	
-
-	""""""""""""""""""""""""""" JavaScript """""""""""""""""""""""""""
-
-	" TypeScript Syntax file
-	"NeoBundle 'leafgarland/typescript-vim'
+  """"""""""""""""""""""""""" HTML """""""""""""""""""""""""""
+  " emmet: HTML plugin
+  NeoBundle 'mattn/emmet-vim'
 
 
-	" ternjs: syntax completion for JavaScript.
-	NeoBundle 'ternjs/tern_for_vim',
-		\ { 'build' : { 'others': 'npm install' } }
+  """"""""""""""""""""""""""" R """""""""""""""""""""""""""
+  " Nvim-R: R plugin. Provides omnicompletion
+  NeoBundle 'jalvesaq/Nvim-R'
 
 
-	" javascript-indenter: more smart indenting of JavaScript
-	" - Need when indents are spaces.
-	" - brief mode: minimal indenting.
-	NeoBundle 'jiangmiao/simple-javascript-indenter'
+  " lintr: Lint R
+  NeoBundle 'jimhester/lintr'
+
+  """"""""""""""""""""""""""" LaTeX """""""""""""""""""""""""""
+
+  " vimtex: Comprehensive LaTeX filetype plugin.
+  NeoBundle 'lervag/vimtex'
+
+  """"""""""""""""""""""""""" JavaScript """""""""""""""""""""""""""
+
+  " TypeScript Syntax file
+  "NeoBundle 'leafgarland/typescript-vim'
 
 
-	" JavaScript syntax file.
-	" NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
-	" au FileType javascript call JavaScriptFold()
-	" au FileType javascript set foldmethod=syntax
-
-	NeoBundle 'pangloss/vim-javascript'
-
-	" TypeScript syntax file
-	NeoBundle 'leafgarland/typescript-vim'
-
-	""""""""""""""""""""""""""" Haskell """""""""""""""""""""""""""
-
-	" neco-ghc: omnicomplete for haskell
-	" not working?
-	NeoBundle 'eagletmt/neco-ghc'
-	au FileType haskell setlocal omnifunc=necoghc#omnifunc
-
-	"
-	NeoBundle 'lukerandall/haskellmode-vim'
-	let g:haddock_browser="abc"
+  " ternjs: syntax completion for JavaScript.
+  NeoBundle 'ternjs/tern_for_vim',
+    \ { 'build' : { 'others': 'npm install' } }
 
 
-	""""""""""""""""""""""""""" PHP """""""""""""""""""""""""""
-	
-	" vdebug: debug plugin for PHP's XDebugger
-	NeoBundle 'joonty/vdebug'
+  " javascript-indenter: more smart indenting of JavaScript
+  " - Need when indents are spaces.
+  " - brief mode: minimal indenting.
+  NeoBundle 'jiangmiao/simple-javascript-indenter'
 
 
-	""""""""""""""""""""""""""" Disabled """""""""""""""""""""""""""
+  " JavaScript syntax file.
+  " NeoBundleLazy 'jelera/vim-javascript-syntax', {'autoload':{'filetypes':['javascript']}}
+  " au FileType javascript call JavaScriptFold()
+  " au FileType javascript set foldmethod=syntax
 
-	"NeoBundle 'majutsushi/tagbar'
+  NeoBundle 'pangloss/vim-javascript'
+
+  " TypeScript syntax file
+  NeoBundle 'leafgarland/typescript-vim'
+
+  """"""""""""""""""""""""""" Haskell """""""""""""""""""""""""""
+
+  " neco-ghc: omnicomplete for haskell
+  " not working?
+  NeoBundle 'eagletmt/neco-ghc'
+  au FileType haskell setlocal omnifunc=necoghc#omnifunc
+
+  "
+  NeoBundle 'lukerandall/haskellmode-vim'
+  let g:haddock_browser="abc"
 
 
-	" Color status bar:
-	" Doesn't work well with Mac.
-	"NeoBundle 'itchyny/lightline.vim'
+  """"""""""""""""""""""""""" PHP """""""""""""""""""""""""""
 
-	"
-	filetype plugin indent on
+  " vdebug: debug plugin for PHP's XDebugger
+  NeoBundle 'joonty/vdebug'
 
-	call neobundle#end()
 
-	NeoBundleCheck
+  """"""""""""""""""""""""""" Disabled """""""""""""""""""""""""""
+
+  "NeoBundle 'majutsushi/tagbar'
+
+
+  " Color status bar:
+  " Doesn't work well with Mac.
+  "NeoBundle 'itchyny/lightline.vim'
+
+  "
+  filetype plugin indent on
+
+  call neobundle#end()
+
+  NeoBundleCheck
 endif

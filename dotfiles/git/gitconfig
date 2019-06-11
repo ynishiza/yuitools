@@ -5,20 +5,13 @@
 [user]
 	name = Yui Nishizawa
 	email = yui@exaptive.com
+	signingkey = 4A308600 
 [push]
 	default = nothing
 [alias]
-	# colors
-	# - yellow: SHA1
-	# - blue: branch
-	# - red:
-	# - green: author
-	lsa = log --format=\"%C(yellow) %h %Cred %cr %C(green) %an %C(blue)%d %Creset %s  \" 
-	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %an %C(blue)%d %Creset %s \" 
-	lg = log --graph 
-	lp = log -p
-	lst = log --stat
-	last = log --stat -1 -p
+	# Config
+	aliases = "! git config --get-regex 'alias.*' | sort"
+	cls = config --list
 
 	#
 	# Shortcuts
@@ -30,14 +23,29 @@
 	df = diff
 	dfword = diff --word-diff
 	dt = difftool
+	m = merge
 	mt = mergetool
 	f = fetch
+
+	# colors
+	# - yellow: SHA1
+	# - blue: branch
+	# - red:
+	# - green: author
+	lsa = log --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s  \" 
+	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s \" 
+	lg = log --graph 
+	lp = log -p --show-signature
+	lst = log --stat --show-signature
+	last = log --stat -1 -p --show-signature
 	
 	dfc = diff --cached
 	ai = add -i
 	ap = add -p
 	au = add --update
+	cS = commit -S
 	ca = commit --amend
+	caS = commit --amend -S
 	caa = commit --amend -a
 
 	uncommit = reset --soft HEAD~
@@ -50,6 +58,8 @@
 	upstream = "!f() { git branch --set-upstream-to=$1; }; f"
 	bf = branch -f
 	fo = fetch origin --prune --tags
+	mm = merge origin/master
+
 [credential]
 	helper = store
 [sendemail]

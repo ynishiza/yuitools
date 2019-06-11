@@ -3,4 +3,4 @@
 # usage
 #   doublequote < file.txt
 # 
-sed -e 's/^\(.*\)$/"\1"/'
+echo "$1" | sed -e 's/^\(.*\)$/"\1"/'

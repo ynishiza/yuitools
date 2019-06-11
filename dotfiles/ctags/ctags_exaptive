@@ -1,4 +1,0 @@
---regex-javascript=/^[ \t]*\.method\(["']([_a-zA-Z0-9]+)["']/\1/g,exaptive_method/
---regex-javascript=/^[ \t]*\.init\(function/init/g,exaptive_method/
---regex-javascript=/^[ \t]*\.inEvent\(["']([_a-zA-Z0-9]+)["']/\1/h,exaptive_inevent/
---regex-javascript=/^[ \t]*\.outEvent\(["']([_a-zA-Z0-9]+)["']/\1/i,exaptive_outevent/

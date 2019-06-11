@@ -1,3 +1,0 @@
---regex-javascript=/^[ \t]*describe\((.*), /\1/j,describe/
---regex-javascript=/^[ \t]*it\((.*), /\1/k,it/
-

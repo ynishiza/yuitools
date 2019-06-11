@@ -5,6 +5,8 @@
 filetype plugin on 
 filetype indent on
 
+" utf-8 for default encoding. Sometimes, vim uses latin.
+set encoding=utf-8
 
 " - use backspace to delete eol, indents, and start of an insert.
 set backspace=eol,indent,start
@@ -53,6 +55,11 @@ set tabstop=4
 set shiftwidth=0
 " Indent automatically on new line.
 set autoindent
+" t = autowrap at textwidth
+" c = autowrap comments at text width
+" q = allow formatting text with gq
+" r = automatically continue comment on new line
+set formatoptions=tcqr
 
 
 " == Fold ==

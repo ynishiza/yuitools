@@ -12,6 +12,7 @@ main() {
 	setupEnv
 	setupAliases
 	setupPS1
+	setupFunction
 	loadTools
 
 	## Custom bashrc
@@ -22,6 +23,7 @@ main() {
 		source "$BASHRC_YUI/bashrc_mac"
 	fi
 	source "$BASHRC_YUI/bashrc_fzf"
+	source "$BASHRC_YUI/bashrc_snort"
 }
 
 loadTools() {
@@ -82,6 +84,10 @@ setupAliases() {
 	# Include local node_modules in path
 	# https://stackoverflow.com/questions/9679932/how-to-use-package-installed-locally-in-node-modules
 	alias npm-exec='PATH=$(npm bin):$PATH'
+
+	# Only works if no values contain no spaces 
+	alias dotenv-use="env \$(cat .env | grep -v '^#' | xargs)"
+	alias dotenv-export="export \$(cat .env | grep -v '^#' | xargs)"
 }
 
 
@@ -94,6 +100,21 @@ setupFunction() {
 		echo "Host:$(hostname)"
 	}
 	# Bug: printing here caused problems when uploading with scp.
+
+	DotEnvExport() {
+		while read -r line
+		do
+			# Skip comment
+			if echo "$line" | grep '^#' >/dev/null; then continue; fi
+			# shellcheck disable=SC2163
+			export "$line"
+		done < .env 
+	}
+
+	DotEnvUse() {
+		# shellcheck disable=SC2068
+		( DotEnvExport; $@ )
+	}
 }
 
 
@@ -114,7 +135,7 @@ setupPath() {
 	PATH=$PATH_BAK
 
 	PATH=/usr/sbin:$PATH
-	PATH=/usr/local/bin:/usr/sbin:$PATH
+	PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:$PATH
 	PATH="$MY_BIN:$PATH"
 	PATH=$HOME/.node_modules/bin:$PATH:
 	export PATH_BAK

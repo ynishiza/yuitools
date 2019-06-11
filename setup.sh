@@ -43,7 +43,7 @@ runSetup() {
 	#
 	# Links
 	#
-	createLink -f "$TOOLS_SRC" "${TOOLS_BASE}"
+	createLink "$TOOLS_SRC" "${TOOLS_BASE}"
 	createLink -f "${TOOLS_BASE}/bin" "$HOME/.yui_bin"
 	createLink -f "${TOOLS_BASE}/dotfiles" "$HOME/.yui_dotfiles"
 

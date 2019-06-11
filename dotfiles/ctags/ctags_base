@@ -2,6 +2,11 @@
 --langmap=markdown:.markdown.md.rst
 --regex-markdown=/^(##* +.+)/\1/h,header/
 
+--langdef=smplnt
+--langmap=smplnt:.smplnt
+--regex-smplnt=/^[ \t]*#(.+)#/\1/h,header/
+--regex-smplnt=/\*([a-zA-Z0-9 ]+)\*/\1/k,keyword/
+
 
 --regex-javascript=/^[ \t]*var +([A-Z][_a-zA-Z0-9]+)[ \t]+=[ \t]+function\(/\1/e,class/
 --regex-javascript=/^[ \t]*function +([A-Z][_a-zA-Z0-9]+)\(/\1/e,class/

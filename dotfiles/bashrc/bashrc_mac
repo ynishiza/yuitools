@@ -1,9 +1,11 @@
 #!/bin/bash
+
 main() {
 	echo "Loading ${BASH_SOURCE[0]}"
 	setupAlias
 	setupEnv
 	setupCustomVariables
+	setupTools
 }
 
 setupAlias() {
@@ -11,8 +13,8 @@ setupAlias() {
 	# Alias
 	#
 	alias ytop="top -r -S -stats pid,command,cpu,mem,user,time,state,rprvt,vsize,vprvt,kprvt,kshrd,purg"
-	alias ls="ls -FG"
-	alias ll="ls -alFG" 	# G for color
+	alias ls="ls -G"
+	alias ll="ls -alFG" 	# G=color F=show type 
 	alias la="ls -AG"
 	PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
 	alias ypscpu="CommandWithLess ps -Ar -o $PSCOLUMNS"
@@ -56,12 +58,64 @@ setupEnv() {
 setupPath() {
 	PATH=/usr/lib:$PATH
 	PATH=$HOME/local/bin:$PATH
+	PATH="$TOOLS_YUI/scripts:$PATH"
+	PATH="$TOOLS_YUI/scripts/Exaptive:$PATH"
 	export PATH
 }
 
 setupCustomVariables() {
 	# Nothing yet
 	: 
+}
+
+setupTools() {
+	## Tools
+	# iterm
+	source ~/.iterm2_shell_integration.`basename $SHELL`
+
+	# autojump
+	[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
+
+	# z
+	[[ -s ~/.z.sh ]] && source ~/.z.sh
+
+	# iTerm
+	test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
+
+	# GPG
+	SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+	export SSH_AUTH_SOCK
+	gpgconf --launch gpg-agent
+
+	# Stubby
+	if [[ -d /usr/local/opt/stubby ]]
+	then
+		# Stubby helpers
+		stubby_setdns() {
+			# shellcheck disable=SC2068
+			sudo bash /usr/local/opt/stubby/sbin/stubby-setdns-macos.sh $@
+		}
+		stubby_log() {
+			# shellcheck disable=SC2068
+			sudo less $@ /usr/local/var/log/stubby/stubby.log
+		}
+		stubby_server_key() {
+			local host
+			local port
+			host=$1
+			port=${2:-853}
+			certificate=$(echo "" | openssl s_client -connect "${host}:${port}" 2>/dev/null)
+			if [[ ! "$certificate" ]]; then echo "No certificate for ${host}:${port}"; return; fi
+			echo "$certificate" |
+			   openssl x509 -pubkey -noout |
+			   openssl pkey -pubin -outform der |
+			   openssl dgst -sha256 -binary |
+			   openssl enc -base64
+		}
+	fi
+
+	GPG_TTY=$(tty)
+	export GPG_TTY
 }
 
 main

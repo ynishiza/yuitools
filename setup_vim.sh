@@ -15,12 +15,16 @@ LOG="/tmp/setup_vimlog.txt"
 declare VIMDIR="$HOME/.vim"
 VIMRCDIR="$VIMDIR/vimrc.d"
 
+declare NVIMDIR="$HOME/.config/nvim"
+
 
 main() {
 	echo "" > "$LOG"
-	setupNeoBundle
+	# setupNeoBundle
+	# setupDein # Disabled
 	setupDefaultPlugins
-	setupVimrc
+	# setupVimrc
+	echo "logs in ${LOG}"
 }
 
 setupNeoBundle() {
@@ -30,9 +34,19 @@ setupNeoBundle() {
 	rm -f install_neobundle.sh
 }
 
+setupDein() {
+	curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh
+	# For example, we just use `~/.cache/dein` as installation directory
+	sh ./installer.sh ~/.cache/dein
+}
+
 setupDefaultPlugins() {
-	if [[ ! -d "$VIMDIR" ]]; then mkdir "$VIMDIR"; fi
-	rsync -r "$TOOLS_BASE/vim/" "$HOME/.vim"
+	mkdir -p "$VIMDIR"
+	rsync -r "$TOOLS_BASE/vim/" "$VIMDIR"
+
+	# Setup neovim
+	mkdir -p "$NVIMDIR"
+	rsync -r "$TOOLS_BASE/nvim/" "$NVIMDIR"
 }
 
 setupVimrc() {
@@ -55,16 +69,19 @@ setupVimrc() {
 	ln -sf "../avail.d/10_mappings.vim"
 	ln -sf "../avail.d/10_language.vim"
 	ln -sf "../avail.d/20_neobundle.vim"
+	# ln -sf "../avail.d/20_dein.vim"  Not working yet
 	ln -sf "../avail.d/30_plugin_settings.vim"
 	ln -sf "../avail.d/30_plugin_syntastic.vim"
 	ln -sf "../avail.d/30_plugin_tern.vim"
 	ln -sf "../avail.d/30_plugin_taglist.vim"
 	ln -sf "../avail.d/90_highlights.vim"
 	ln -sf "../avail.d/99_custom_vimrc.vim"
+	ln -sf "../avail.d/99_asciitable.vim"
+	ln -sf "../avail.d/99_functions.vim"
+	ln -sf "../avail.d/99_help.vim"
 	)
 
 	# cp -P -f "$TOOLS_BASE/vim/vimrc.d/conf.d"/vim_* "$VIMRCDIR/conf.d"
 }
 
-echo "logs in ${LOG}"
 main

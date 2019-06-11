@@ -3,7 +3,7 @@
 "  <ESC> = escape
 "  <Tab> = tab
 "  <Space> = space
-"  <CR> = return
+"  <cr> = return
 "
 "  <F1> = F1
 "  <F2> = F2
@@ -30,19 +30,22 @@ let maplocalleader=","
 
 
 " Save
-noremap <leader>s :w<CR>
-noremap <c-s> :w<CR>
-inoremap <c-s> <esc>:w<CR>
+noremap <leader>s :w<cr>
+noremap <c-s> :w<cr>
+inoremap <c-s> <esc>:w<cr>
 
-
+" Window
+nmap <c-w>m :resize<cr>:vertical resize<cr>
 " Close window
-map <leader>w :q<CR>
+map <leader>w :q<cr>
 " Quit (close all windows)
-map <leader>q :qa<CR>
+map <leader>q :if input('Quit all? (y/n) ') == 'y' \| quitall \| endif<cr>
+map <leader>Q :if input('Force quit all? (y/n) ') == 'y' \| quitall! \| endif<cr>
 
 
 "" Buffers
 map <leader>bo :ls<cr>:b
+map <leader>ba :ba
 map <leader>bd :ls!<cr>:bd
 map <leader>bs :ls<cr>
 map <leader>bS :ls!<cr>
@@ -50,7 +53,6 @@ map <leader>bn :bn<cr>
 map <leader>bp :bp<cr>
 map <leader>bf :bf<cr>
 map <leader>bl :bl<cr>
-
 
 "" Tabs
 map <leader>tn :tabedit<cr>
@@ -61,7 +63,8 @@ map <leader>tq :tabclose<cr>
 
 
 " Reload
-map <leader>r :so $MYVIMRC<cr>
+map <leader>ra :so $MYVIMRC<cr>
+map <leader>r. :exec "so " . expand("%:p")<cr>
 
 
 " Search
@@ -81,6 +84,12 @@ map <leader>lp :lprevious<cr>
 map <leader>lw :lwindow<cr>
 map <leader>lc :lclose<cr>
 
+map <leader>cn :cc<cr>
+map <leader>cn :cnext<cr>
+map <leader>cp :cprevious<cr>
+map <leader>cw :cwindow<cr>
+map <leader>cc :close<cr>
+
 
 "" Clipboard
 " - mac only? + registry is clipboard
@@ -99,3 +108,10 @@ nmap <leader>. @:
 " Escape shortcut
 imap <c-c> <ESC>
 imap <c-k> <ESC>
+
+"" Shortcuts
+" History. Don't want to mistype the history.
+nmap <leader>h q:
+" Redraw
+nmap <leader>d :redraw<cr>
+

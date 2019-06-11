@@ -1,0 +1,50 @@
+#!/bin/bash
+set -eu -o pipefail
+
+DEFAULT_SLEEP=1
+SLEEP=$DEFAULT_SLEEP
+ROW_COUNT=0
+MAX_ROWS_PER_SECTION=5
+MINCPU=70
+
+BLACK="\033[30m"
+RED="\033[31m"
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+MAGENTA="\033[35m"
+CYAN="\033[36m"
+WHITE="\033[37m"
+RESET="\033[0m"
+
+# Header
+HEADER="DATE PPID PID %CPU %MEM USER COMMAND"
+
+while true
+do
+    NOW=$(date)
+	entry=$(ps -A -o ppid,pid,%cpu,%mem,user,time,command |
+	awk "\$3 > $MINCPU { printf \"$NOW %7s $BLUE%7s$RESET $RED%6s$RESET $YELLOW%6s$RESET %s %s %s\n\",\$1,\$2,\$3,\$4,\$5,\$6,\$7 }")
+
+	# Print header
+	if [[ $ROW_COUNT == 0 ]];
+	then 
+		echo ""
+		echo "$HEADER"
+		ROW_COUNT=$((ROW_COUNT + 1))
+	elif [[ $ROW_COUNT > $MAX_ROWS_PER_SECTION ]];
+	then
+		ROW_COUNT=0
+	fi
+
+	if [[ "$entry" ]]
+	then
+		echo "$entry" 
+		ROW_COUNT=$((ROW_COUNT + 1))
+		SLEEP=0.5
+	else
+		SLEEP=$DEFAULT_SLEEP
+	fi
+
+	sleep $SLEEP
+done

@@ -41,9 +41,7 @@ cleanupLink() {
 }
 
 # Dirs
-cleanupLink "$HOME/.vimrc_yui" "${DOTFILES_LINK}/vimrc"
-cleanupLink "$HOME/.bashrc_yui" "${DOTFILES_LINK}/bashrc"
-cleanupLink "$HOME/.screenrc_yui" "${DOTFILES_LINK}/screenrc"
+cleanupLink "$HOME/.yui_dotfiles" "${DOTFILES_LINK}/screenrc"
 
 # Files
 cleanupLink "$HOME/.vimrc" "${DOTFILES_LINK}/vimrc/vimrc_base"
@@ -52,6 +50,4 @@ cleanupLink "$HOME/.screenrc" "${DOTFILES_LINK}/screenrc/screenrc_base"
 cleanupLink "$HOME/.ctags" "${DOTFILES_LINK}/ctags/ctags_base"
 cleanupLink "$HOME/.gitconfig" "${DOTFILES_LINK}/git/gitconfig"
 cleanupLink "$HOME/.npmrc" "${DOTFILES_LINK}/npmrc"
-cleanupLink "$HOME/.git-credentials" "${DOTFILES_LINK}/git/git-credentials"
-cleanupLink "$HOME/.git-credentials" "${DOTFILES_LINK}/git/git-credentials"
 
