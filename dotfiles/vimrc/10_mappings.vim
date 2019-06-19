@@ -106,8 +106,7 @@ nmap <leader>. @:
 
 
 " Escape shortcut
-imap <c-c> <ESC>
-imap <c-k> <ESC>
+imap <c-j> <ESC>
 
 "" Shortcuts
 " History. Don't want to mistype the history.
