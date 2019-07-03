@@ -1,3 +1,3 @@
-if !empty(glob('~/.vim/bundle/syntastic'))
+if !empty(glob('~/.vim/bundle/fzf'))
 	nmap <leader>fz :FZF 
 endif

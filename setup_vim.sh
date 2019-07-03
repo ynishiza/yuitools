@@ -74,6 +74,7 @@ setupVimrc() {
 	ln -sf "../avail.d/30_plugin_syntastic.vim"
 	ln -sf "../avail.d/30_plugin_tern.vim"
 	ln -sf "../avail.d/30_plugin_taglist.vim"
+	ln -sf "../avail.d/30_plugin_fzf.vim"
 	ln -sf "../avail.d/90_highlights.vim"
 	ln -sf "../avail.d/99_custom_vimrc.vim"
 	ln -sf "../avail.d/99_asciitable.vim"
