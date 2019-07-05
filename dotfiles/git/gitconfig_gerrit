@@ -7,3 +7,7 @@
 	; e.g. git gfc 1920 1
     gfc = "!f() { if [ $# != 2 ]; then echo 'git gfc CHANGE_NUMBER PATCH_NUMBER'; exit 1; fi; git fetch ${GERRIT_REPO:-origin} refs/changes/${1:2:2}/$1/$2; }; f"
 
+	; config
+	gfconf = fetch origin refs/meta/config:refs/remotes/origin/meta/config
+	gpconf = push origin HEAD:refs/meta/config
+
