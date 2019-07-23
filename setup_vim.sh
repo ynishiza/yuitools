@@ -20,10 +20,10 @@ declare NVIMDIR="$HOME/.config/nvim"
 
 main() {
 	echo "" > "$LOG"
-	# setupNeoBundle
+	setupNeoBundle
 	# setupDein # Disabled
 	setupDefaultPlugins
-	# setupVimrc
+	setupVimrc
 	echo "logs in ${LOG}"
 }
 
