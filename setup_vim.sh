@@ -20,6 +20,7 @@ declare NVIMDIR="$HOME/.config/nvim"
 
 main() {
 	echo "" > "$LOG"
+	setupDefaultVimrc
 	setupNeoBundle
 	# setupDein # Disabled
 	setupDefaultPlugins
@@ -47,6 +48,17 @@ setupDefaultPlugins() {
 	# Setup neovim
 	mkdir -p "$NVIMDIR"
 	rsync -r "$TOOLS_BASE/nvim/" "$NVIMDIR"
+}
+
+setupDefaultVimrc() {
+	local home_vimrc=$HOME/.vimrc
+	local source_line="source ~/.yui_dotfiles/vimrc/init.vim"
+
+	touch "$home_vimrc"
+	if ! grep "$source_line" "$home_vimrc"
+	then
+		echo "$source_line" >> "$home_vimrc"
+	fi
 }
 
 setupVimrc() {

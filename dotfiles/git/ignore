@@ -2,6 +2,9 @@
 #
 *.tgz
 
+# environment variables
+.env
+
 # Vim
 .vimrc
 # Vim swap files
