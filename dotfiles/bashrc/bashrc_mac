@@ -2,13 +2,13 @@
 
 main() {
 	echo "Loading ${BASH_SOURCE[0]}"
-	setupAlias
-	setupEnv
-	setupCustomVariables
-	setupTools
+	_setupAlias
+	_setupEnv
+	_setupCustomVariables
+	_setupTools
 }
 
-setupAlias() {
+_setupAlias() {
 	#
 	# Alias
 	#
@@ -41,7 +41,7 @@ setupAlias() {
 	alias sarn="DoSar \"-n DEV\""
 }
 
-setupEnv() {
+_setupEnv() {
 	#
 	# Mac specific settings
 	#
@@ -52,10 +52,10 @@ setupEnv() {
 	# Allow forward search with Ctrl-S
 	stty stop undef
 
-	setupPath
+	_setupPath
 }
 
-setupPath() {
+_setupPath() {
 	PATH=/usr/lib:$PATH
 	PATH=$HOME/local/bin:$PATH
 	PATH="$TOOLS_YUI/scripts:$PATH"
@@ -63,12 +63,12 @@ setupPath() {
 	export PATH
 }
 
-setupCustomVariables() {
+_setupCustomVariables() {
 	# Nothing yet
 	: 
 }
 
-setupTools() {
+_setupTools() {
 	## Tools
 	# iterm
 	source ~/.iterm2_shell_integration.`basename $SHELL`
@@ -81,11 +81,6 @@ setupTools() {
 
 	# iTerm
 	test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
-
-	# GPG
-	SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
-	export SSH_AUTH_SOCK
-	gpgconf --launch gpg-agent
 
 	# Stubby
 	if [[ -d /usr/local/opt/stubby ]]

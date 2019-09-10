@@ -7,13 +7,14 @@ BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 # [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
 
-main() {
+_main() {
 	echo "Loading ${BASH_SOURCE[0]}"
-	setupEnv
-	setupAliases
-	setupPS1
-	setupFunction
-	loadTools
+	_setupEnv
+	_setupAliases
+	_setupPS1
+	_setupFunction
+	_loadTools
+	_setupTools
 
 	## Custom bashrc
 	#
@@ -26,7 +27,7 @@ main() {
 	source "$BASHRC_YUI/bashrc_snort"
 }
 
-loadTools() {
+_loadTools() {
 	## Tools
 	#
 	loadSourceIfExist() {
@@ -40,7 +41,14 @@ loadTools() {
 	loadSourceIfExist "${MY_BIN}/tmuxinator.bash"
 }
 
-setupPS1() {
+_setupTools() {
+	# GPG
+	SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
+	export SSH_AUTH_SOCK
+	gpgconf --launch gpg-agent
+}
+
+_setupPS1() {
 	## PS1
 	#
 	# See PROMPTING in man bash
@@ -64,7 +72,7 @@ setupPS1() {
 }
 
 
-setupAliases() {
+_setupAliases() {
 	alias pu="pushd"
 	alias po="popd"
 	alias ll="ls -alF"
@@ -91,7 +99,7 @@ setupAliases() {
 }
 
 
-setupFunction() {
+_setupFunction() {
 	PrintSystemInfo() {
 		echo "Bash:$SHELL $BASH_VERSION"
 		echo "Date:$(date)"
@@ -118,7 +126,7 @@ setupFunction() {
 }
 
 
-setupEnv() {
+_setupEnv() {
 	## Settings
 	#
 	# EDITOR: default editor
@@ -147,4 +155,4 @@ setupCustomVariables() {
 	: 
 }
 
-main
+_main
