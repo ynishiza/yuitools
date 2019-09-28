@@ -14,7 +14,7 @@ _setupAlias() {
 	#
 	alias ytop="top -r -S -stats pid,command,cpu,mem,user,time,state,rprvt,vsize,vprvt,kprvt,kshrd,purg"
 	alias ls="ls -G"
-	alias ll="ls -alFG" 	# G=color F=show type 
+	alias ll="ls -alFG"		# G=color F=show type
 	alias la="ls -AG"
 	PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
 	alias ypscpu="CommandWithLess ps -Ar -o $PSCOLUMNS"
@@ -31,7 +31,7 @@ _setupAlias() {
 		COUNT=$3
 		if [[ ! $INTERVAL ]]; then INTERVAL=$SARINTERVAL; fi
 		if [[ ! $COUNT ]]
-		then 
+		then
 			let COUNT="$SARCOUNT"
 		fi
 		sar "$TYPE $INTERVAL $COUNT"
@@ -65,21 +65,25 @@ _setupPath() {
 
 _setupCustomVariables() {
 	# Nothing yet
-	: 
+	:
 }
 
 _setupTools() {
 	## Tools
 	# iterm
+	# shellcheck disable=SC1090,SC2046,SC2006,SC2086
 	source ~/.iterm2_shell_integration.`basename $SHELL`
 
 	# autojump
+	# shellcheck disable=SC1090
 	[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
 
 	# z
+	# shellcheck disable=SC1090
 	[[ -s ~/.z.sh ]] && source ~/.z.sh
 
 	# iTerm
+	# shellcheck disable=SC1090
 	test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 	# Stubby
@@ -102,13 +106,16 @@ _setupTools() {
 			certificate=$(echo "" | openssl s_client -connect "${host}:${port}" 2>/dev/null)
 			if [[ ! "$certificate" ]]; then echo "No certificate for ${host}:${port}"; return; fi
 			echo "$certificate" |
-			   openssl x509 -pubkey -noout |
-			   openssl pkey -pubin -outform der |
-			   openssl dgst -sha256 -binary |
-			   openssl enc -base64
+				openssl x509 -pubkey -noout |
+				openssl pkey -pubin -outform der |
+				openssl dgst -sha256 -binary |
+				openssl enc -base64
 		}
 	fi
 
+	## gpg
+	# Need to set GPG_TTY to get password prompt for ssh
+	# https://unix.stackexchange.com/questions/217737/pinentry-fails-with-gpg-agent-and-ssh
 	GPG_TTY=$(tty)
 	export GPG_TTY
 }

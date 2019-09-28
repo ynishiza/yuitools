@@ -14,7 +14,7 @@
 .*.un~
 
 # tern
-.tern-project
+.tern-project*
 
 # macos
 .DS_Store
