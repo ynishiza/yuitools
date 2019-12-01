@@ -72,7 +72,7 @@ _setupTools() {
 	## Tools
 	# iterm
 	# shellcheck disable=SC1090,SC2046,SC2006,SC2086
-	source ~/.iterm2_shell_integration.`basename $SHELL`
+	[[ -s ~/.iterm2_shell_integration.`basename $SHELL` ]] && source ~/.iterm2_shell_integration.`basename $SHELL`
 
 	# autojump
 	# shellcheck disable=SC1090
