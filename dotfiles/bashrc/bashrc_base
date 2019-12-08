@@ -37,7 +37,8 @@ _loadTools() {
 			source "$source_path"
 		fi
 	}
-	loadSourceIfExist "${MY_BIN}/git-completion.bash"
+
+	loadSourceIfExist "${MY_BIN}/completion/git-completion.bash"
 	loadSourceIfExist "${MY_BIN}/tmuxinator.bash"
 }
 
@@ -46,6 +47,7 @@ _setupTools() {
 	SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
 	export SSH_AUTH_SOCK
 	gpgconf --launch gpg-agent
+
 }
 
 _setupPS1() {
@@ -92,6 +94,9 @@ _setupAliases() {
 	# Include local node_modules in path
 	# https://stackoverflow.com/questions/9679932/how-to-use-package-installed-locally-in-node-modules
 	alias npm-exec='PATH=$(npm bin):$PATH'
+
+	# Debug safely on an port
+	alias node-debug='node inspect --port=54325'
 
 	# Only works if no values contain no spaces 
 	alias dotenv-use="env \$(cat .env | grep -v '^#' | xargs)"

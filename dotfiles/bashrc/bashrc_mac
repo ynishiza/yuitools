@@ -1,4 +1,5 @@
 #!/bin/bash
+MY_BIN="$HOME/.yui_bin"
 
 main() {
 	echo "Loading ${BASH_SOURCE[0]}"
@@ -73,6 +74,9 @@ _setupTools() {
 	# iterm
 	# shellcheck disable=SC1090,SC2046,SC2006,SC2086
 	[[ -s ~/.iterm2_shell_integration.`basename $SHELL` ]] && source ~/.iterm2_shell_integration.`basename $SHELL`
+
+	# bash-completion installed via Homebrew
+	[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 	# autojump
 	# shellcheck disable=SC1090
