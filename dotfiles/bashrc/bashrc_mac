@@ -78,6 +78,9 @@ _setupTools() {
 	# bash-completion installed via Homebrew
 	[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
+	# Homebrew
+	export HOMEBREW_NO_INSTALL_CLEANUP=1			# Don't run 'brew cleanup' after install/upgrade. i.e. keep old versions
+
 	# autojump
 	# shellcheck disable=SC1090
 	[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
