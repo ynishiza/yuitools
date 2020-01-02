@@ -6,14 +6,8 @@ set -eu -o pipefail
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 source "$__dir/setup_setting.sh"
 
-function installBrew() {
-	if [[ ! -n $IS_MAC ]]; then return; fi;
-	if [[ -n $(which brew) ]]; then return; fi;
-	echo "Installing brew"
-	/usr/bin/ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
-}
-
 function installFzf() {
+	# shellcheck disable=2230
 	if [[ -n $(which fzf) ]]; then return; fi
 	echo "Installing fzf"
 	git clone --depth 1 https://github.com/junegunn/fzf.git ~/.fzf
@@ -31,11 +25,11 @@ function installAutojump() {
 }
 
 function installTmuxinator() {
+	# shellcheck disable=2230
 	if [[ -n $(which tmuxinator) ]]; then return; fi
 	sudo gem install tmuxinator
 }
 
-(installBrew || true)
 (installFzf || true)
 (installAutojump || true)
 (installTmuxinator || true)
