@@ -30,6 +30,7 @@ matrix-off: expedia.com true
 matrix-off: expressjs.com true
 matrix-off: facebook.github.io true
 matrix-off: fetchfile.net true
+matrix-off: gingerbreadmanor.com true
 matrix-off: google.com true
 matrix-off: graphenedb.com true
 matrix-off: humanetech.com true
@@ -90,6 +91,10 @@ referrer-spoof: behind-the-scene false
 * 1st-party * allow
 * 1st-party frame allow
 * ajax.googleapis.com * allow
+* brightcove.com * allow
+* brightcove.com frame allow
+* brightcove.net * allow
+* brightcove.net frame allow
 * fontawesome.com * allow
 * ggpht.com * allow
 * google.co.jp * allow
@@ -346,6 +351,9 @@ bungo-stray-dogs.jp cloudflare.com * allow
 bungo-stray-dogs.jp fonts.googleapis.com * allow
 bungo-stray-dogs.jp youtube.com * allow
 bungo-stray-dogs.jp youtube.com frame allow
+businessinsider.jp ampproject.org * allow
+businessinsider.jp bootstrapcdn.com * allow
+businessinsider.jp media-platform.com * allow
 buzzfeednews.com buzzfeed.com * allow
 buzzfeednews.com www.buzzfeed.com frame allow
 calculator.s3.amazonaws.com awsstatic.com * allow
@@ -584,6 +592,9 @@ gigazine.net google.com * allow
 gigazine.net gunosy.com * allow
 gigazine.net gzn.jp * allow
 gigazine.net twitter.com * allow
+gingerbreadmanor.com s3-us-west-2.amazonaws.com * allow
+gingerbreadmanor.com trustedsite.com * allow
+gingerbreadmanor.com ywxi.net * allow
 github.com githubassets.com * allow
 gitlab.com gitlab-static.net * allow
 gizmodo.com digitru.st * allow
@@ -910,6 +921,8 @@ meatandbread.com calltrk.com * allow
 meatandbread.com squarespace.com * allow
 meatandbread.com typekit.net * allow
 medium.com github.com * allow
+meetup.com dna8twue3dlxq.cloudfront.net * allow
+meetup.com meetupstatic.com * allow
 meitantei-pikachu.jp ggpht.com * allow
 meitantei-pikachu.jp google.com * allow
 meitantei-pikachu.jp line-scdn.net * allow
@@ -985,6 +998,11 @@ muz.li zidtech.com * allow
 my-best.com d3imh5q5dnm5ub.cloudfront.net * allow
 my-best.com google.com * allow
 naturalhandyman.com ampproject.org * allow
+nature.com brightcove.com * allow
+nature.com brightcove.net * allow
+nature.com disqus.com * allow
+nature.com disquscdn.com * allow
+nature.com players.brightcove.net frame allow
 naver.jp cdn.api.b.hatena.ne.jp frame allow
 naver.jp google.com * allow
 naver.jp hatena.ne.jp * allow
@@ -1115,6 +1133,13 @@ oya.sh ajax.googleapis.com * allow
 oya.sh cloudflare.com * allow
 oya.sh d1tdp7z6w94jbb.cloudfront.net * allow
 oya.sh milankyncl.github.io * allow
+pembertonholmes.com cloudflare.com * allow
+pembertonholmes.com translate.googleapis.com * allow
+pembertonholmes.com unpkg.com * allow
+perell.com convertkit.com * allow
+perell.com squarespace-cdn.com * allow
+perell.com squarespace.com * allow
+perell.com typekit.net * allow
 pinky-media.jp ajax.googleapis.com * allow
 pinky-media.jp cdn-fluct.sh.adingo.jp * allow
 pinky-media.jp cdninstagram.com * allow
