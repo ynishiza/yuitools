@@ -84,6 +84,8 @@ function! PrintMyHelp()
 \ <leader>tm  Toggle table mode (vim-table-mode)\n
 \ <leader>T   Tableize with delimiter (vim-table-mode)\n
 \ \n
+\ <leader>tE  tern enable \n
+\ <leader>tD  tern disable \n
 \ \n
 \ \n
 \ Commands:\n

@@ -10,7 +10,8 @@ function! InitTern()
 	map <leader>tt :TernType<cr>
 	map <leader>tr :TernRefs<cr>
 	map <leader>tR :TernRename<cr>
-	map <leader>te :call tern#Enable()<cr>
+	map <leader>tE :call tern#Enable()<cr>
+	map <leader>tD :call tern#Disable()<cr>
 endfunction
 
 au FileType javascript call InitTern()

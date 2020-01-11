@@ -135,6 +135,7 @@ autocmd BufWrite
 			\*.json,*.js,*vimrc,
 			\*.md,*.markdown,
 			\*.yml,*.cfg
+			\*.css,*.scss
 			\ :RemoveTrailingWhitespace
 
 " Manually recognize filetypes
