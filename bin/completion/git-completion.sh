@@ -1,1 +1,0 @@
-git-completion-2.20.sh
