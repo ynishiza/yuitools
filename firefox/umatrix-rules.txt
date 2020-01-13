@@ -56,11 +56,11 @@ matrix-off: newrelic.com true
 matrix-off: norsecorp.com true
 matrix-off: olivethisandmore.com true
 matrix-off: omarshehata.github.io true
-matrix-off: onepunchman-anime.net true
 matrix-off: onlinevideoconverter.com true
 matrix-off: opera-scheme true
 matrix-off: ou.nl true
 matrix-off: pandora.tv true
+matrix-off: pembertonholmes.com true
 matrix-off: sciencedirect.com true
 matrix-off: scotthelme.co.uk true
 matrix-off: secureserver.net true
@@ -96,6 +96,7 @@ referrer-spoof: behind-the-scene false
 * brightcove.net * allow
 * brightcove.net frame allow
 * fontawesome.com * allow
+* fonts.googleapis.com * allow
 * ggpht.com * allow
 * google.co.jp * allow
 * google.com * allow
@@ -105,6 +106,8 @@ referrer-spoof: behind-the-scene false
 * instagram.com * allow
 * instagram.com frame allow
 * jquery.com * allow
+* maps.googleapis.com * allow
+* maps.googleapis.com frame allow
 * medium.com * allow
 * soundcloud.com * allow
 * soundcloud.com frame allow
@@ -225,6 +228,7 @@ atlassian.net * * allow
 atlassian.net atl-paas.net * allow
 atlassian.net atlassian.com * allow
 atlassian.net bigbrassband.com * allow
+atpcup.com cloudflareinsights.com * allow
 atptour.com atpworldtour.com * allow
 atptour.com bitmovin.com * allow
 atptour.com cloudflare.com * allow
@@ -499,6 +503,11 @@ doist.com polyfill.io * allow
 doist.com upscri.be * allow
 doist.com wp.com * allow
 dragonquest.jp square-enix.com * allow
+e-earphone.blog bootstrapcdn.com * allow
+e-earphone.blog maps.googleapis.com * allow
+e-earphone.blog shareaholic.net * allow
+e-earphone.blog stackpathcdn.com * allow
+e-earphone.blog timemachine2016.jp * allow
 eater.com auth.voxmedia.com * allow
 eater.com brightcove.com * allow
 eater.com brightcove.net * allow
@@ -1134,8 +1143,11 @@ oya.sh cloudflare.com * allow
 oya.sh d1tdp7z6w94jbb.cloudfront.net * allow
 oya.sh milankyncl.github.io * allow
 pembertonholmes.com cloudflare.com * allow
+pembertonholmes.com fonts.googleapis.com * allow
+pembertonholmes.com maps.googleapis.com * allow
 pembertonholmes.com translate.googleapis.com * allow
 pembertonholmes.com unpkg.com * allow
+pembertonholmes.com xposureapp.com * allow
 perell.com convertkit.com * allow
 perell.com squarespace-cdn.com * allow
 perell.com squarespace.com * allow
@@ -1149,6 +1161,8 @@ pinky-media.jp google.com * allow
 pinky-media.jp gstatic.com * allow
 pinky-media.jp st-hatena.com * allow
 pinky-media.jp twitter.com * allow
+pitest.org bootstrapcdn.com * allow
+pitest.org cloudflare.com * allow
 plover.com cloudflare.com * allow
 pluralsight.com ss-omtrdc.net * allow
 pluralsight.com typography.com * allow
@@ -1302,6 +1316,10 @@ scapy.net bootstrapcdn.com * allow
 scapy.net fonts.googleapis.com * allow
 scapy.net gstatic.com * allow
 sciencedirect.com cloudflare.com * allow
+scmp.com cloudflare.com * allow
+scmp.com gscontxt.net * allow
+scmp.com i-scmp.com * allow
+scmp.com opecloud.com * allow
 scotthelme.co.uk cloudflare.com * allow
 scotthelme.co.uk disqus.com * allow
 scotthelme.co.uk disqus.com frame allow
