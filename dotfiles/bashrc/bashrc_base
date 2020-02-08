@@ -1,8 +1,15 @@
 #!/bin/bash
+
+# Exit immediately if not in interactive mode.
+# Otherwise, causes scp to fail.
+# See https://unix.stackexchange.com/questions/18231/scp-fails-without-error
+[[ $- == *i* ]] || return
+
 MY_BIN="$HOME/.yui_bin"
 TOOLS_YUI="$HOME/.yui_tools"
 BASHRC_YUI="${TOOLS_YUI}/dotfiles/bashrc"
 BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
+
 
 # [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
