@@ -10,7 +10,6 @@ TOOLS_YUI="$HOME/.yui_tools"
 BASHRC_YUI="${TOOLS_YUI}/dotfiles/bashrc"
 BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 
-
 # [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
 

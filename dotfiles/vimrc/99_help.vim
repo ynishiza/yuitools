@@ -49,18 +49,20 @@ function! PrintMyHelp()
 \ <space>bl   Last buffer\n
 \ \n
 \ === Location list ===\n
-\ <space>lw   Open location window\n
-\ <space>lc   Close location window\n
-\ <space>ll   Current location\n
-\ <space>ln   Next location\n
-\ <space>lp   Previous location\n
+\ e.g. linter errors \n
+\ <space>lw   Open location window (:lwindow)\n
+\ <space>lc   Close location window (:lclose)\n
+\ <space>ll   Current location (:ll)\n
+\ <space>ln   Next location (:lnext)\n
+\ <space>lp   Previous location (:lprevious)\n
 \ \n
 \ === Quickfix list ===\n
-\ <space>cw   Open quickfix list window\n
-\ <space>cc   Close quickfix list window\n
-\ <space>cl   Current quickfix\n
-\ <space>cn   Next quickfix\n
-\ <space>cp   Previous quickfix\n
+\ e.g. grep results \n
+\ <space>cw   Open quickfix list window (:cwindow)\n
+\ <space>cc   Close quickfix list window (:close)\n
+\ <space>cl   Current quickfix (:clist)\n
+\ <space>cn   Next quickfix (:cnext)\n
+\ <space>cp   Previous quickfix (:cprevious)\n
 \ \n
 \ === Search ===\n
 \ <space>f/   Search term under cursor\n
@@ -86,6 +88,10 @@ function! PrintMyHelp()
 \ \n
 \ <leader>tE  tern enable \n
 \ <leader>tD  tern disable \n
+\ \n
+\ :SyntasticDebugEnable     Enable debug. Use :messages to see messages.\n
+\ :SyntasticDebugDisable    Disable debug\n
+\ :call SyntasticDebugSetLevel(1) \n
 \ \n
 \ \n
 \ Commands:\n

@@ -30,6 +30,12 @@ if !empty(glob('~/.vim/bundle/syntastic'))
 	let g:syntastic_r_checkers = ["lintr"]
 	let g:syntastic_tex_checkers = ["chktex"]
 
+	function! SyntasticDebugSetLevel(level)
+		let g:syntastic_debug=a:level
+	endfunction
+	command! -nargs=0 SyntasticDebugEnable call SyntasticDebugSetLevel(1)
+	command! -nargs=0 SyntasticDebugDisable call SyntasticDebugSetLevel(0)
+
 	function! JSDisableSyntastic()
 		let g:syntastic_javascript_checkers = []
 	endfunction
