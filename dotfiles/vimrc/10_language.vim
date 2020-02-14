@@ -1,5 +1,5 @@
 "---------------------------------------------------------------
-"					 Language specific
+"          Language specific
 "
 
 " Comment term in the script
@@ -7,114 +7,114 @@ let t:comment_term="//"
 let t:comment_term_end=""
 
 function! InitVim()
-	let t:comment_term="\""
-	call EditWithSpaces(2)
+  let t:comment_term="\""
+  call EditWithSpaces(2)
   set undofile
 endfunction
 
 function! InitPython()
     "echo "python"
-	let t:comment_term="#"
+  let t:comment_term="#"
     set autoindent
     " Use spaces instead of tabs
-	" set expandtab
+  " set expandtab
     " 4 spaces
     set tabstop=4
     set shiftwidth=4
-	set softtabstop=4
-	" set textwidth=79
-	call EditWithSpaces(4)
+  set softtabstop=4
+  " set textwidth=79
+  call EditWithSpaces(4)
   set undofile
 endfunction
 
 function! InitPHP()
-	let g:myvar="php"
-	let t:comment_term="//"
+  let g:myvar="php"
+  let t:comment_term="//"
   set undofile
 endfunction
 
 function! InitJs()
-	let t:comment_term="//"
-	call JSWithSpaces(2)
+  let t:comment_term="//"
+  call JSWithSpaces(2)
   set undofile
 endfunction
 
 function! InitCss()
-	let t:comment_term="/\\* "
-	let t:comment_term_end=" \\*/"
+  let t:comment_term="/\\* "
+  let t:comment_term_end=" \\*/"
   set undofile
 endfunction
 
 function! InitShell()
-	let t:comment_term="#"
+  let t:comment_term="#"
   set undofile
 endfunction
 
 function! InitR()
-	let t:comment_term="#"
-	set expandtab
-	set tabstop=2
-	set shiftwidth=0
-	set textwidth=80
+  let t:comment_term="#"
+  set expandtab
+  set tabstop=2
+  set shiftwidth=0
+  set textwidth=80
   set undofile
 endfunction
 
 function! InitMakefile()
-	let t:comment_term="#"
+  let t:comment_term="#"
   set undofile
 endfunction
 
 function! InitGitmerge()
-	" local
-	nmap <leader>dl :diffget 1<cr>
-	" remote
-	nmap <leader>dr :diffget 3<cr>
+  " local
+  nmap <leader>dl :diffget 1<cr>
+  " remote
+  nmap <leader>dr :diffget 3<cr>
 endfunction
 
 "
 function! CommentInsert()
-	"execute "'<,'>s=^=" . t:comment_term . "="
-	if exists("t:comment_term")
-		execute "s=^=" . t:comment_term . "="
-	endif
-	if exists("t:comment_term_end")
-		execute "s=\\(.*\\)=\\1" . t:comment_term_end . "="
-	endif
+  "execute "'<,'>s=^=" . t:comment_term . "="
+  if exists("t:comment_term")
+    execute "s=^=" . t:comment_term . "="
+  endif
+  if exists("t:comment_term_end")
+    execute "s=\\(.*\\)=\\1" . t:comment_term_end . "="
+  endif
 endfunction
 function! CommentRemove()
-	if exists("t:comment_term")
-		execute "s=^" . t:comment_term . "=="
-	endif
-	"execute "'<,'>s=^" . t:comment_term . "=="
-	if exists("t:comment_term_end")
-		execute "s=" . t:comment_term_end . "$=="
-	endif
+  if exists("t:comment_term")
+    execute "s=^" . t:comment_term . "=="
+  endif
+  "execute "'<,'>s=^" . t:comment_term . "=="
+  if exists("t:comment_term_end")
+    execute "s=" . t:comment_term_end . "$=="
+  endif
 endfunction
 
 function! InitMarkdown()
-	:EditWithSpaces 2
+  :EditWithSpaces 2
   set textwidth=0
   set undofile
 endfunction
 
 function! LatexInit()
-	let g:tex_flavor="latex"
+  let g:tex_flavor="latex"
 
-	" tex files very slow
-	" https://stackoverflow.com/questions/8300982/vim-running-slow-with-latex-files
-	set norelativenumber
-	set nocursorline
-	:NoMatchParen
+  " tex files very slow
+  " https://stackoverflow.com/questions/8300982/vim-running-slow-with-latex-files
+  set norelativenumber
+  set nocursorline
+  :NoMatchParen
 
-	" Too slow
-	set foldmethod=manual
-	set nofoldenable
-	let g:syntastic_tex_checkers=[]
+  " Too slow
+  set foldmethod=manual
+  set nofoldenable
+  let g:syntastic_tex_checkers=[]
   set undofile
 endfunction
 
 function! MyTestFunct()
-	s/abc/ABC/gc
+  s/abc/ABC/gc
 endfunction
 
 autocmd FileType vim call InitVim()
@@ -130,13 +130,13 @@ autocmd Filetype json call JSWithSpaces(2)
 autocmd BufRead *.tex call LatexInit()
 
 autocmd BufWrite
-			\ *.sh,
-			\*.py,*.r,*.php,
-			\*.json,*.js,*vimrc,
-			\*.md,*.markdown,
-			\*.yml,*.cfg
-			\*.css,*.scss
-			\ :RemoveTrailingWhitespace
+      \ *.sh,
+      \*.py,*.r,*.php,
+      \*.json,*.js,*vimrc,
+      \*.md,*.markdown,
+      \*.yml,*.cfg
+      \*.css,*.scss
+      \ :RemoveTrailingWhitespace
 
 " Manually recognize filetypes
 autocmd BufRead *.md set filetype=markdown
@@ -155,8 +155,8 @@ autocmd BufRead Jenkinsfile set filetype=groovy
 
 " JavaScript
 function! JSWithSpaces(x)
-	call EditWithSpaces(a:x)
+  call EditWithSpaces(a:x)
 endfunction
 function! JSWithTabs()
-	call EditWithTabs(4)
+  call EditWithTabs(4)
 endfunction

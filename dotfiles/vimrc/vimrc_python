@@ -1,7 +1,7 @@
 " Python environment with 4 space indentation
 " Default is using tabs
 function! __InitPython()
-	call EditWithSpaces(4)
+  call EditWithSpaces(4)
 endfunction
 
 autocmd FileType python call __InitPython()

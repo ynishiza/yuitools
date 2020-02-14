@@ -41,10 +41,10 @@ set ruler
 " Scrolloff
 " - minimal lines to keep visible
 if !&scrolloff
-	set scrolloff=1
+  set scrolloff=1
 endif
 if !&sidescrolloff
-	set sidescrolloff=1
+  set sidescrolloff=1
 endif
 
 
@@ -71,7 +71,7 @@ set foldmethod=manual
 " == History ==
 "
 if &history < 1000
-	set history=1000
+  set history=1000
 endif
 
 

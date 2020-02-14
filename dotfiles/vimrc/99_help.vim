@@ -10,11 +10,11 @@ function! PrintMyHelp()
 
   echo "\n
 \ Helps:\n
-\:help 'tabstop'		Option help\n
-\:help :retab		Command help\n
-\:help abs()		Function help\n
-\:help CTRL-R		Mapping help\n
-\:help i_CTRL-R		Mapping help by mode\n
+\:help 'tabstop'    Option help\n
+\:help :retab   Command help\n
+\:help abs()    Function help\n
+\:help CTRL-R   Mapping help\n
+\:help i_CTRL-R   Mapping help by mode\n
 \\n
 \ Mappings:\n
 \ === General ===\n
@@ -48,14 +48,6 @@ function! PrintMyHelp()
 \ <space>bf   First buffer\n
 \ <space>bl   Last buffer\n
 \ \n
-\ === Location list ===\n
-\ e.g. linter errors \n
-\ <space>lw   Open location window (:lwindow)\n
-\ <space>lc   Close location window (:lclose)\n
-\ <space>ll   Current location (:ll)\n
-\ <space>ln   Next location (:lnext)\n
-\ <space>lp   Previous location (:lprevious)\n
-\ \n
 \ === Quickfix list ===\n
 \ e.g. grep results \n
 \ <space>cw   Open quickfix list window (:cwindow)\n
@@ -63,6 +55,14 @@ function! PrintMyHelp()
 \ <space>cl   Current quickfix (:clist)\n
 \ <space>cn   Next quickfix (:cnext)\n
 \ <space>cp   Previous quickfix (:cprevious)\n
+\ \n
+\ === Location list ===\n
+\ e.g. linter errors \n
+\ <space>lw   Open location window (:lwindow)\n
+\ <space>lc   Close location window (:lclose)\n
+\ <space>ll   Current location (:ll)\n
+\ <space>ln   Next location (:lnext)\n
+\ <space>lp   Previous location (:lprevious)\n
 \ \n
 \ === Search ===\n
 \ <space>f/   Search term under cursor\n
@@ -96,9 +96,9 @@ function! PrintMyHelp()
 \ \n
 \ Commands:\n
 \ :Asciitable\n
-\ :DiffTwo						Open two diff buffers.\n
-\ :DiffN						Open N diff buffers.\n
-\ :DiffNew PATH				  	Open a new diff buffer in current panel.\n
+\ :DiffTwo            Open two diff buffers.\n
+\ :DiffN            Open N diff buffers.\n
+\ :DiffNew PATH           Open a new diff buffer in current panel.\n
 \ :RemoveTrailingWhitespace\n
 \ :EditWithTabs N\n
 \ :EditWithSpaces N\n

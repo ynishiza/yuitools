@@ -1,47 +1,47 @@
 function! EditWithSpaces(x)
-	set expandtab
-	let &tabstop=a:x
-	let &shiftwidth=a:x
+  set expandtab
+  let &tabstop=a:x
+  let &shiftwidth=a:x
 endfunction
 
 function! EditWithTabs(x)
-	set noexpandtab
-	let &tabstop=a:x
-	let &shiftwidth=a:x
+  set noexpandtab
+  let &tabstop=a:x
+  let &shiftwidth=a:x
 endfunction
 
 function! RemoveTrailingWhitespace()
-	if search(' $', 'n') == 0
-		return 0
-	endif
-	normal ma
-	%s/\s\+$//ge
-	normal 'a
+  if search(' $', 'n') == 0
+    return 0
+  endif
+  normal ma
+  %s/\s\+$//ge
+  normal 'a
 endfunction
 
 function! Substitute(range, pattern, new, flags)
-	let l:command = a:range . "s/" . a:pattern . "/" . a:new . "/" . a:flags
-	execute l:command
+  let l:command = a:range . "s/" . a:pattern . "/" . a:new . "/" . a:flags
+  execute l:command
 endfunction
 
 function! ArgdoMacro(x)
-	argdo execute "normal @" . a:x | update
+  argdo execute "normal @" . a:x | update
 endfunction
 
 function! ArgRename(old, new)
-	call ArgSubstitute("\\v(<" . a:old . ">)", a:new)
+  call ArgSubstitute("\\v(<" . a:old . ">)", a:new)
 endfunction
 
 function! ArgSubstitute(old, new)
-	argdo call Substitute("%", a:old, a:new, "gce") | update
+  argdo call Substitute("%", a:old, a:new, "gce") | update
 endfunction
 
 function! CRename(old, new)
-	call CSubstitute("\\v(<" . a:old . ">)", a:new)
+  call CSubstitute("\\v(<" . a:old . ">)", a:new)
 endfunction
 
 function! CSubstitute(old, new)
-	cdo call Substitute("%", a:old, a:new, "cge") | update
+  cdo call Substitute("%", a:old, a:new, "cge") | update
 endfunction
 
 " commands

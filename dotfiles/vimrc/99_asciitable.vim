@@ -129,20 +129,20 @@ let g:asciitables = [
 \ { "value": 127, "label": "DEL" }
 \ ]
 function! Asciitable()
-	let l:length = len(g:asciitables)
-	let l:ncolumns = 4
-	let l:nrows = float2nr(ceil(l:length / l:ncolumns))
-	let l:output = ""
-	for r in range(0, l:nrows - 1)
-		for c in  range(0, ncolumns - 1)
-			let l:i = r + c * l:nrows
-			let l:entry = g:asciitables[l:i]
-			let l:label = entry["label"] == "" ? nr2char(entry["value"]) : entry["label"]
-			let l:output .= printf("%d 0x%02x %-20s\t", entry["value"], entry["value"], l:label)
-		endfor
-		let l:output .= "\n"
-	endfor
-	echo output
+  let l:length = len(g:asciitables)
+  let l:ncolumns = 4
+  let l:nrows = float2nr(ceil(l:length / l:ncolumns))
+  let l:output = ""
+  for r in range(0, l:nrows - 1)
+    for c in  range(0, ncolumns - 1)
+      let l:i = r + c * l:nrows
+      let l:entry = g:asciitables[l:i]
+      let l:label = entry["label"] == "" ? nr2char(entry["value"]) : entry["label"]
+      let l:output .= printf("%d 0x%02x %-20s\t", entry["value"], entry["value"], l:label)
+    endfor
+    let l:output .= "\n"
+  endfor
+  echo output
 endfunction
 
 :command! -nargs=0 Asciitable call Asciitable()
