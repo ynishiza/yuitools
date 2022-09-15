@@ -1,0 +1,267 @@
+#!/usr/local/bin/bash
+set -eu -o pipefail
+
+# shellcheck disable=SC2034
+BLACK="\033[30m"
+RED="\033[31m"
+# shellcheck disable=SC2034
+GREEN="\033[32m"
+YELLOW="\033[33m"
+BLUE="\033[34m"
+# shellcheck disable=SC2034
+MAGENTA="\033[35m"
+# shellcheck disable=SC2034
+CYAN="\033[36m"
+# shellcheck disable=SC2034
+WHITE="\033[37m"
+RESET="\033[0m"
+
+DEFAULT_SLEEP=5
+RECHECK_SLEEP=10
+SLEEP=$DEFAULT_SLEEP
+ROW_COUNT=0
+MAX_ROWS_PER_SECTION=5
+MINCPU=70
+# MINCPU=10
+# Timeout (seconds)
+NOTIFICATION_TIMEOUT=60
+NOTIFICATION_BUFFER_TRIGGER=3
+
+# Test parameters
+# MINCPU=1
+# DEFAULT_SLEEP=1
+# NOTIFICATION_TIMEOUT=10
+# NOTIFICATION_BUFFER_TRIGGER=2
+
+## Notification record
+#
+# Record notification info.
+#
+# Used to:
+# a) schedule renotification: do not renotify repeatedly, as that is noisy
+# b) clear old notifications i.e. close notification popup after timeout, as this may be annoying.
+#
+# note: notification timer
+# Used to timeout a notification for clearing
+# i.e.
+#			NOTIFICATION_TIMER[key] > NOTIFICATION_TIMEOUT
+declare -A NOTIFICATION_TIMER=()
+# note: buffer counter
+# Used to trigger notification only after a high resource usage is observed repeatedly.
+# e.g. filter out cases where CPU usage is high for a split second.
+# Trigger notification only after the buffer hits the trigger:
+# i.e.
+#			NOTIFICATION_BUFFER_COUNTER[key] == NOTIFICATION_BUFFER_TRIGGER
+declare -A NOTIFICATION_BUFFER_COUNTER=()
+if which terminal-notifier; then HAS_TERMINAL_NOTIFIER=1; else HAS_TERMINAL_NOTIFIER=; fi
+
+# Logging
+# note: include user id in name
+# e.g. if run by different users with different permissions
+FILE_PREFIX="/tmp/$(id -u)_$(basename "$0")"
+LOGFILE="${FILE_PREFIX}.log"
+echo logs in "$LOGFILE"
+touch "$LOGFILE"
+writelog_base() {
+	local line
+	local level="$1"
+	shift 1
+	if [[ $# -gt 0 ]]
+	then
+		line="$*"
+	else
+		read -r line
+	fi
+
+	# write to log file
+	logmsg="$(date) [$level] -- $line"
+	case "$level" in
+		"debug")
+			echo "$logmsg" >> "$LOGFILE"
+			;;
+		*)
+			echo "$logmsg" | tee -a "$LOGFILE"
+			;;
+	esac
+}
+writelog_debug() {
+	writelog_base "debug" "$*"
+}
+
+
+writelog_base "info" "HAS_TERMINAL_NOTIFIER=$HAS_TERMINAL_NOTIFIER MINCPU=$MINCPU NOTIFICATION_TIMEOUT=$NOTIFICATION_TIMEOUT NOTIFICATION_BUFFER_TRIGGER=$NOTIFICATION_BUFFER_TRIGGER"
+
+timeout_notifications() {
+	TIMESTAMP=$(date '+%s')
+
+	for key in "${!NOTIFICATION_TIMER[@]}"
+	do
+		notified="${NOTIFICATION_TIMER["$key"]}"
+		TIMEDIFF=$((TIMESTAMP-notified))
+
+		# case: timeout reached
+		if [[ $TIMEDIFF -gt $NOTIFICATION_TIMEOUT ]]
+		then
+			reset_notification "$key"
+		fi
+	done
+}
+reset_notification() {
+	local key="$1"
+	writelog_debug "timeout key=$key timediff=$TIMEDIFF"
+	# note: clear notification on timeout
+	if [[ $HAS_TERMINAL_NOTIFIER ]]
+	then
+		# bug?: loop until completely reset
+		# Sometimes, terminal-notifier doesn't remove the notification on first call.
+		# Repeat until removed.
+		while [[ "$(terminal-notifier -list "$key")" ]]
+		do
+			writelog_debug "terminal-notifier log: $(terminal-notifier -remove "$key" 2>&1)"
+		done
+	fi
+	writelog_debug "reset key=\"$key\" in NOTIFICATION_TIMER=(${!NOTIFICATION_TIMER[*]})"
+	if [[ -v NOTIFICATION_TIMER["$key"] ]]; then unset NOTIFICATION_TIMER["$key"]; fi
+	if [[ -v NOTIFICATION_BUFFER_COUNTER["$key"] ]]; then unset NOTIFICATION_BUFFER_COUNTER["$key"]; fi
+	writelog_debug "notification reset key=$key"
+}
+
+# Header
+HEADER="DATE PPID PID %CPU %MEM USER COMMAND"
+
+start() {
+	while true
+	do
+		## step: print header
+		#
+		# case: section full
+		# Reset count to start new section
+		if [[ $ROW_COUNT -gt $MAX_ROWS_PER_SECTION ]]
+		then
+			ROW_COUNT=0
+		fi
+		# case: new section
+		# Print header
+		if [[ $ROW_COUNT -eq 0 ]]
+		then
+			echo ""
+			echo "$HEADER"
+			# Increment once since otherwise, if there are no entries, the header will be printed repeatedly.
+			ROW_COUNT=$((ROW_COUNT + 1))
+		fi
+
+
+		## main step: get process info
+		timestamp=$(date '+%s')
+		datestring=$(date)
+		entry_delim=@
+		entry=$(ps -A -o ppid,pid,%cpu,%mem,user,time,command |
+		awk "
+			\$3 > $MINCPU { printf(\"%s$entry_delim%s$entry_delim%s$entry_delim%s$entry_delim%s$entry_delim%s$entry_delim\",\$1,\$2,\$3,\$4,\$5,\$6)
+			# Print rest
+			for(i=7;i<=NF;i++) { printf(\"%s \",\$i) } 
+			printf(\"\n\") }" \
+		OR='\n')
+
+		# convert to array
+		OLDIFS=$IFS
+		IFS=$'\n'
+		# shellcheck disable=SC2206
+		entry_array=($entry)
+		IFS=$OLDIFS
+		if [[ "${#entry_array[@]}" -gt 0 ]]; then has_entries=1; else has_entries=; fi
+
+
+		## step: print notification per entry
+		for i in "${!entry_array[@]}"
+		do
+			row="${entry_array[$i]}"
+			ppid=$(echo "$row" | cut -f1 -d"$entry_delim")
+			pid=$(echo "$row" | cut -f2 -d"$entry_delim")
+			cpu=$(echo "$row" | cut -f3 -d"$entry_delim")
+			mem=$(echo "$row" | cut -f4 -d"$entry_delim")
+			user=$(echo "$row" | cut -f5 -d"$entry_delim")
+			time=$(echo "$row" | cut -f6 -d"$entry_delim")
+			cmd="$(echo "$row" | cut -f7- -d"$entry_delim")"
+			printf "$datestring %7s $BLUE%7s$RESET $RED%6s$RESET $YELLOW%6s$RESET %s %s %s\n" "$ppid" "$pid" "$cpu" "$mem" "$user" "$time" "$cmd"
+
+			# note: remove brackets from key
+			# terminal-notifier seems to hang if group name contains brackets
+			#		e.g. terminal-notifier -group '(a)' -message hello				ERROR
+			#			terminal-notifier[7172:3511296] -[__NSSingleObjectArrayI length]: unrecognized selector sent to instance 0x7faf31705760
+			#			terminal-notifier[7172:3511296] -[__NSSingleObjectArrayI length]: unrecognized selector sent to instance 0x7faf31705760
+			#
+			processKey=$(echo "$cmd" | sed -E "s/[\(\)]//g")
+			ROW_COUNT=$((ROW_COUNT + 1))
+
+			notify() {
+				local message=
+				local title=
+				title="CPU $cpu% CPU"
+				message="$(date '+%H:%M:%S') $cmd"
+				if [[ $HAS_TERMINAL_NOTIFIER ]]
+				then
+					local infoFile="${FILE_PREFIX}_${pid}.txt"
+					# note: open process info
+					local onclick="echo 'ppid:pid=$ppid:$pid cpu%=$cpu mem%=$mem time=$time user=$user cmd=$cmd'	>$infoFile && open $infoFile & sleep 60 && rm -f $infoFile"
+					terminal-notifier -execute "$onclick" -group "$processKey" -title "$title" -message "$message" -timeout 10 >/dev/null 2>&1
+				else
+					osascript -e "display notification \"$message\" with title \"$title\""
+				fi
+				logger -i -t "$0" "$title: $message"
+			}
+
+			if [[ ! "${NOTIFICATION_TIMER["$processKey"]+isset}" ]]
+			then
+				# initialize
+				NOTIFICATION_TIMER["$processKey"]=$timestamp
+				NOTIFICATION_BUFFER_COUNTER["$processKey"]=1
+
+				writelog_debug "notification init key=$processKey cmd=$cmd time=$timestamp"
+			else
+				# step: increment buffer
+				count=$(( ${NOTIFICATION_BUFFER_COUNTER["$processKey"]} + 1))
+				NOTIFICATION_BUFFER_COUNTER["$processKey"]=$count
+				writelog_debug "notification buffer key=$processKey counter=$count"
+
+				# case: buffer full
+				if [[ "${NOTIFICATION_BUFFER_COUNTER["$processKey"]}" -eq $NOTIFICATION_BUFFER_TRIGGER ]]
+				then
+					# note: reset timer
+					NOTIFICATION_TIMER["$processKey"]=$timestamp
+					notify
+					writelog_debug "notification trigger notification cmd=$cmd key=$processKey time=$timestamp"
+				fi
+			fi
+		done
+
+		## step: handle timeouts
+		timeout_notifications
+
+
+		## step: sleep for buffer
+		# note: sleep longer if there are entries, to prevent noise.
+		if [[ "$has_entries" ]]; then SLEEP=$RECHECK_SLEEP; else SLEEP=$DEFAULT_SLEEP; fi
+		sleep $SLEEP
+	done
+}
+
+# Error handling:
+onExit() {
+	code="$?"
+	# Error handling
+	if [[ "$code" != 0 ]]; then onError; fi
+	exit "$code"
+}
+onError() {
+		# note: make copy of log file
+		logfile_error="${LOGFILE}.$(date '+%s')"
+		cp -f "$LOGFILE" "$logfile_error"
+
+		message="$(date '+%H:%M:%S') Error. Logs in $logfile_error"
+		terminal-notifier -title "$(basename "$0")" -message "$message" -execute "open $logfile_error"
+}
+trap onExit EXIT
+trap onError ERR
+
+(start)

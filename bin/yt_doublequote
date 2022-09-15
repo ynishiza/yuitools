@@ -1,0 +1,6 @@
+#!/bin/bash
+#
+# usage
+#   doublequote < file.txt
+#
+echo "$1" | sed -e 's/^\(.*\)$/"\1"/'

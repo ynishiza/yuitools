@@ -1,0 +1,6 @@
+[flake8]
+# E128: continuation line under-indented for visual indent 
+# E302: 2 blank spaces betweeen toplevel
+# E501: max line length  
+# F403: 'from common import *' used; unable to detect undefined names
+ignore = E121,E123,E126,E226,E24,E704,E302,E128,E501,F403

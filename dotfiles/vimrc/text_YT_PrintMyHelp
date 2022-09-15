@@ -1,0 +1,191 @@
+ Helps:
+:help 'tabstop'    Option help
+:help :retab   Command help
+:help abs()    Function help
+:help CTRL-R   Mapping help
+:help i_CTRL-R   Mapping help by mode 
+                 i=insert n=normal v=visual c=commandline
+:help motion.txt   Mapping help for motions
+:help [            Mapping help for specific motions
+                 [ ] ( ) { }
+gO       (big o) Show table of contents 
+<c-]>    Follow link
+<c-o>    Back
+<c-t>    Back
+<c-i>    Forward
+
+
+Custom mappings:
+=== General ===
+<space>?    Print this help
+<space>/    Print cheatsheet
+<space>!    Print machine info
+<space>ra   Reload $MYVIMRC
+<space>r.   Reload current vim script file
+<space>d    Redraw
+<space>h    History
+<space>.    Repeat last command
+<c-k>     Escape
+
+=== Windows ===
+<space>s    Save
+<c-s>       Save
+<space>w    Close window/tab
+<space>q    Quit
+<space>Q    Force quit
+<space>|    Vertical split
+<space>-    Horizontal split
+
+=== Tabs ===
+<space>tn   Create new tab
+<space>t%   Open current window in new tab
+<space>tq   Close tab
+
+=== Buffers ===
+<space>bo   Open buffer
+<space>b-   Open buffer in horizontal split
+<space>b|   Open buffer in vertical split
+<space>bt   Open buffer in new tab
+<space>ba   Add buffer
+<space>bd   Delete buffer
+<space>bq   Wipe all buffers
+<space>bc   Wipe all other buffers
+<space>bg   Wipe all hidden buffers
+<space>bs   List buffers
+<space>bS   List buffers
+<space>bn   Next buffer
+<space>bp   Previous buffer
+<space>bf   First buffer
+<space>bl   Last buffer
+
+=== Quickfix list ===
+e.g. grep results 
+<space>cw   Open quickfix list window (:cwindow)
+<space>cc   Close quickfix list window (:close)
+<space>cl   Current quickfix (:clist)
+<space>cn   Next quickfix (:cnext)
+<space>cp   Previous quickfix (:cprevious)
+
+=== Location list ===
+e.g. linter errors 
+<space>lw   Open location window (:lwindow)
+<space>lc   Close location window (:lclose)
+<space>ll   Current location (:ll)
+<space>ln   Next location (:lnext)
+<space>lp   Previous location (:lprevious)
+
+=== Search ===
+<space>f/   Search term under cursor
+<space>ff   Reset search highlight
+<space>fs   Search and replace term under cursor
+<space>fg   Grep term under cursor
+<space>fc   Get match count
+
+=== Clipboard ===
+<space>c    Copy visual selection to clipboard
+<space>v    Paste clipboard after cursor
+<space>V    Paste clipboard under cursor
+
+
+=== Extensions ===
+Toggles 
+<leader>fz  FZF (fzf)
+<leader>n   Toggle NERDTree (nerdtree)
+<leader>N   Refresh open NERDTree (nerdtree)
+<F8>        Toggle Taglist (Taglist)
+<F9>        Toggle Undotree (undotree)
+Mappings 
+gc          Toggle comments on visual selection (vim-commentary)
+
+fzf mapping:
+ctrl-p,ctrl-n: previous, next history
+ctrl-j,ctrl-k: up,down
+ctrl-alt-j,ctrl-alt-k: preview up,down
+
+Commands 
+:Spellcheck          Quickfix window for spelling (vim-Spellcheck)
+
+Extension: vim-table-mode 
+<leader>tm  Toggle table mode (vim-table-mode)
+<leader>T   Tableize with delimiter (vim-table-mode)
+
+Extension: Tern 
+<leader>TE  Tern enable 
+<leader>TD  Tern disable 
+
+Extension: Syntastic 
+:SyntasticDebugEnable     Enable debug. Use :messages to see messages.
+:SyntasticDebugDisable    Disable debug
+:call SyntasticDebugSetLevel(1) 
+
+Extension (nvim 0.5): LSP
+<leader>gR          Refresh LSP
+<leader>gd          Go to definition
+<leader>gD          Go to declaration
+<leader>gr          Find references
+<leader>gt           Get type definition
+<leader>gh          Show hint
+<leader>gs          Show function signature
+<leader>gi          Show implementation
+<leader>gel         Show diagnostics in loc 
+<leader>ges         Show diagnostics of current position
+
+:LspInfo
+:LspStart
+:LspStop            
+
+Incremental selection:
+<leader>S           Visual select node
+J                   visual: next node 
+K                   visual: previous node 
+U                   visual: parent scope node 
+
+
+Extension (nvim 0.5): nvim-cmp 
+<Tab>         Select next
+<S-Tab>       Select previous
+<C-c>         Cancel
+<CR>          Confirm/replace
+
+
+Custom functions:
+:call YT_BufferCount()              
+:call YT_BufferCloseOthers()        
+:call YT_DisableRemoveTrailingWhiteSpace('*.js')        Disable auto YTRemoveTrailingWhitespace
+
+Custom commands:
+:YTArgSubstitute PATTERN NEW      Search for PATTERN and replace with NEW in args files. See :args.
+:YTArgRename OLD NEW              Search and rename OLD with NEW in args files. See :args.
+:YTAsciitable
+:YTCSubstitute PATTERN NEW        Search for PATTERN and replace with NEW in quickfix list. See :cw.
+:YTCRename OLD NEW                Search and rename OLD with NEW in quickfix list. See :cw.
+:YTDiffTwo                Open two diff buffers.
+:YTDiffN                  Open N diff buffers.
+:YTDiffNew PATH           Open a new diff buffer in current panel.
+:YTEditWithTabs N
+:YTEditWithSpaces N
+:YTGenerateUuid4 N
+:YTRemoveTrailingWhitespace
+
+Editing
+:YTESlintDisableNextLine RULE     Insert \"// eslint-disable-next-line RULE\" comment
+:YTBashTemplate                   Insert bash template
+
+
+Development:
+g:yt_logpath                Path of log file
+g:yt_log_enabled            Enabled by default for nvim
+                           Disabled by default for vim because slow
+
+                           Use YT_VIM_DEBUG variable to toggle on startup
+                            $ YT_VIM_DEBUG=1 nvim         # Enabled
+                            $ YT_VIM_DEBUG=0 nvim         # Dsiabled
+:call YT_devWriteLog(msg)      Write log.
+:call YT_devShowLog()          Show logs in new tab.
+
+---- nvim 0.5 only ----
+:YT_LspGetLogPath
+:YT_LspShowLogs
+
+Troubleshooting:
+:checkhealth      check dependencies (neovim) 

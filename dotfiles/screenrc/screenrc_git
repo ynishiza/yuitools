@@ -1,0 +1,6 @@
+source $HOME/.screenrc
+screen -t vim 
+exec vim .
+screen -t git 
+exec git fetch origin 
+exec git branch -avv

@@ -1,0 +1,13 @@
+[alias]
+	gfe = "!git fetch ${GERRIT_REPO:-gerrit} --prune --tags +refs/heads/*:refs/remotes/${GERRIT_REPO:-gerrit}/* +refs/meta/*:refs/remotes/${GERRIT_REPO:-gerrit}/meta/* +refs/notes/*:refs/remotes/${GERRIT_REPO:-gerrit}/notes/*"
+	gpc = "!f() { git push ${GERRIT_REPO:-gerrit} HEAD:refs/for/${GERRIT_BRANCH:-master} $@; }; f"
+	gpd = "!f() { git push ${GERRIT_REPO:-gerrit} HEAD:refs/drafts/${GERRIT_BRANCH:-master} $@; }; f"
+
+	; git gfc CHANGE_NUMBER PATCH_NUMBER
+	; e.g. git gfc 1920 1
+		gfc = "!f() { if [ $# != 2 ]; then echo 'git gfc CHANGE_NUMBER PATCH_NUMBER'; exit 1; fi; git fetch ${GERRIT_REPO:-gerrit} refs/changes/${1:2:2}/$1/$2; }; f"
+
+	; config
+	gconff = "! git fetch ${GERRIT_REPO:-gerrit} --prune +refs/meta/*:refs/remotes/${GERRIT_REPO:-gerrit}/meta/*"
+	gconfp = "! git push ${GERRIT_REPO:-gerrit} HEAD:refs/meta/config"
+

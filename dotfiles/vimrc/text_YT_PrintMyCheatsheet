@@ -1,0 +1,43 @@
+window:
+2<c-w>>       2 units Wider
+2<c-w><       2 units Narrower
+2<c-w>+       2 units Taller
+2<c-w>-       2 units Shorter
+<c-w>|        Max width
+<c-w>_        Max height
+<c-w>=        Equalize
+<c-w>w        Next window (clockwise)
+1<c-w>w       Go to window 1 (1-indexed clockwise)
+<c-w>W        Reverse direction
+<c-w>p        Previous window
+
+fold:
+zj          Next fold
+zk          Previous
+[z          Beginning of current
+]z          End
+zo          Open current
+zO          Open deep
+zc          Close current
+zC          Close deep
+zr          'r'educe: Open all one level
+zR          Open all deep
+zm          'm'ore': Close all one level
+zM          Close all deep
+
+spell:
+z=          Show suggestions 
+]s          Next misspelled
+[s          Previous
+zg          Add as good word to spellfile
+zu          Add as bad word to spellfile
+zuw/zug     Undo
+zG          in-memory only
+zU          in-memory only
+zuW/zuG     in-memory only
+
+vimdiff:
+See :help motion.txt
+]c      Next change
+[c      Previous change
+

@@ -1,0 +1,9 @@
+[user]
+	name = Yui Nishizawa
+	email = yui@exaptive.com
+	signingkey = 4A308600 
+[sendemail]
+	#smtpencryption = ssl
+	smtpserver = secure156.inmotionhosting.com
+	smtpuser = yui@exaptive.com
+	smtpserverport = 587

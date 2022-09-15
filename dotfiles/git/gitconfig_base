@@ -1,0 +1,96 @@
+[core]
+	fileMode = false
+	editor = vim
+	whitespace = trailing-space
+[user]
+	name = Yui Nishizawa
+	email = yui.nishizawa@gmail.com
+	signingkey = 4A308600 
+[push]
+	default = nothing
+[alias]
+	# Config
+	aliases = "! git config --get-regex 'alias.*' | sort"
+	cls = config --list
+
+	## Shortcuts
+	#
+	st = status
+	b = branch
+	c = commit
+	co = checkout
+	df = diff
+	dfword = diff --word-diff
+	dfstat = diff --stat
+	dfsum = diff --summary
+	dt = difftool
+	m = merge
+	mt = mergetool
+	f = fetch
+
+	## Log
+	#
+	# colors
+	# - yellow: SHA1
+	# - blue: branch
+	# - red:
+	# - green: author
+	lsa = log --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s	\" 
+	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s \" 
+	lg = log --graph 
+	lp = log -p --show-signature
+	lst = log --stat --show-signature
+	last = log --stat -1 -p --show-signature
+	dfc = diff --cached
+	dfs = diff --stat
+	dfprev = diff @{1}
+	dfprev2 = diff @{2}
+	dfprev3 = diff @{3}
+	dfprev4 = diff @{4}
+	dfprev5 = diff @{5}
+
+	## Branch
+	bv = branch -vv
+	bva = branch -vv -a
+	bd = branch -d
+	bD = branch -D
+	bf = branch -f
+	upstream = "!f() { git branch --set-upstream-to=$1; }; f"
+	upstreamOf = "!f() { git branch $1 --set-upstream-to=$2; }; f" 
+	
+	## Commits
+	#
+	ai = add -i
+	ap = add -p
+	au = add --update
+	cS = commit -S
+	ca = commit --amend
+	caS = commit --amend -S
+	caa = commit --amend -a
+	uncommit = reset --soft HEAD~
+	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ "$A" = 'y' ]; then git reset --hard HEAD; fi"
+	cob = checkout -b
+
+	# Misc
+	pop = stash pop
+	configall = config --get-regexp '.*'
+	test = "!fn() { echo \"Hello $@ There\"; }; fn"
+	fo = fetch origin --prune --tags
+	mmaster = merge gerrit/master
+	mmain = merge origin/main
+
+[credential]
+	helper = store
+[merge]
+	tool = vimdiff
+	conflictstyle = diff3
+[mergetool]
+	prompt = true
+[color]
+	branch = 1
+[gitreview]
+	remote = origin
+[diff]
+	tool = vimdiff
+[difftool]
+	prompt = true

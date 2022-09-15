@@ -1,0 +1,31 @@
+# Copy this to $HOME/.config/git/ignore
+#
+*.tgz
+
+# environment variables
+.env
+.env.*
+
+# Vim
+.vimrc
+# Vim swap files
+.*.sw[a-z]
+.sw[a-z]
+# Vim undo files
+.*.un~
+
+## Local configs
+# Tern 
+.tern-project*      
+# Flow (JS static analyzer)
+.flowconfig         
+.bashrc
+
+# macos
+.DS_Store
+
+# my locals
+localyui
+
+# 
+.nvmrc

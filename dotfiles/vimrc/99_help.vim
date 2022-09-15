@@ -1,0 +1,25 @@
+let s:scriptpath=resolve(expand("<sfile>:p"))
+let s:scriptdir=fnamemodify(s:scriptpath, ":h")
+
+function! YT_PrintMyHelp()
+  " doc: state
+  let l:state = [
+        \"version: " . v:version,
+        \"nvim?: " . (has("nvim") ? "yes" : "no"),
+        \"log enabled: " . (g:yt_log_enabled ? "yes" : "no"),
+        \"log path: " . g:yt_logpath,
+        \]
+
+  let l:text = readfile(s:scriptdir . "/text_YT_PrintMyHelp")
+  echo join(l:state, "\n")
+  echo join(l:text, "\n")
+endfunction
+
+function! YT_PrintMyCheatsheet()
+  let l:text = readfile(s:scriptdir . "/text_YT_PrintMyCheatsheet")
+  echo join(l:text, "\n")
+endfunction
+
+command! -nargs=0 YTPrintMyHelp call YT_PrintMyHelp()
+map <leader>? :call YT_PrintMyHelp()<cr>
+map <leader>/ :call YT_PrintMyCheatsheet()<cr>

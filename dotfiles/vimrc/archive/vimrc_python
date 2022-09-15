@@ -1,0 +1,7 @@
+" Python environment with 4 space indentation
+" Default is using tabs
+function! __YT_InitPython()
+  call YT_EditWithSpaces(4)
+endfunction
+
+autocmd FileType python call __YT_InitPython()
