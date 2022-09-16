@@ -23,20 +23,24 @@ __yt_setup_main() {
 	bash "${TOOLS_BASE}/setup_vim.sh"
 	bash "${TOOLS_BASE}/setup_tools.sh"
 	bash "${TOOLS_BASE}/create_backup.sh"
+
+	echo "Setup done"
 }
 
 __yt_setup_runSetup() {
+	# step: confirm
+	echo "Run setup? (y/n)" && read -r response
+	[[ "$response" != "y" ]] && return
+
 	# Move to real path, not link.
 	cd "$TOOLS_SRC"
 
 
 	## Validate
 	#
-	if [[ ! -d "$DOTFILES_SRC" ]]
-	then
-		echo "Bad directory. Could not find dotfiles."
-		exit 1
-	fi
+	[[ ! -d "$DOTFILES_SRC" ]] \
+		&& echo "Bad directory. Could not find dotfiles." \
+		&& exit 1
 
 	## Links
 	#

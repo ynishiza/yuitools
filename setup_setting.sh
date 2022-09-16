@@ -1,6 +1,6 @@
 #!/bin/bash
 # shellcheck disable=1,SC2034
-if [[ ! -f 'setup_setting.sh' ]]; then echo "Need to be in tools file"; exit 1; fi
+[[ ! -f 'setup_setting.sh' ]] && echo "Need to be in tools file" && exit 1
 
 TOOLS_SRC=$(pwd -P)
 TOOLS_BASE="$HOME/.yui_tools"
@@ -8,6 +8,7 @@ TIMESTAMP=$(date '+%m%d%y_%H%M%S')
 
 # use [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
+
 
 # _yt_setup_createLink [-f] SRC DST
 #

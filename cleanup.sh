@@ -14,11 +14,9 @@ cd "$TOOLS_SRC"
 #
 # Validate
 #
-if [[ ! -d "$DOTFILES_SRC" ]]
-then
-	echo "Bad directory. Could not find dotfiles."
-	exit 1
-fi
+[[ ! -d "$DOTFILES_SRC" ]] \
+	&& echo "Bad directory. Could not find dotfiles." \
+	&& exit 1
 
 ############## Main ##############
 
@@ -28,8 +26,9 @@ else READLINK="readlink -f"; fi
 
 cleanupLink() {
 	local link=$1
-	local linkpath=$($READLINK "$link")
+	local linkpath
 	local srcpath=$2
+	linkpath=$($READLINK "$link")
 
 	# Validate
 	if [[ ! "$srcpath" ]]; then echo "Bad source=$srcpath"; return; fi

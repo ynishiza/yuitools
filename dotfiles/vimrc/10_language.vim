@@ -104,6 +104,12 @@ endfunction
 function! YT_LatexInit()
   let g:tex_flavor="latex"
 
+  " -n option: disable warnings
+  " Documentation: https://www.ctan.org/pkg/chktex?lang=en
+  "  1 = Command terminated with space.
+  "  8 = Wrong length of dash may have been used.
+  let g:syntastic_tex_chktex_args="-n 8 -n 1"
+
   if ! g:yt_is_nvim
     " tex files very slow in original vim
     " Ref: https://stackoverflow.com/questions/8300982/vim-running-slow-with-latex-files
