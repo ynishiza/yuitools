@@ -29,8 +29,7 @@ __yt_setup_main() {
 
 __yt_setup_runSetup() {
 	# step: confirm
-	echo "Run setup? (y/n)" && read -r response
-	[[ "$response" != "y" ]] && return
+	read -r -p "Run setup? (y/n)" response && [[ "$response" != "y" ]] && return
 
 	# Move to real path, not link.
 	cd "$TOOLS_SRC"
@@ -49,15 +48,16 @@ __yt_setup_runSetup() {
 	_yt_setup_createLink -f "${TOOLS_BASE}/dotfiles" "$HOME/.yui_dotfiles"
 
 
-	## Common dotfiles
-	# - create link only if it doesn't exist yet.
-	#		Don't want to overwrite. This is for safety.
-	_yt_setup_createLink "${DOTFILES_LINK}/bashrc/bashrc_base" "$HOME/.bashrc"
-	_yt_setup_createLink "${DOTFILES_LINK}/vimrc/init.vim" "$HOME/.vimrc"
-	_yt_setup_createLink "${DOTFILES_LINK}/ctags/ctags_base" "$HOME/.ctags"
-	_yt_setup_createLink "${DOTFILES_LINK}/npmrc" "$HOME/.npmrc"
-	_yt_setup_createLink "${DOTFILES_LINK}/git/gitconfig" "$HOME/.gitconfig"
-	_yt_setup_createLink "${DOTFILES_LINK}/tmux/tmux_base.conf" "$HOME/.tmux.conf"
+	echo "Setting up base configs for: bash, vim, tmux
+For other settings (e.g. gnupg, npm), copy the templates in ${TOOLS_BASE}/templates/ instead"
+	read -n 1 -s -r
+	## Common configs
+	# Add code to load config.
+	_yt_setup_appendtext "$HOME/.bashrc" "bashrc/bashrc_base" "# Load base"$'\n'"source \"${DOTFILES_LINK}/bashrc/bashrc_base\""
+	_yt_setup_appendtext "$HOME/.vimrc" "vimrc/init.vim" "source \"${DOTFILES_LINK}/vimrc/init.vim\""
+	_yt_setup_appendtext "$HOME/.gitconfig" "git/gitconfig_init" "[include]"$'\n'"   path=${DOTFILES_LINK}/git/gitconfig_init"
+	_yt_setup_appendtext "$HOME/.tmux.conf" "tmux/tmux_base.conf" "source-file ${DOTFILES_LINK}/tmux/tmux_base.conf"
+
 }
 
 __yt_setup_main

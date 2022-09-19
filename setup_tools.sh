@@ -9,8 +9,7 @@ source "$__dir/setup_setting.sh"
 
 # step: confirm
 __installTools() {
-	echo "Install tools (fzf, nvm, autojump, tmuxinator)? (y/n)" && read -r response
-	[[ "$response" != "y" ]] && return
+	read -r -p "Install tools (fzf, nvm, autojump, tmuxinator)? (y/n)" response && [[ "$response" != "y" ]] && return
 
 	(__installFzf || true)
 	(__installAutojump || true)

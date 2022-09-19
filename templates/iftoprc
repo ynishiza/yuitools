@@ -1,0 +1,14 @@
+dns-resolution:yes
+port-resolution:yes
+#filter-code:bpf
+port-display:off
+link-local:yes
+hide-source:no
+hide-destination:yes
+show-bars:yes
+show-totals:yes
+log-scale:no
+#max-bandwidth
+#net-filter:
+#net-filter6:
+#screen-filter:

@@ -1,0 +1,40 @@
+Troubleshooting:
+:checkhealth      check dependencies (neovim) 
+
+
+---- nvim 0.5 only ----
+Extension: LSP
+<leader>gR          Refresh LSP
+<leader>gd          Go to definition
+<leader>gD          Go to declaration
+<leader>gr          Find references
+<leader>gt           Get type definition
+<leader>gh          Show hint
+<leader>gs          Show function signature
+<leader>gi          Show implementation
+<leader>gel         Show diagnostics in loc 
+<leader>ges         Show diagnostics of current position
+
+:LspInfo
+:LspStart
+:LspStop            
+
+Troubleshooting
+:YT_LspGetLogPath
+:YT_LspShowLogs
+
+
+Incremental selection:
+<leader>S           Visual select node
+J                   visual: next node 
+K                   visual: previous node 
+U                   visual: parent scope node 
+
+
+Extension: nvim-cmp 
+<Tab>         Select next
+<S-Tab>       Select previous
+<C-c>         Cancel
+<CR>          Confirm/replace
+
+

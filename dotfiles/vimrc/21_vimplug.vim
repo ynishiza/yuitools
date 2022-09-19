@@ -1,4 +1,6 @@
-let s:is_neovim_05 = has('nvim-0.5')
+" nvim-0.5
+let s:lua_support = has('nvim-0.5')
+
 call plug#begin('~/.vim/plugged')
   " solarized: color scheme
   Plug 'altercation/vim-colors-solarized'
@@ -25,7 +27,7 @@ call plug#begin('~/.vim/plugged')
   " YouCompleteMe: autocompletion
   "
   " NOTE: conflicts with neovim LSP?
-  if !s:is_neovim_05
+  if !s:lua_support
   " if 1
     Plug 'Valloric/YouCompleteMe'
   endif
@@ -62,7 +64,7 @@ call plug#begin('~/.vim/plugged')
 
   """"""""""""""""""""""""""" neovim 0.5: Treesitter """""""""""""""""""""""""""
 
-  if s:is_neovim_05
+  if s:lua_support
     " treesitter: Better syntax-related features
     " e.g. highlighting
     " e.g. folding
@@ -76,7 +78,7 @@ call plug#begin('~/.vim/plugged')
 
   """"""""""""""""""""""""""" neovim 0.5: LSP """""""""""""""""""""""""""
 
-  if s:is_neovim_05
+  if s:lua_support
     Plug 'neovim/nvim-lspconfig'
 
     " Not needed?
@@ -113,7 +115,7 @@ call plug#begin('~/.vim/plugged')
 
   " haskell-vim: syntax highlighting for haskell
   " https://github.com/neovimhaskell/haskell-vim
-  if s:is_neovim_05
+  if s:lua_support
     Plug 'neovimhaskell/haskell-vim'
   endif
 
@@ -145,7 +147,7 @@ call plug#begin('~/.vim/plugged')
 call plug#end()
 
 " neovim 0.5 only vimplug settings
-if s:is_neovim_05
+if s:lua_support
   set runtimepath+=~/.vim/vimrc.d
   runtime! avail.d/21_vimplug_neovim.vim
 endif

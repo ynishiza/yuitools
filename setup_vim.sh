@@ -16,8 +16,7 @@ declare NVIMDIR="$HOME/.config/nvim"
 
 
 main() {
-	echo "Run vim setup? (y/n)" && read -r response
-	[[ "$response" != "y" ]] && return
+	read -r -p "Run vim setup? (y/n)" response && [[ "$response" != "y" ]] && return
 
 	echo "" > "$LOG"
 	_yt_setupDefaultVimrc

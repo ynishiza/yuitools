@@ -166,6 +166,7 @@ autocmd yuitools_trailingwhitespace BufWrite
       \*.css,*.scss
       \*.lua
       \*.tex
+      \*.vim
       \ :YTRemoveTrailingWhitespace
 aug END
 

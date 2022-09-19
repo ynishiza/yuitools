@@ -13,6 +13,16 @@ function! YT_PrintMyHelp()
   let l:text = readfile(s:scriptdir . "/text_YT_PrintMyHelp")
   echo join(l:state, "\n")
   echo join(l:text, "\n")
+
+
+  " case: neovim only features
+  if has('nvim')
+    call input("\nHit enter to show neovim only help")
+    " Clear window
+    redraw
+    let l:text = readfile(s:scriptdir . "/text_YT_PrintMyHelpNeovim")
+    echon join(l:text, "\n")
+  endif
 endfunction
 
 function! YT_PrintMyCheatsheet()

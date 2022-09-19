@@ -1,3 +1,21 @@
+ Helps:
+:help 'tabstop'   Option help
+:help :retab      Command help
+:help abs()       Function help
+:help CTRL-R      Mapping help
+:help i_CTRL-R    Mapping help by mode 
+                    i=insert n=normal v=visual c=commandline
+:help help-context  See help for the above
+:help motion.txt   Mapping help for motions
+:help [            Mapping help for specific motions
+                 [ ] ( ) { }
+gO       (big o) Show table of contents 
+<c-]>    Follow link
+<c-o>    Back
+<c-t>    Back
+<c-i>    Forward
+
+
 window:
 2<c-w>>       2 units Wider
 2<c-w><       2 units Narrower

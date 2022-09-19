@@ -1,20 +1,3 @@
- Helps:
-:help 'tabstop'    Option help
-:help :retab   Command help
-:help abs()    Function help
-:help CTRL-R   Mapping help
-:help i_CTRL-R   Mapping help by mode 
-                 i=insert n=normal v=visual c=commandline
-:help motion.txt   Mapping help for motions
-:help [            Mapping help for specific motions
-                 [ ] ( ) { }
-gO       (big o) Show table of contents 
-<c-]>    Follow link
-<c-o>    Back
-<c-t>    Back
-<c-i>    Forward
-
-
 Custom mappings:
 === General ===
 <space>?    Print this help
@@ -118,40 +101,12 @@ Extension: Syntastic
 :SyntasticDebugDisable    Disable debug
 :call SyntasticDebugSetLevel(1) 
 
-Extension (nvim 0.5): LSP
-<leader>gR          Refresh LSP
-<leader>gd          Go to definition
-<leader>gD          Go to declaration
-<leader>gr          Find references
-<leader>gt           Get type definition
-<leader>gh          Show hint
-<leader>gs          Show function signature
-<leader>gi          Show implementation
-<leader>gel         Show diagnostics in loc 
-<leader>ges         Show diagnostics of current position
-
-:LspInfo
-:LspStart
-:LspStop            
-
-Incremental selection:
-<leader>S           Visual select node
-J                   visual: next node 
-K                   visual: previous node 
-U                   visual: parent scope node 
-
-
-Extension (nvim 0.5): nvim-cmp 
-<Tab>         Select next
-<S-Tab>       Select previous
-<C-c>         Cancel
-<CR>          Confirm/replace
-
 
 Custom functions:
 :call YT_BufferCount()              
 :call YT_BufferCloseOthers()        
 :call YT_DisableRemoveTrailingWhiteSpace('*.js')        Disable auto YTRemoveTrailingWhitespace
+
 
 Custom commands:
 :YTArgSubstitute PATTERN NEW      Search for PATTERN and replace with NEW in args files. See :args.
@@ -182,10 +137,3 @@ g:yt_log_enabled            Enabled by default for nvim
                             $ YT_VIM_DEBUG=0 nvim         # Dsiabled
 :call YT_devWriteLog(msg)      Write log.
 :call YT_devShowLog()          Show logs in new tab.
-
----- nvim 0.5 only ----
-:YT_LspGetLogPath
-:YT_LspShowLogs
-
-Troubleshooting:
-:checkhealth      check dependencies (neovim) 
