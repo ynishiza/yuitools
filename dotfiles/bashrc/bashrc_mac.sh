@@ -10,6 +10,7 @@ main() {
 	_setupFunctions
 }
 
+
 _setupAlias() {
 	#
 	# Alias
@@ -27,28 +28,35 @@ _setupAlias() {
 	alias ll="ls -alFG"		# G=color F=show type
 	alias la="ls -AG"
 	_PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
-	alias yt_macos_pscpu="yt_macos_CommandWithLess ps -Ar -o $_PSCOLUMNS"
-	alias yt_macos_psmem="yt_macos_CommandWithLess ps -Am -o $_PSCOLUMNS"
-	alias yt_macos_psid="ps -Ao pid,ppid,pgid,rgid,user,uid,tt,command"
+	# shellcheck disable=SC2139
+	alias yt_macos_pscpu="yt_CommandWithLess ps -Ar -o $_PSCOLUMNS"
+	# shellcheck disable=SC2139
+	alias yt_macos_pscpu="yt_CommandWithLess ps -Ar -o $_PSCOLUMNS"
+	# shellcheck disable=SC2139
+	alias yt_macos_psmem="yt_CommandWithLess ps -Am -o $_PSCOLUMNS"
+	alias yt_macos_psid="yt_CommandWithLess ps -Ao pid,ppid,pgid,rgid,user,uid,tt,command"
 	alias yt_macos_shutdown="sudo /sbin/shutdown -h now"
 
 	# Sar
-	SARINTERVAL=$((10))
-	SARCOUNT=$(((60 * 60 * 24) / SARINTERVAL ))		# A day
-	DoSar() {
-		TYPE=$1
-		INTERVAL=$2
-		COUNT=$3
-		if [[ ! $INTERVAL ]]; then INTERVAL=$SARINTERVAL; fi
-		if [[ ! $COUNT ]]
-		then
-			COUNT=$(( SARCOUNT ))
-		fi
-		sar "$TYPE $INTERVAL $COUNT"
-	}
-	alias yt_macos_saru="DoSar -u"
-	alias yt_macos_sard="DoSar -d"
-	alias yt_macos_sarn="DoSar \"-n DEV\""
+	if which sar
+	then
+		SARINTERVAL=$(( 10 ))
+		SARCOUNT=$(( (60 * 60 * 24) / SARINTERVAL ))		# A day
+		DoSar() {
+			TYPE=$1
+			INTERVAL=$2
+			COUNT=$3
+			if [[ ! $INTERVAL ]]; then INTERVAL=$SARINTERVAL; fi
+			if [[ ! $COUNT ]]
+			then
+				COUNT=$(( SARCOUNT ))
+			fi
+			sar "$TYPE $INTERVAL $COUNT"
+		}
+		alias yt_macos_saru="DoSar -u"
+		alias yt_macos_sard="DoSar -d"
+		alias yt_macos_sarn="DoSar \"-n DEV\""
+	fi
 }
 
 _setupEnv() {
@@ -170,7 +178,6 @@ _setupFunctions() {
 		local volume=$1
 		if [[ $# == 0 ]]
 		then
-
 			local volume
 			volume="$(osascript -e 'output volume of (get volume settings)')"
 			cat <<EOF

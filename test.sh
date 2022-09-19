@@ -13,7 +13,7 @@ Test
 END
 }
 
-DOCKERFILE="$__dir/templates/docker/Dockerfile.ubuntu_basic"
+DOCKERFILE="$__dir/templates/docker/Dockerfile.ubuntu_dev"
 IMAGENAME="yuitoolstest"
 
 USAGE_EXITCODE=200
@@ -42,17 +42,12 @@ onError() {
 # Both success and fail
 trap cleanup EXIT RETURN
 
-declare DEBUG
 main() {
 	# step: parse options
 	while [[ $# -gt 0 ]]
 	do
 		echo "a $1 b"
 		case "$1" in
-			--debug)
-				DEBUG=1
-				shift
-				;;
 			# case: error handling
 			-*)
 				echo "Unknown option $1" >&2
@@ -78,15 +73,8 @@ runTest() {
 	docker run -ti  \
 		-v "$__dir":"/home/guest/.yui_tools" \
 		"$IMAGENAME" \
-		bash -c "( cd .yui_tools \
-			&& bash ./setup.sh \
-			&& echo 'Testing neovim. Hit enter.' && read \
-			&& nvim \
-			&& nvim -c PlugInstall \
-			&& vim ; ) || true \
-			&& echo 'Done tests. Entering shell to debug/play around.' \
+		bash -c "( bash /home/guest/.yui_tools/test_content.sh; ) || true \
 			&& bash"
-			# && pushd ~/.vim/plugged/YouCompleteMe && ./install.py --all && popd
 }
 
 (main "$@")

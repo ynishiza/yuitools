@@ -1,4 +1,5 @@
-# See `bind -P` to see all bindings
+# Verify bindings with:
+#  $ bind -P
 #
 ## enable Alt-arrows 
 "\C-l": forward-word
