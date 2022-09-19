@@ -16,8 +16,9 @@ ENV DEBIAN_FRONTEND noninteractive
 # step: install basic packages
 RUN apt update && apt upgrade -y && apt update && \
   apt install -y software-properties-common \
-   man less sudo rsync curl \
-	 python3-dev cmake git vim neovim 
+   man less sudo rsync curl iptables iproute2 \
+	 python3-dev cmake git vim neovim \
+	 tmux iftop htop
 
 # step: add user
 RUN useradd -ms /bin/bash guest

@@ -42,17 +42,12 @@ onError() {
 # Both success and fail
 trap cleanup EXIT RETURN
 
-declare DEBUG
 main() {
 	# step: parse options
 	while [[ $# -gt 0 ]]
 	do
 		echo "a $1 b"
 		case "$1" in
-			--debug)
-				DEBUG=1
-				shift
-				;;
 			# case: error handling
 			-*)
 				echo "Unknown option $1" >&2
@@ -83,8 +78,14 @@ runTest() {
 			&& echo 'Testing neovim. Hit enter.' && read \
 			&& nvim \
 			&& nvim -c PlugInstall \
-			&& vim ; ) || true \
+			&& vim  \
+			&& echo 'Test iftop/htop'  \
+			&& mkdir -p ~/.config/htop && cp templates/htop/htoprc ~/.config/htop/htoprc \
+			&& htop \
+			&& cp templates/iftop/iftoprc ~/.iftoprc \
+			&& sudo iftop \
 			&& echo 'Done tests. Entering shell to debug/play around.' \
+			&& echo ; ) || true \
 			&& bash"
 			# && pushd ~/.vim/plugged/YouCompleteMe && ./install.py --all && popd
 }

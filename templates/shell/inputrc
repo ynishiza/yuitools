@@ -1,5 +1,6 @@
-# 
-
+# Verify bindings with:
+#  $ bind -P
+#
 ## enable Alt-arrows 
 "\C-l": forward-word
 "\e[1;3D": backward-word ### Alt left
