@@ -1,3 +1,0 @@
-Usage:
-Create a copy of the ctags file to use to the project base directory.
-	e.g. cp ctags_javascript2 ~/MyProjects/testProject/.ctags
