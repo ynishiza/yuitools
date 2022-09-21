@@ -26,23 +26,15 @@ _main() {
 	## .env
 	# Load if any.
 	# IMPORTANT: load before tools, since .env may contain settings for the tools.
-	if [[ -f './.env' ]]
-	then
-		echo "Found .env. Exporting." >&2
-		# shellcheck disable=SC2119
-		yt_DotEnvExport
-	fi
+	[[ -f './.env' ]] && echo "Found .env. Exporting." >&2 && yt_DotEnvExport
 	_loadTools
 	_setupTools
 
 	## Custom bashrc
 	#
 	# Do this last. Otherwise, may get overwritten by default.
-	if [[ -n $IS_MAC ]]
-	then
-		# shellcheck disable=SC1091
-		source "$BASHRC_YUI/bashrc_mac"
-	fi
+	# shellcheck disable=SC1091
+	[[ -n $IS_MAC ]] && source "$BASHRC_YUI/bashrc_mac"
 	# shellcheck disable=SC1091
 	source "$BASHRC_YUI/bashrc_fzf"
 	# shellcheck disable=SC1091
@@ -64,11 +56,8 @@ _loadTools() {
 	#
 	_loadSourceIfExist() {
 		local source_path="$1"
-		if [[ -f "$source_path" ]];
-		then
-			# shellcheck disable=SC1090
-			source "$source_path"
-		fi
+		# shellcheck disable=SC1090
+		[[ -f "$source_path" ]] && source "$source_path"
 	}
 
 	_loadSourceIfExist "${MY_BIN}/completion/git-completion.bash"
@@ -187,7 +176,7 @@ _setupFunction() {
 	yt_DotEnvExport() {
 		local envname="${1:-.env}"
 		echo "yt_DotEnvExport $envname" >&2
-		if [[ $# -gt 1 ]]; then envname=$1; fi
+		[[ $# -gt 1 ]] && envname=$1
 		while read -r line
 		do
 			# Skip comment
@@ -216,7 +205,7 @@ _setupPath() {
 	## Path
 	#
 	# Take backup so that if this bashrc is reloaded, we don't duplicate paths.
-	if [[ ! $PATH_BAK ]]; then PATH_BAK=$PATH; fi
+	[[ ! $PATH_BAK ]] && PATH_BAK=$PATH
 	PATH=$PATH_BAK
 
 	PATH=/usr/sbin:$PATH
@@ -238,12 +227,10 @@ _yt_loadLocalBashrc() {
 	local_bashrc="$(pwd -P)/.bashrc";
 	local home_bashrc="$HOME/.bashrc"
 
-	if [[ -f "$local_bashrc" ]] && ! cmp -s "$local_bashrc" "$home_bashrc"
-	then
-		echo "Loading local $local_bashrc" >&2
-		# shellcheck disable=SC1090
-		source "$local_bashrc"
-	fi
+	# shellcheck disable=SC1090
+	[[ -f "$local_bashrc" ]] && ! cmp -s "$local_bashrc" "$home_bashrc" \
+		&& echo "Loading local $local_bashrc" >&2 \
+		&& source "$local_bashrc"
 }
 
 _main

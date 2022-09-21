@@ -43,8 +43,14 @@
 	last = log --stat -1 -p --show-signature
 	dfc = diff --cached
 	dfs = diff --stat
-	dfprev = diff @{1}
-	dfprev2 = diff @{2}
+
+	# Diff against previous value of a branch
+	# e.g. after a new commit, diff changes by the commit 
+	# 		i.e. in this case, same as `diff HEAD~`
+	# e.g. after a rebase, diff changes by the rebase
+	# e.g. after a commit ammend, diff changes by the ammend
+	dfprev = diff @{1}			# previous
+	dfprev2 = diff @{2}			# 2 changes ago
 	dfprev3 = diff @{3}
 	dfprev4 = diff @{4}
 	dfprev5 = diff @{5}
@@ -76,7 +82,7 @@
 	configall = config --get-regexp '.*'
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
 	fo = fetch origin --prune --tags
-	mmaster = merge gerrit/master
+	mmaster = merge origin/master
 	mmain = merge origin/main
 
 [credential]

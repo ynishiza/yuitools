@@ -1,4 +1,5 @@
-# Use neovim
+# Use neovim for tools
+#
 # Reference https://gist.github.com/huytd/78c676a797f81eb08cdedf5400e1b6a3
 [core]
 	editor = nvim
