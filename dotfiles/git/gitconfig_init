@@ -1,8 +1,8 @@
 [include]
-	path = ~/.yui_dotfiles/git/gitconfig_base
-	path = ~/.yui_dotfiles/git/gitconfig_gerrit
-	path = ~/.yui_dotfiles/git/gitconfig_nvim
-	path = ~/.yui_dotfiles/git/gitconfig_exaptive
+	path = ~/.yui_dotfiles/git/gitconfig_base.gitconfig
+	path = ~/.yui_dotfiles/git/gitconfig_gerrit.gitconfig
+	path = ~/.yui_dotfiles/git/gitconfig_nvim.gitconfig
+	path = ~/.yui_dotfiles/git/gitconfig_exaptive.gitconfig
 [core]
 	editor = nvim
 	excludesfile = ~/.yui_dotfiles/git/ignore

@@ -34,11 +34,11 @@ _main() {
 	#
 	# Do this last. Otherwise, may get overwritten by default.
 	# shellcheck disable=SC1091
-	[[ -n $IS_MAC ]] && source "$BASHRC_YUI/bashrc_mac"
+	[[ -n $IS_MAC ]] && source "$BASHRC_YUI/bashrc_mac.sh"
 	# shellcheck disable=SC1091
-	source "$BASHRC_YUI/bashrc_fzf"
+	source "$BASHRC_YUI/bashrc_fzf.sh"
 	# shellcheck disable=SC1091
-	source "$BASHRC_YUI/bashrc_snort"
+	source "$BASHRC_YUI/bashrc_snort.sh"
 
 	_yt_loadLocalBashrc
 }

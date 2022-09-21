@@ -180,6 +180,7 @@ aug yuitools_filetype
   autocmd BufRead *.json set filetype=json
   autocmd BufRead *.rst set filetype=markdown
   autocmd BufRead *.conf set filetype=conf
+  autocmd BufRead *.gitconfig set filetype=gitconfig
 aug END
 
   " JSON
