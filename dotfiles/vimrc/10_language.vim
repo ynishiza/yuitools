@@ -181,6 +181,7 @@ aug yuitools_filetype
   autocmd BufRead *.rst set filetype=markdown
   autocmd BufRead *.conf set filetype=conf
   autocmd BufRead *.gitconfig set filetype=gitconfig
+  autocmd BufRead *.sshconfig set filetype=sshconfig
 aug END
 
   " JSON
