@@ -9,10 +9,15 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 # use [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
 
+LOG="/tmp/$(basename "$0")_$(date +%s)"
+touch "$LOG"
+
 # Usage
 usage() {
 	cat <<END
- $0 [-d|--debug] [-f|--file NAME] [-] [ARG]
+ $0 [-d|--maxdepth DEPTH] [-r|--remove] [-] PATH
+Finds broken symlinks.
+Use -r to delete the found broken links.
 END
 }
 
@@ -46,20 +51,20 @@ main() {
 	if [[ $# = 0 ]]; then usageAndExit; fi
 
 	# step: parse options
-	local filename=
+	local searchPath=
+	local searchOptions=
+	local removeLinks=
 	while [[ $# -gt 0 ]]
 	do
 		echo "a $1 b"
 		case "$1" in
 			# case: option with value
-			-f|--file)
-				filename="$2"
+			-d|--maxdepth)
+				searchOptions="-maxdepth $2 "
 				shift
 				;;
-			-d|--debug)
-				set -x
-				ddd
-				shift
+			-r|--remove)
+				removeLinks=1
 				;;
 			# case: explicit start of positional arguments
 			# e.g. script.sh - a b
@@ -80,8 +85,32 @@ main() {
 		shift
 	done
 
-	echo "filename=$filename"
-	echo "positional: $*"
+	searchPath="$*"
+
+	# note: readlink options
+	# -f = canonical link
+	# Only non-macos
+	readlinkOpt="-f"
+	[[ -n "$IS_MAC" ]] && readlinkOpt=""
+
+	# while read -r resPath
+	# do
+	# done < <(find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print)
+
+	# note: use array loop instead of the `CMD | while read do ...done` trick
+	# The while trick does not allow prompting
+
+	# shellcheck disable=SC2086,SC2207
+	files=($(find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print))
+	for linksrc in "${files[@]}"
+	do
+		# shellcheck disable=SC2086
+		linktarget="$(readlink $readlinkOpt "$linksrc")"
+		echo "$linksrc -> $linktarget" | tee "$LOG"
+		[[ "$removeLinks" ]] && rm -f "$linksrc"
+	done
+
+	echo "log in $LOG"
 }
 
 (main "$@")
