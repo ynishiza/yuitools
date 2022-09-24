@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eu -o pipefail
 
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"

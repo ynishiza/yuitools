@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # shellcheck disable=1,SC2034
 [[ ! -f 'setup_setting.sh' ]] && echo "Need to be in tools file" && exit 1
 

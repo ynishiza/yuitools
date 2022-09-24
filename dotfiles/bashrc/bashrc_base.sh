@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Exit immediately if not in interactive mode.
 # Otherwise, causes scp to fail.

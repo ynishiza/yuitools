@@ -1,4 +1,4 @@
-#!/usr/local/bin/bash
+#!/usr/bin/env bash
 set -eu -o pipefail
 
 # Prevent expansion of * address

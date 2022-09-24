@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 echo "Loading ${BASH_SOURCE[0]}"
 if which snort >/dev/null
 then

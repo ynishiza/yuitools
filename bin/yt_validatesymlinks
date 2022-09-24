@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 set -eu -o pipefail
 
 # shellcheck disable=SC2034
@@ -56,7 +56,6 @@ main() {
 	local removeLinks=
 	while [[ $# -gt 0 ]]
 	do
-		echo "a $1 b"
 		case "$1" in
 			# case: option with value
 			-d|--maxdepth)

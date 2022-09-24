@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 NEWLINE=$'\n'
 main() {
@@ -117,7 +117,7 @@ _setupFunctions() {
 			for pattern in "${patterns[@]}"
 			do
 				echo "pattern:$pattern sleep:$sleep s"
-				if ! echo "$psvalue" | grep "$pattern" | grep -v grep 
+				if ! echo "$psvalue" | grep "$pattern" | grep -v grep
 				then
 					yt_macos_notification "$(date +%H:%M:%S) No process $pattern" "process ping: $pattern" >/dev/null
 				fi
