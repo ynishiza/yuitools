@@ -13,7 +13,7 @@ Test
 END
 }
 
-DOCKERFILE="$__dir/Dockerfile"
+DOCKERFILE="$__dir/templates/docker/Dockerfile.ubuntu_basic"
 IMAGENAME="yuitoolstest"
 
 USAGE_EXITCODE=200

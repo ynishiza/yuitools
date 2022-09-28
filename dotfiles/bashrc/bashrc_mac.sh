@@ -211,7 +211,20 @@ _setupTools() {
 	[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
 
 	# Homebrew
-	export HOMEBREW_NO_INSTALL_CLEANUP=1			# Don't run 'brew cleanup' after install/upgrade. i.e. keep old versions
+	#
+	# HOMEBREW_NO_INSTALL_CLEANUP
+	# Ref: https://docs.brew.sh/Manpage
+	# By default, `brew cleanup` deletes old versions.
+	# In particular, brew runs 'brew cleanup' after install/upgrade i.e. removes old version files
+	# Disable this.
+	export HOMEBREW_NO_INSTALL_CLEANUP=1			
+
+	# HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK
+	# Ref: https://docs.brew.sh/Manpage
+	# By default, after an install brew checks if other install formulas have been affected by the install due to dependency changes
+	# and tries to automatically upgrade those affected.
+	# Disable this .
+	export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 
 	# autojump
 	# shellcheck disable=SC1090
