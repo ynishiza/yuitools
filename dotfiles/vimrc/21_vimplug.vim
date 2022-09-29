@@ -113,10 +113,14 @@ call plug#begin('~/.vim/plugged')
 
   """"""""""""""""""""""""""" Language """""""""""""""""""""""""""
 
-  " haskell-vim: syntax highlighting for haskell
-  " https://github.com/neovimhaskell/haskell-vim
   if s:lua_support
+    " haskell-vim: syntax highlighting for haskell
+    " https://github.com/neovimhaskell/haskell-vim
     Plug 'neovimhaskell/haskell-vim'
+
+    " DISABLED: Not working? Better to use LSP anyway
+    " Plug 'eagletmt/neco-ghc'
+    " au FileType haskell setlocal omnifunc=necoghc#omnifunc
   endif
 
   " vim-terraform
@@ -148,8 +152,8 @@ call plug#end()
 
 " neovim 0.5 only vimplug settings
 if s:lua_support
-  set runtimepath+=~/.vim/vimrc.d
-  runtime! avail.d/21_vimplug_neovim.vim
+  " note: assumes runtimepath contains the dotfiles dir. See ./init.vim.
+  runtime! vimrc/21_vimplug_neovim.vim
 endif
 
 function! YT_PlugInstalled(name)

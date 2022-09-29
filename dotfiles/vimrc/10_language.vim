@@ -38,7 +38,7 @@ endfunction
 
 function! YT_InitJs()
   let t:comment_term="//"
-  call YT_JSWithSpaces(2)
+  call YT_EditWithSpaces(2)
   set undofile
 endfunction
 
@@ -150,7 +150,9 @@ aug yuitools
   autocmd FileType make call YT_InitMakefile()
   autocmd FileType markdown call YT_InitMarkdown()
   autocmd Filetype css call YT_InitCss()
-  autocmd Filetype json call YT_JSWithSpaces(2)
+  autocmd Filetype json call YT_EditWithSpaces(2)
+  autocmd Filetype haskell call YT_EditWithSpaces(2)
+  autocmd Filetype lua call YT_EditWithSpaces(2)
   autocmd BufRead *.tex call YT_LatexInit()
   autocmd BufRead *.conf call YT_EditWithTabs(2)
 aug END
@@ -196,12 +198,6 @@ aug END
 "
 
 " JavaScript
-function! YT_JSWithSpaces(x)
-  call YT_EditWithSpaces(a:x)
-endfunction
-function! YT_JSWithTabs()
-  call YT_EditWithTabs(4)
-endfunction
 function! YT_EslintDisableNextLine(rule) 
   exec "normal O// eslint-disable-next-line " . a:rule
 endfunction

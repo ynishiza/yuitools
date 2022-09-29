@@ -54,10 +54,34 @@ local nvim_lsp = require('lspconfig')
 -- note: global yt_lsp_server_settings
 -- To allow it to be overwritten in a local vimrc
 yt_lsp_server_settings = {
-  flow = { filetypes={"javascript"} },
+   -- Home: https://github.com/haskell/haskell-language-server
+   -- Installation
+   --  $ brew install haskell-language-server
+   hls = { filetypes={"haskell", "lhaskell" } },
+
+   -- Home: https://github.com/facebook/flow
+   -- Installation
+   --  $ npm install -g flow-bin
+   flow = { filetypes={"javascript"} }, 
+
+   -- Home: https://github.com/mads-hartmann/bash-language-server
+   -- Installation
+   --  $ npm install -g bash-language-server
    bashls = { filetypes={"sh"} },
+
+   -- Home: https://github.com/hrsh7th/vscode-langservers-extracted
+   -- Installation
+   --  $ npm install -g vscode-langservers-extracted
    jsonls = { filetypes={"json"} },
+
+   -- Home: https://github.com/hrsh7th/vscode-langservers-extracted
+   -- Installation
+   --  $ npm install -g vim-language-server
    vimls = { filetypes={"vim"} },
+
+   -- Home: https://github.com/theia-ide/typescript-language-server
+   -- Installation
+   --  $ npm install -g typescript-language-server
    tsserver = {
      filetypes={"typescript","typescriptreact","typescript.tsx"},
      cmd = { "typescript-language-server", "--stdio", "--log-level", "4", "--tsserver-log-file", "/tmp/tsserver.txt" },
