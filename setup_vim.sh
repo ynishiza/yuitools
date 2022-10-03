@@ -19,7 +19,6 @@ main() {
 	read -r -p "Run vim setup? (y/n)" response && [[ "$response" != "y" ]] && return
 
 	echo "" > "$LOG"
-	_yt_setupDefaultVimrc
 	_yt_setupVimplug
 	_yt_setupNeoBundle
 	_yt_setupDefaultPlugins
@@ -55,21 +54,6 @@ _yt_setupNeoBundle() {
 _yt_setupDefaultPlugins() {
 	mkdir -p "$VIMDIR"
 	rsync -r "$TOOLS_BASE/resources/vim/" "$VIMDIR"
-}
-
-_yt_setupDefaultVimrc() {
-	local home_vimrc=$HOME/.vimrc
-	local main_source_line="source ~/.yui_dotfiles/vimrc/init.vim"
-	local full_source_line="$main_source_line
-\" Keep background transparent.
-\" To avoid conflict with background of vim and the terminal
-hi Normal guibg=NONE ctermbg=NONE"
-
-	touch "$home_vimrc"
-	if ! grep "$main_source_line" "$home_vimrc"
-	then
-		echo "$full_source_line" >> "$home_vimrc"
-	fi
 }
 
 _yt_setupNvimConfig() {

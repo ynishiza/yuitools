@@ -54,7 +54,7 @@ For other settings (e.g. gnupg, npm), copy the templates in ${TOOLS_BASE}/templa
 	## Common configs
 	# Add code to load config.
 	_yt_setup_appendtext "$HOME/.bashrc" "bashrc/bashrc_base.sh" "# Load base"$'\n'"source \"${DOTFILES_LINK}/bashrc/bashrc_base.sh\""
-	_yt_setup_appendtext "$HOME/.vimrc" "vimrc/init.vim" "source \"${DOTFILES_LINK}/vimrc/init.vim\""
+	_yt_setup_appendtext "$HOME/.vimrc" "vimrc/init.vim" "source ${DOTFILES_LINK}/vimrc/init.vim"
 	_yt_setup_appendtext "$HOME/.gitconfig" "git/gitconfig_init.gitconfig" "[include]"$'\n'"   path=${DOTFILES_LINK}/git/gitconfig_init.gitconfig"
 	_yt_setup_appendtext "$HOME/.tmux.conf" "tmux/tmux_base.conf" "source-file ${DOTFILES_LINK}/tmux/tmux_base.conf"
 
