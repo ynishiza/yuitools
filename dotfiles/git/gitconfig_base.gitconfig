@@ -2,10 +2,6 @@
 	fileMode = false
 	editor = vim
 	whitespace = trailing-space
-[user]
-	name = Yui Nishizawa
-	email = yui.nishizawa@gmail.com
-	signingkey = 4A308600 
 [push]
 	default = nothing
 [alias]

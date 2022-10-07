@@ -15,5 +15,5 @@
 	tool = vimdiff
 [difftool]
 	# note: prompt before opening each file
-	# In particular, needed so that we can abort mergetool partway.
+	# In particular, needed so that we can abort difftool partway.
 	prompt = true
