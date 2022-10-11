@@ -131,6 +131,15 @@ map <leader>t# :tabedit #<cr>
 map <leader>tq :tabclose<cr>
 
 
+"" Fold
+" Fully open fold under cursor, including if partially open. 
+" IMPORTANT: Need to zo first 
+" i.e. open fold under cursor, if not open already. 
+" Otherwise, if it is closed, zc will close the closest fold above, not below,
+" which is not what we want.
+map zz zOzczO
+
+
 " Reload
 map <leader>ra :so $MYVIMRC<cr>
 map <leader>r. :exec "so " . expand("%:p")<cr>

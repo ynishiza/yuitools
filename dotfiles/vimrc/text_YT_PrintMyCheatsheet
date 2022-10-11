@@ -34,6 +34,8 @@ zj          Next fold
 zk          Previous
 [z          Beginning of current
 ]z          End
+zz          [custom] Fully open fold under cursor. 
+            In particular, useful when fold is only partially open.
 zo          Open current
 zO          Open deep
 zc          Close current
