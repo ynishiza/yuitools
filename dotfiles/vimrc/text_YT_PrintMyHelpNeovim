@@ -8,12 +8,21 @@ Extension: LSP
 <leader>gd          Go to definition
 <leader>gD          Go to declaration
 <leader>gr          Find references
-<leader>gt           Get type definition
+<leader>gt          Get type definition
 <leader>gh          Show hint
 <leader>gs          Show function signature
 <leader>gi          Show implementation
+
+Manipulation
+<leader>gC          Perform code action, if supported e.g. apply suggested fix
+<leader>gR          Rename
+<leader>gF          Auto-format
+
+Diagnostics
 <leader>gel         Show diagnostics in loc 
 <leader>ges         Show diagnostics of current position
+<leader>[d          Previous
+<leader>]d          Next
 
 :LspInfo
 :LspStart

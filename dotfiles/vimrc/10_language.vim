@@ -140,6 +140,7 @@ function! MyTestFunct()
   s/abc/ABC/gc
 endfunction
 
+" See :help events for event types
 aug yuitools
   autocmd FileType vim call YT_InitVim()
   autocmd FileType python call YT_InitPython()
@@ -164,11 +165,12 @@ autocmd yuitools_trailingwhitespace BufWrite
       \*.json,*.js,*vimrc,
       \*.ts,
       \*.md,*.markdown,
-      \*.yml,*.cfg
-      \*.css,*.scss
-      \*.lua
-      \*.tex
-      \*.vim
+      \*.yml,
+      \*.*.cfg,*config,
+      \*.css,*.scss,
+      \*.lua,
+      \*.tex,
+      \*.vim,
       \ :YTRemoveTrailingWhitespace
 aug END
 

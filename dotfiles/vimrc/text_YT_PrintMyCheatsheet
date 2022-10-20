@@ -56,6 +56,22 @@ zG          in-memory only
 zU          in-memory only
 zuW/zuG     in-memory only
 
+NERDTree:
+A           Maximize/minimize
+C           Change current directory to selected
+U           Change current directory to parent
+I           Show hidden 
+r           Refresh
+
+FZF:
+<c-j>       up
+<c-k>       down
+<c-t>       open in new tab
+<c-x>       open in horizontal split
+<c-v>       open in vertical split
+<c-alt-j>   preview up
+<c-alt-k>   preview down
+
 vimdiff:
 See :help motion.txt
 ]c      Next change
