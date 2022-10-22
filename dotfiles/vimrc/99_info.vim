@@ -16,6 +16,7 @@ function! YT_PrintMyInfo()
         \"indenting: " . (&expandtab ? 'space' : 'tab') . ", " . &shiftwidth . " units",
         \"foldenabled: " . (&foldenable == 1 ? 'yes' : 'no'),
         \"foldmethod: " . &foldmethod,
+        \"foldexpr: " . &foldexpr,
         \]
   
   echo join(l:state, "\n")

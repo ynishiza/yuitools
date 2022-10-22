@@ -154,24 +154,26 @@ aug yuitools
   autocmd Filetype json call YT_EditWithSpaces(2)
   autocmd Filetype haskell call YT_EditWithSpaces(2)
   autocmd Filetype lua call YT_EditWithSpaces(2)
-  autocmd BufRead *.tex call YT_LatexInit()
-  autocmd BufRead *.conf call YT_EditWithTabs(2)
+  autocmd Filetype latex call YT_LatexInit(2)
+  autocmd FileType conf call YT_EditWithTabs(2)
+  autocmd FileType gitconfig call YT_EditWithTabs(2)
+  autocmd FileType sshconfig call YT_EditWithTabs(2)
 aug END
 
 aug yuitools_trailingwhitespace
-autocmd yuitools_trailingwhitespace BufWrite
-      \ *.sh,
-      \*.py,*.r,*.php,
-      \*.json,*.js,*vimrc,
-      \*.ts,
-      \*.md,*.markdown,
-      \*.yml,
-      \*.*.cfg,*config,
-      \*.css,*.scss,
-      \*.lua,
-      \*.tex,
-      \*.vim,
-      \ :YTRemoveTrailingWhitespace
+  autocmd yuitools_trailingwhitespace BufWrite
+        \ *.sh,
+        \*.py,*.r,*.php,
+        \*.json,*.js,*vimrc,
+        \*.ts,
+        \*.md,*.markdown,
+        \*.yml,
+        \*.*.cfg,*config,
+        \*.css,*.scss,
+        \*.lua,
+        \*.tex,
+        \*.vim,
+        \ :YTRemoveTrailingWhitespace
 aug END
 
 function! YT_DisableRemoveTrailingWhiteSpace(filetype)
@@ -206,7 +208,16 @@ endfunction
 function! YT_ShellCheckDisableNextLine(rule) 
   exec "normal O# shellcheck disable=" . a:rule
 endfunction
+" Ormolu: Haskell formatter
+"  https://github.com/tweag/ormolu#usage
+function! YT_OrmoluDisable() 
+  exec "normal o{- ORMOLU_ENABLE -}" 
+  exec "normal <<<<" 
+  exec "normal o{- ORMOLU_DISABLE -}"
+  exec "normal <<<<" 
+endfunction
 
 command! -nargs=1 YTESlintDisableNextLine call YT_EslintDisableNextLine(<f-args>)
 command! -nargs=1 YTShellCheckDisableNextLine call YT_ShellCheckDisableNextLine(<f-args>)
+command! -nargs=0 YTOrmoluDisable call YT_OrmoluDisable()
 command! -nargs=0 YTBashTemplate call YT_BashTemplate()

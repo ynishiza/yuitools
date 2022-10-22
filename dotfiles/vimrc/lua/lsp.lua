@@ -63,7 +63,10 @@ yt_lsp_server_settings = {
    -- Home: https://github.com/haskell/haskell-language-server
    -- Installation
    --  $ brew install haskell-language-server
-   hls = { filetypes={"haskell", "lhaskell" } },
+   hls = { 
+     filetypes={"haskell", "lhaskell" },
+     cmd={ "haskell-language-server-wrapper", "--lsp" },
+   },
 
    -- Home: https://github.com/facebook/flow
    -- Installation

@@ -12,7 +12,8 @@ require'nvim-treesitter.configs'.setup {
     "html",
     "python",
     "regex",
-    "vim"
+    "vim",
+    -- "haskell",     NOT working. Error like: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
   },
   -- List of parsers to ignore installing
   ignore_install = {},
@@ -50,4 +51,9 @@ require'nvim-treesitter.configs'.setup {
     enable = false,
     disable = { }
   }
+
 }
+
+-- Fold: use treesitter to fold
+vim.opt.foldmethod = "expr"
+vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
