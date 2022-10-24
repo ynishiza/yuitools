@@ -2,6 +2,14 @@
 --langmap=markdown:.markdown.md.rst
 --regex-markdown=/^(##* +.+)/\1/h,header/
 
+--langdef=haskell
+--langmap=haskell:.hs
+--regex-haskell=/^([_a-zA-Z0-9]+)[ \t]+=/\1/c,value/
+--regex-haskell=/^(class.*where)/\1/e,class/
+--regex-haskell=/^(data.*=)/\1/d,type/
+--regex-haskell=/^(type.*=)/\1/d,type/
+--regex-haskell=/^(newtype.*=)/\1/d,type/
+
 --langdef=smplnt
 --langmap=smplnt:.smplnt
 --regex-smplnt=/^[ \t]*#(.+)#/\1/h,header/
