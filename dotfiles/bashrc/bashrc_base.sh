@@ -62,6 +62,7 @@ _loadTools() {
 
 	_loadSourceIfExist "${MY_BIN}/completion/git-completion.bash"
 	_loadSourceIfExist "${MY_BIN}/completion/tmuxinator.bash"
+	_loadSourceIfExist "${MY_BIN}/completion/stack.bash"
 }
 
 _setupTools() {

@@ -4,23 +4,23 @@ Troubleshooting:
 
 ---- nvim 0.5 only ----
 Extension: LSP
-<leader>gR          Refresh LSP
-<leader>gd          Go to definition
-<leader>gD          Go to declaration
-<leader>gr          Find references
-<leader>gt          Get type definition
-<leader>gh          Show hint
-<leader>gs          Show function signature
-<leader>gi          Show implementation
+<leader><leader>R          Refresh LSP
+<leader><leader>d          Go to definition
+<leader><leader>D          Go to declaration
+<leader><leader>r          Find references
+<leader><leader>t          Get type definition
+<leader><leader>h          Show hint
+<leader><leader>s          Show function signature
+<leader><leader>i          Show implementation
 
 Manipulation
-<leader>gC          Perform code action, if supported e.g. apply suggested fix
-<leader>gR          Rename
-<leader>gF          Auto-format
+<leader><leader>C          Perform code action, if supported e.g. apply suggested fix
+<leader><leader>R          Rename
+<leader><leader>F          Auto-format
 
 Diagnostics
-<leader>gel         Show diagnostics in loc 
-<leader>ges         Show diagnostics of current position
+<leader><leader>E         Show diagnostics in loc 
+<leader><leader>ee        Show diagnostics of current position
 <leader>[d          Previous
 <leader>]d          Next
 
