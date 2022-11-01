@@ -35,7 +35,7 @@ if NeoBundleInstalled()
   NeoBundleFetch "Shougo/neobundle.vim"
 
   " solarized: color scheme
-  NeoBundle "altercation/vim-colors-solarized"
+  " NeoBundle "altercation/vim-colors-solarized"
 
   " gpg editing
   " NeoBundle "jamessan/vim-gnupg"
@@ -93,11 +93,11 @@ if NeoBundleInstalled()
 
   """"""""""""""""""""""""""" R """""""""""""""""""""""""""
   " Nvim-R: R plugin. Provides omnicompletion
-  NeoBundle 'jalvesaq/Nvim-R'
+  " NeoBundle 'jalvesaq/Nvim-R'
 
 
   " lintr: Lint R
-  NeoBundle 'jimhester/lintr'
+  " NeoBundle 'jimhester/lintr'
 
   """"""""""""""""""""""""""" LaTeX """""""""""""""""""""""""""
 
@@ -135,18 +135,18 @@ if NeoBundleInstalled()
 
   " neco-ghc: omnicomplete for haskell
   " not working?
-  NeoBundle 'eagletmt/neco-ghc'
-  au FileType haskell setlocal omnifunc=necoghc#omnifunc
+  " NeoBundle 'eagletmt/neco-ghc'
+  " au FileType haskell setlocal omnifunc=necoghc#omnifunc
 
   "
-  NeoBundle 'lukerandall/haskellmode-vim'
-  let g:haddock_browser="abc"
+  " NeoBundle 'lukerandall/haskellmode-vim'
+  " let g:haddock_browser="abc"
 
 
   """"""""""""""""""""""""""" PHP """""""""""""""""""""""""""
 
   " vdebug: debug plugin for PHP's XDebugger
-  NeoBundle 'joonty/vdebug'
+  " NeoBundle 'joonty/vdebug'
 
   """"""""""""""""""""""""""" Disabled """""""""""""""""""""""""""
 

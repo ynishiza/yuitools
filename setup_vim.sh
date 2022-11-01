@@ -88,10 +88,9 @@ _yt_setupVimrc() {
 	# shellcheck disable=SC2226
 	ln -sf "../avail.d/10_language.vim"
 	# shellcheck disable=SC2226
-	ln -sf "../avail.d/20_neobundle.vim"
+	# ln -sf "../avail.d/20_neobundle.vim"
 	# shellcheck disable=SC2226
 	ln -sf "../avail.d/21_vimplug.vim"
-	# ln -sf "../avail.d/20_dein.vim"  Not working yet
 	# shellcheck disable=SC2226
 	ln -sf "../avail.d/30_plugin_settings.vim"
 	# shellcheck disable=SC2226

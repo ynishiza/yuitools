@@ -1,5 +1,5 @@
-if neobundle#is_installed('Nvim-R')
-" if YT_PlugInstalled('Nvim-R')
+" if neobundle#is_installed('Nvim-R')
+if YT_PlugInstalled('Nvim-R')
   function! _initNvimR()
     " omnicomplete: show the arguments of a function.
     let R_show_args = 1
@@ -14,7 +14,8 @@ if YT_PlugInstalled('nerdtree')
 endif
 
 
-if neobundle#is_installed('lintr')
+" if neobundle#is_installed('lintr')
+if YT_PlugInstalled('lintr')
   function! _YT_InitLintr()
     " note: check only passively, since lintr is a bit slow.
 "   SyntasticToggleMode

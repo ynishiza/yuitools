@@ -73,7 +73,7 @@ call plug#begin('~/.vim/plugged')
     " Twilight: highlight current code
     " https://github.com/folke/twilight.nvim
     Plug 'folke/twilight.nvim'
-  endif 
+  endif
 
 
   """"""""""""""""""""""""""" neovim 0.5: LSP """""""""""""""""""""""""""
@@ -91,14 +91,14 @@ call plug#begin('~/.vim/plugged')
     " Autocompletion
     Plug 'hrsh7th/nvim-cmp'
 
-    " Autocompletion: snippet engine for nvim-cmp 
+    " Autocompletion: snippet engine for nvim-cmp
     " i.e. dropdown menu engine
     " This example installs [hrsh7th/vim-vsnip](https://github.com/hrsh7th/vim-vsnip)
     " Default snippet is vim-vsnip
     " Plug 'hrsh7th/vim-vsnip'
     " LauSnip: Snippet engine in lua
     Plug 'saadparwaiz1/cmp_luasnip'
-    Plug 'L3MON4D3/LuaSnip' 
+    Plug 'L3MON4D3/LuaSnip'
 
     " Autocompletion: completion sources
     " i.e. what to use in completion suggestion
@@ -113,6 +113,8 @@ call plug#begin('~/.vim/plugged')
 
   """"""""""""""""""""""""""" Language """""""""""""""""""""""""""
 
+  "" Haskell
+  "
   if s:lua_support
     " haskell-vim: syntax highlighting for haskell
     " https://github.com/neovimhaskell/haskell-vim
@@ -123,29 +125,58 @@ call plug#begin('~/.vim/plugged')
     " au FileType haskell setlocal omnifunc=necoghc#omnifunc
   endif
 
+
+  "" Terraform
+  "
   " vim-terraform
   " Official Terraform util
   " Syntax highlighting + indent
   Plug 'hashivim/vim-terraform'
 
-  " groovy
+
+  "" groovy
+  "
   " Apache Groovy
   Plug 'vim-scripts/groovy.vim'
 
+
+  "" JS
+  "
   " javascript-indenter: more smart indenting of JavaScript
   " - Need when indents are spaces.
   " - brief mode: minimal indenting.
   Plug 'jiangmiao/simple-javascript-indenter'
   Plug 'pangloss/vim-javascript'
 
+
+  "" HTML
   " emmet: HTML plugin
   Plug 'mattn/emmet-vim'
 
+
+  "" LaTeX
+  "
   " vimtex: Comprehensive LaTeX filetype plugin.
   Plug 'lervag/vimtex'
 
-  " TypeScript syntax file
+
+  "" TypeScript syntax file
+  "
   Plug 'leafgarland/typescript-vim'
+
+
+  "" [NOT NEEDED NOW] R
+  "
+  " Nvim-R: R plugin. Provides omnicompletion
+  " Plug 'jalvesaq/Nvim-R'
+  "
+  " lintr: Lint R
+  " Plug 'jimhester/lintr'
+
+
+  "" [NOT NEEDED NOW] PHP
+  " vdebug: debug plugin for PHP's XDebugger
+  " Plug 'joonty/vdebug'
 
   call YT_devWriteLog("loaded vim-plugged")
 call plug#end()
@@ -157,5 +188,6 @@ if s:lua_support
 endif
 
 function! YT_PlugInstalled(name)
-  return !empty(glob('~/.vim/plugged/' . a:name))
+  return has_key(g:plugs, a:name)
+  " return !empty(glob('~/.vim/plugged/' . a:name))
 endfunction
