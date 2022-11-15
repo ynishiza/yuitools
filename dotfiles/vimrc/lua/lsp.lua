@@ -63,7 +63,7 @@ yt_lsp_server_settings = {
    -- Home: https://github.com/haskell/haskell-language-server
    -- Installation
    --  $ brew install haskell-language-server
-   hls = { 
+   hls = {
     filetypes={"haskell", "lhaskell" },
     cmd={ "haskell-language-server-wrapper", "--logfile", "/tmp/hls.log", "--lsp" },
     root_dir = function (filepath)
@@ -82,7 +82,7 @@ yt_lsp_server_settings = {
    -- Home: https://github.com/facebook/flow
    -- Installation
    --  $ npm install -g flow-bin
-   flow = { filetypes={"javascript"} }, 
+   flow = { filetypes={"javascript"} },
 
    -- Home: https://github.com/mads-hartmann/bash-language-server
    -- Installation
@@ -108,13 +108,14 @@ yt_lsp_server_settings = {
   }
 }
 
-
 -- note: nvim_cmp capabilities
 -- See: https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
-for name, settings in pairs(yt_lsp_server_settings) do
+-- note: global function for updating LSP settings
+-- e.g. set custom settings in a project.
+yt_lsp_update_settings = function(name, settings)
   settings.capabilities = capabilities
   settings.autostart = true
   settings.on_attach = yt_lsp_default_bindings
@@ -122,4 +123,8 @@ for name, settings in pairs(yt_lsp_server_settings) do
     debounce_text_changes = 150
   }
   nvim_lsp[name].setup(settings)
+end
+
+for name, settings in pairs(yt_lsp_server_settings) do
+  yt_lsp_update_settings(name, settings)
 end

@@ -17,9 +17,13 @@ function! YT_PrintMyHelp()
     call input("\nHit enter to show neovim only help")
     " Clear window
     redraw
-    let l:text = readfile(g:yt_vimrc_path . "/text_YT_PrintMyHelpNeovim")
-    echon join(l:text, "\n")
+    call YT_PrintMyNeovimHelp()
   endif
+endfunction
+
+function! YT_PrintMyNeovimHelp()
+  let l:text = readfile(g:yt_vimrc_path . "/text_YT_PrintMyHelpNeovim")
+  echon join(l:text, "\n")
 endfunction
 
 function! YT_PrintMyCheatsheet()
@@ -29,4 +33,5 @@ endfunction
 
 command! -nargs=0 YTPrintMyHelp call YT_PrintMyHelp()
 map <leader>? :call YT_PrintMyHelp()<cr>
+map <leader><space>? :call YT_PrintMyNeovimHelp()<cr>
 map <leader>/ :call YT_PrintMyCheatsheet()<cr>

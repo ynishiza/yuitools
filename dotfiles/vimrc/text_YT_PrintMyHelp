@@ -13,7 +13,8 @@ Custom mappings:
 === Windows ===
 <space>s    Save
 <c-s>       Save
-<space>w    Close window/tab
+<space>w    Close current panel
+<space>W    Force close current panel
 <space>q    Quit
 <space>Q    Force quit
 <space>|    Vertical split

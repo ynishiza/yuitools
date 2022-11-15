@@ -4,7 +4,8 @@
 
 --langdef=haskell
 --langmap=haskell:.hs
---regex-haskell=/^([_a-zA-Z0-9]+)[ \t]+=/\1/c,value/
+--regex-haskell=/^([_a-zA-Z0-9]+)[ \t]+=/\1/c,binding/
+--regex-haskell=/^([_a-zA-Z0-9]+)[ \t]+:: *(.+)$/\1 :: \2/f,typesig/
 --regex-haskell=/^(class.*where)/\1/e,class/
 --regex-haskell=/^(data.*=)/\1/d,type/
 --regex-haskell=/^(type.*=)/\1/d,type/

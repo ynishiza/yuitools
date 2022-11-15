@@ -38,6 +38,7 @@ inoremap <c-s> <esc>:w<cr>
 nmap <c-w>m :resize<cr>:vertical resize<cr>
 " Close window
 map <leader>w :q<cr>
+map <leader>W :if input('Force close buffer? (y/n) ') == 'y' \| q! \| endif<cr>
 " Quit (close all windows)
 map <leader>q :if input('Quit all? (y/n) ') == 'y' \| quitall \| endif<cr>
 map <leader>Q :if input('Force quit all? (y/n) ') == 'y' \| quitall! \| endif<cr>
@@ -49,7 +50,7 @@ map <leader>- :split<cr>
 "" Buffers
 map <leader>bo :ls<cr>:b
 map <leader>bt :tabedit<cr>:ls<cr>:b
-map <leader>b- :ls<cr>:sb 
+map <leader>b- :ls<cr>:sb
 map <leader>b\| :ls<cr>:vert belowright sb
 map <leader>ba :ba
 map <leader>bd :ls!\|echo "name: bd test.js     number: bd1    range: 1,10bd"<cr>:bd
@@ -107,7 +108,7 @@ function! YT_BufferGarbageCollect()
   for i in range(1, l:last)
     if bufexists(i)
       " note: use bufinfo to check if buffer is loaded
-      " In particular, do not use bufloaded(), since it still keeps 
+      " In particular, do not use bufloaded(), since it still keeps
       " hidden buffers.
       let l:info=getbufinfo(i)[0]
       " only keep non-hidden loaded buffers
@@ -132,12 +133,22 @@ map <leader>tq :tabclose<cr>
 
 
 "" Fold
-" Fully open fold under cursor, including if partially open. 
-" IMPORTANT: Need to zo first 
-" i.e. open fold under cursor, if not open already. 
+" Fully open fold under cursor, including if partially open.
+" IMPORTANT: Need to zo first
+" i.e. open fold under cursor, if not open already.
 " Otherwise, if it is closed, zc will close the closest fold above, not below,
 " which is not what we want.
 map zz zOzczO
+
+
+"" g commands
+"
+" gD: duplicate current selection and comment out one
+"     Useful when testing a change while keeping old one for safety.
+"     e.g.
+"       int x = 1     == gD ==>     // int x = 1
+"                                   int x = 1
+vmap gD yPgvgc
 
 
 " Reload

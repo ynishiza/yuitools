@@ -1,19 +1,35 @@
  Helps:
-:help 'tabstop'   Option help
-:help :retab      Command help
-:help abs()       Function help
-:help CTRL-R      Mapping help
-:help i_CTRL-R    Mapping help by mode 
-                    i=insert n=normal v=visual c=commandline
-:help help-context  See help for the above
-:help motion.txt   Mapping help for motions
-:help [            Mapping help for specific motions
-                 [ ] ( ) { }
-gO       (big o) Show table of contents 
-<c-]>    Follow link
-<c-o>    Back
-<c-t>    Back
-<c-i>    Forward
+
+# Navigation
+gO                  (big o) Show table of contents 
+<c-]>               Follow link
+<c-o>               Back
+<c-t>               Back
+<c-i>               Forward
+:h help-context  Help for navigation 
+
+# Common pages
+:h help.txt             List of all help pages
+:h option-summary       List of options
+:h index                List of builtin maps + commands
+:h builtin-functions    List of builtin functions
+:h pattern              Search + replace
+
+# Help by feature
+:h 'number'         Specify option 
+:h :echo            Specify command
+:h abs()            Specify function
+:h i                Specify normal mode map e.g. i=insert 
+:h i_<ESC>          Specify insert mode map e.g. <ESC>=exit insert mode
+:h v_<ESC>          Specify visual mode map e.g. <ESC>=exit visual mode
+
+# Map help syntax
+:h i                e.g. i  enter insert mode
+:h ]                e.g. ]  motion
+:h ctrl-r           e.g. <c-r>  redo
+:h ctrl-w_=         e.g. <c-r>= resize windows
+:h <esc>
+:h <space>
 
 
 window:
@@ -56,6 +72,9 @@ zG          in-memory only
 zU          in-memory only
 zuW/zuG     in-memory only
 
+editing:
+gD          duplicate current selection 
+
 NERDTree:
 A           Maximize/minimize
 C           Change current directory to selected
@@ -73,7 +92,6 @@ FZF:
 <c-alt-k>   preview down
 
 vimdiff:
-See :help motion.txt
+See :h motion.txt
 ]c      Next change
 [c      Previous change
-

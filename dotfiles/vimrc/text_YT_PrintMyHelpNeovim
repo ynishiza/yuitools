@@ -1,8 +1,9 @@
 Troubleshooting:
 :checkhealth      check dependencies (neovim) 
 
+General:
+<leader><leader>?          Print this help
 
----- nvim 0.5 only ----
 Extension: LSP
 <leader><leader>R          Refresh LSP
 <leader><leader>d          Go to definition
