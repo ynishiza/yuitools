@@ -131,7 +131,7 @@ function! YT_BashTemplate()
   " note: need to ESC to prevent indents
   exec 'normal i' . join(s:template, "\<ESC>:normal o\<ESC>i")
 
-  " Ensure appropriate tabs 
+  " Ensure appropriate tabs
   call YT_EditWithTabs(2)
   retab!
 endfunction
@@ -202,19 +202,19 @@ aug END
 "
 
 " JavaScript
-function! YT_EslintDisableNextLine(rule) 
+function! YT_EslintDisableNextLine(rule)
   exec "normal O// eslint-disable-next-line " . a:rule
 endfunction
-function! YT_ShellCheckDisableNextLine(rule) 
+function! YT_ShellCheckDisableNextLine(rule)
   exec "normal O# shellcheck disable=" . a:rule
 endfunction
 " Ormolu: Haskell formatter
 "  https://github.com/tweag/ormolu#usage
-function! YT_OrmoluDisable() 
-  exec "normal o{- ORMOLU_ENABLE -}" 
-  exec "normal <<<<" 
+function! YT_OrmoluDisable()
+  exec "normal o{- ORMOLU_ENABLE -}"
+  exec "normal <<<<"
   exec "normal o{- ORMOLU_DISABLE -}"
-  exec "normal <<<<" 
+  exec "normal <<<<"
 endfunction
 
 command! -nargs=1 YTESlintDisableNextLine call YT_EslintDisableNextLine(<f-args>)

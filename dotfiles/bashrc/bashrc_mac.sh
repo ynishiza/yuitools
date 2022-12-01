@@ -208,17 +208,18 @@ EOF
 }
 
 _setupTools() {
+
 	## Tools
 	# iterm
 	# shellcheck disable=SC1090,SC2046,SC2006,SC2086
-	[[ -s ~/.iterm2_shell_integration.`basename $SHELL` ]] && source ~/.iterm2_shell_integration.`basename $SHELL`
-
-	# bash-completion installed via Homebrew
-	# shellcheck disable=SC1091
-	[[ -r "/usr/local/etc/profile.d/bash_completion.sh" ]] && . "/usr/local/etc/profile.d/bash_completion.sh"
+	[[ -s ~/.iterm2_shell_integration.$(basename $SHELL) ]] && source ~/.iterm2_shell_integration.$(basename $SHELL)
 
 	# Homebrew
 	#
+	# Load common environment
+	# e.g. HOMEBREW_PREFIX
+	eval "$(brew shellenv)"
+
 	# HOMEBREW_NO_INSTALL_CLEANUP
 	# Ref: https://docs.brew.sh/Manpage
 	# By default, `brew cleanup` deletes old versions.
@@ -233,6 +234,11 @@ _setupTools() {
 	# Disable this .
 	export HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK=1
 
+	# bash-completion installed via Homebrew
+	# shellcheck disable=SC1091
+	[[ -r "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh" ]] && . "${HOMEBREW_PREFIX}/etc/profile.d/bash_completion.sh"
+
+
 	# autojump
 	# shellcheck disable=SC1090
 	[[ -s ~/.autojump/etc/profile.d/autojump.sh ]] && source ~/.autojump/etc/profile.d/autojump.sh
@@ -246,12 +252,12 @@ _setupTools() {
 	test -e "${HOME}/.iterm2_shell_integration.bash" && source "${HOME}/.iterm2_shell_integration.bash"
 
 	# Stubby
-	if [[ -d /usr/local/opt/stubby ]]
+	if [[ -d ${HOMEBREW_PREFIX}/opt/stubby ]]
 	then
 		# Stubby helpers
 		yt_stubby_setdns() {
 			# shellcheck disable=SC2068
-			sudo bash /usr/local/opt/stubby/sbin/stubby-setdns-macos.sh $@
+			sudo bash ${HOMEBREW_PREFIX}/opt/stubby/sbin/stubby-setdns-macos.sh $@
 		}
 		yt_stubby_log() {
 			# shellcheck disable=SC2068
