@@ -205,6 +205,16 @@ EOF
 			osascript -e "display notification \"$message\" with title \"$title\""
 		fi
 	}
+
+	# Ref: https://www.pcmag.com/how-to/how-to-access-your-macs-hidden-files
+	yt_macos_show_hiddenfiles() {
+		defaults write com.apple.Finder AppleShowAllFiles true
+		killall Finder
+	}
+	yt_macos_hide_hiddenfiles() {
+		defaults write com.apple.Finder AppleShowAllFiles false
+		killall Finder
+	}
 }
 
 _setupTools() {
