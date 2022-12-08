@@ -1,17 +1,17 @@
 #!/usr/bin/env bash
 
 NEWLINE=$'\n'
-main() {
+_mac_main() {
 	echo "Loading ${BASH_SOURCE[0]}"
-	_setupAlias
-	_setupEnv
-	_setupCustomVariables
-	_setupTools
-	_setupFunctions
+	_mac_setupAlias
+	_mac_setupEnv
+	_mac_setupCustomVariables
+	_base_setupTools
+	_mac_setupFunctions
 }
 
 
-_setupAlias() {
+_mac_setupAlias() {
 	#
 	# Alias
 	#
@@ -59,7 +59,7 @@ _setupAlias() {
 	fi
 }
 
-_setupEnv() {
+_mac_setupEnv() {
 	#
 	# Mac specific settings
 	#
@@ -85,12 +85,12 @@ _setupPath() {
 	export PATH
 }
 
-_setupCustomVariables() {
+_mac_setupCustomVariables() {
 	# Nothing yet
 	:
 }
 
-_setupFunctions() {
+_mac_setupFunctions() {
 	## Network interfaces
 	#
 	# Watch for open TCP ports
@@ -217,7 +217,7 @@ EOF
 	}
 }
 
-_setupTools() {
+_base_setupTools() {
 
 	## Tools
 	# iterm
@@ -295,4 +295,4 @@ _setupTools() {
 	export GPG_TTY
 }
 
-main
+_mac_main

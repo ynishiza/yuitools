@@ -14,21 +14,21 @@ BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 # usage: do [[ -n $IS_MAC ]] to check if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
 
-_main() {
+_base_main() {
 	echo "Loading ${BASH_SOURCE[0]}"
-	_setupOptions
-	_setupEnv
-	_setupAliases
-	_setupPS1
-	_setupFunction
-	_setupTools
+	_base_setupOptions
+	_base_setupEnv
+	_base_setupAlias
+	_base_setupPS1
+	_base_setupFunction
+	_base_setupTools
 
 	## .env
 	# Load if any.
 	# IMPORTANT: load before tools, since .env may contain settings for the tools.
 	[[ -f './.env' ]] && echo "Found .env. Exporting." >&2 && yt_DotEnvExport
-	_loadTools
-	_setupTools
+	_base_loadTools
+	_base_setupTools
 
 	## Custom bashrc
 	#
@@ -43,7 +43,7 @@ _main() {
 	_yt_loadLocalBashrc
 }
 
-_setupOptions() {
+_base_setupOptions() {
 	## shopt (shell options)
 	#
 	# See shopt under SHELL BUILTIN COMMANDS
@@ -51,7 +51,7 @@ _setupOptions() {
 	shopt -s extglob
 }
 
-_loadTools() {
+_base_loadTools() {
 	## Tools
 	#
 	_loadSourceIfExist() {
@@ -65,7 +65,7 @@ _loadTools() {
 	_loadSourceIfExist "${MY_BIN}/completion/stack.bash"
 }
 
-_setupTools() {
+_base_setupTools() {
 	# GPG
 	# GPG + SSH
 	SSH_AUTH_SOCK=$(gpgconf --list-dirs agent-ssh-socket)
@@ -97,7 +97,7 @@ _setupTools() {
 	[ -f ~/.fzf.bash ] && source ~/.fzf.bash
 }
 
-_setupPS1() {
+_base_setupPS1() {
 	## PS1
 	#
 	# See PROMPTING in man bash
@@ -126,7 +126,7 @@ _setupPS1() {
 }
 
 
-_setupAliases() {
+_base_setupAlias() {
 	alias pu="pushd"
 	alias po="popd"
 	alias ll="ls -alF"
@@ -156,7 +156,7 @@ _setupAliases() {
 }
 
 
-_setupFunction() {
+_base_setupFunction() {
 	yt_PrintSystemInfo() {
 		echo "Bash:$SHELL $BASH_VERSION"
 		echo "Date:$(date)"
@@ -187,7 +187,7 @@ _setupFunction() {
 }
 
 
-_setupEnv() {
+_base_setupEnv() {
 	#
 	# EDITOR: default editor
 	export EDITOR=vim
@@ -227,4 +227,4 @@ _yt_loadLocalBashrc() {
 		&& source "$local_bashrc"
 }
 
-_main
+_base_main
