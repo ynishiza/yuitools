@@ -105,6 +105,15 @@ yt_lsp_server_settings = {
    tsserver = {
      filetypes={"typescript","typescriptreact","typescript.tsx"},
      cmd = { "typescript-language-server", "--stdio", "--log-level", "4", "--tsserver-log-file", "/tmp/tsserver.txt" },
+  },
+
+  -- Home: https://github.com/apple/sourcekit-lsp
+  -- LSP for Swift
+  -- Installation
+  --    NA. Already installed for macos.
+  sourcekit = {
+    cmd = { "sourcekit-lsp", "--log-level", "debug" },
+    root_pattern = nvim_lsp.util.root_pattern("Package.swift", ".git")
   }
 }
 

@@ -70,7 +70,7 @@ _setupEnv() {
 	# tmux
 	# Need to set SHELL to set custom shell for tmux
 	# Ref: https://github.com/tmux/tmux/issues/1278
-	export BASH=/usr/local/bin/bash
+	export BASH="$(which bash)"
 	export SHELL="$BASH"
 
 	# Allow forward search with Ctrl-S

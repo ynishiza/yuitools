@@ -45,9 +45,9 @@ __installAutojump() {
 		&& echo "autojump already installed. Skipping." && return
 
 	echo "Installing autojump"
-	git clone git://github.com/joelthelion/autojump.git /tmp/autojump
+	git clone https://github.com/wting/autojump.git /tmp/autojump
 	pushd /tmp/autojump
-	./install.py
+	python3 ./install.py
 	popd
 }
 
