@@ -160,6 +160,7 @@ aug yuitools
   autocmd FileType sshconfig call YT_EditWithTabs(2)
 
   autocmd FileType crontab set commentstring=#%s
+  autocmd FileType swift set commentstring=//%s
 aug END
 
 aug yuitools_trailingwhitespace

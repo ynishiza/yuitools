@@ -6,7 +6,7 @@ filetype plugin on
 filetype indent on
 
 
-" Encoding 
+" Encoding
 "
 " write encoding
 " utf-8 for default encoding. Sometimes, vim uses latin.
@@ -14,8 +14,8 @@ set encoding=utf-8
 
 
 " keys
-" 
-" backspace option: 
+"
+" backspace option:
 " Backspace to delete eol, indents, and start of an insert.
 set backspace=eol,indent,start
 " ttimeout option: timeout on key code
@@ -50,7 +50,7 @@ set number
 
 
 " Footer
-" 
+"
 " show status bar.
 set laststatus=2
 set statusline=""
@@ -142,3 +142,8 @@ set hlsearch
 set incsearch
 "set ignorecase
 "
+
+" == Mouse ==
+"
+" Don't allow using mouse
+set mouse=

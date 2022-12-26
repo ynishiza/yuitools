@@ -63,6 +63,7 @@ _base_loadTools() {
 	_loadSourceIfExist "${MY_BIN}/completion/git-completion.bash"
 	_loadSourceIfExist "${MY_BIN}/completion/tmuxinator.bash"
 	_loadSourceIfExist "${MY_BIN}/completion/stack.bash"
+	_loadSourceIfExist "${MY_BIN}/completion/ghcup.bash"
 }
 
 _base_setupTools() {
@@ -200,7 +201,9 @@ _setupPath() {
 	#
 	# Take backup so that if this bashrc is reloaded, we don't duplicate paths.
 	[[ ! $PATH_BAK ]] && PATH_BAK=$PATH
-	PATH=$PATH_BAK
+
+	# Disabled: For some reason, PATH_BAK may be already set.
+	# PATH=$PATH_BAK
 
 	PATH=/usr/sbin:$PATH
 	PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:$PATH
