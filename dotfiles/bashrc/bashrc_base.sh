@@ -191,7 +191,8 @@ _base_setupFunction() {
 _base_setupEnv() {
 	#
 	# EDITOR: default editor
-	export EDITOR=vim
+	if which nvim >/dev/null; then EDITOR=nvim; else EDITOR=vim; fi
+	export EDITOR
 
 	_setupPath
 }

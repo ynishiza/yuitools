@@ -31,9 +31,9 @@
 	# - blue: branch
 	# - red:
 	# - green: author
-	lsa = log --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s	\" 
-	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s \" 
-	lg = log --graph 
+	lsa = log --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s	\"
+	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s \"
+	lg = log --graph
 	lp = log -p --show-signature
 	lst = log --stat --show-signature
 	last = log --stat -1 -p --show-signature
@@ -41,7 +41,7 @@
 	dfs = diff --stat
 
 	# Diff against previous value of a branch
-	# e.g. after a new commit, diff changes by the commit 
+	# e.g. after a new commit, diff changes by the commit
 	# 		i.e. in this case, same as `diff HEAD~`
 	# e.g. after a rebase, diff changes by the rebase
 	# e.g. after a commit ammend, diff changes by the ammend
@@ -54,12 +54,14 @@
 	## Branch
 	bv = branch -vv
 	bva = branch -vv -a
+	# Reference: https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
+	bvr = for-each-ref --sort=-committerdate refs/remotes/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname)%(if)%(upstream)%(then) [%(color:blue)%(upstream)%(color:default)]%(end)  %(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
 	bd = branch -d
 	bD = branch -D
 	bf = branch -f
 	upstream = "!f() { git branch --set-upstream-to=$1; }; f"
-	upstreamOf = "!f() { git branch $1 --set-upstream-to=$2; }; f" 
-	
+	upstreamOf = "!f() { git branch $1 --set-upstream-to=$2; }; f"
+
 	## Commits
 	#
 	ai = add -i

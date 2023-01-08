@@ -51,6 +51,15 @@ call plug#begin('~/.vim/plugged')
   " vim-table-mode: creating tables
   Plug 'dhruvasagar/vim-table-mode'
 
+  " taglist: ctags sidebar
+  Plug 'vim-scripts/taglist.vim'
+
+  if s:lua_support
+    "" [Neovim only] firenvim: use neovim in Firefox
+    " github: https://github.com/glacambre/firenvim
+    Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
+  endif
+
   """"""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
 
   " syntactic: syntax check
@@ -163,7 +172,6 @@ call plug#begin('~/.vim/plugged')
   "" TypeScript syntax file
   "
   Plug 'leafgarland/typescript-vim'
-
 
   "" [NOT NEEDED NOW] R
   "

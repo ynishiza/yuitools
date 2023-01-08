@@ -4,8 +4,8 @@ let g:yt_is_nvim =has('nvim')
 
 " Log enabling:
 " Debug logging may affect performance, especially on startup time when many
-" scripts are read. 
-" 
+" scripts are read.
+"
 " nvim: enabled by default
 " vim: disabled by default because slow
 " $YT_VIM_DEBUG: 1=enable 0=disable
@@ -15,10 +15,10 @@ if $YT_VIM_DEBUG != ''
 endif
 
 " note: write to log
-function! YT_devWriteLog(message) 
+function! YT_devWriteLog(message)
   if g:yt_log_enabled
     call writefile([strftime('%c') . ' - ' . a:message], g:yt_logpath, 'a')
-  endif 
+  endif
 endfunction
 
 " note: initialize log file
