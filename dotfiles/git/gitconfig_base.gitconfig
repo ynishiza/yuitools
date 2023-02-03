@@ -54,8 +54,10 @@
 	## Branch
 	bv = branch -vv
 	bva = branch -vv -a
+
 	# Reference: https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
-	bvr = for-each-ref --sort=-committerdate refs/remotes/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname)%(if)%(upstream)%(then) [%(color:blue)%(upstream)%(color:default)]%(end)  %(color:reset) (%(color:green)%(committerdate:relative)%(color:reset))'
+	rbv = rbva --count 10
+	rbva = for-each-ref --sort=-committerdate refs/remotes/ --format='%(authordate:short) %(color:red)%(objectname:short) %(color:yellow)%(refname) %(color:reset) [%(color:blue)%(committeremail)%(color:reset)] (%(color:green)%(committerdate:relative)%(color:reset))'
 	bd = branch -d
 	bD = branch -D
 	bf = branch -f
@@ -72,7 +74,7 @@
 	caS = commit --amend -S
 	caa = commit --amend -a
 	uncommit = reset --soft HEAD~
-	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ "$A" = 'y' ]; then git reset --hard HEAD; fi"
+	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ "$A" = 'y' ]; then git reset --hard HEAD; else exit 1; fi"
 	cob = checkout -b
 
 	# Misc
