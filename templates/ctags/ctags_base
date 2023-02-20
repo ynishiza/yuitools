@@ -10,6 +10,8 @@
 --regex-haskell=/^(data.*=)/\1/d,type/
 --regex-haskell=/^(type.*=)/\1/d,type/
 --regex-haskell=/^(newtype.*=)/\1/d,type/
+--regex-haskell=/^( *it *".*")/\1/p,it/
+--regex-haskell=/^( *describe *".*")/\1/q,describe/
 
 --langdef=smplnt
 --langmap=smplnt:.smplnt

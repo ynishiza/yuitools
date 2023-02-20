@@ -214,9 +214,9 @@ endfunction
 " Ormolu: Haskell formatter
 "  https://github.com/tweag/ormolu#usage
 function! YT_OrmoluDisable()
-  exec "normal o{- ORMOLU_ENABLE -}"
-  exec "normal <<<<"
   exec "normal o{- ORMOLU_DISABLE -}"
+  exec "normal <<<<"
+  exec "normal o{- ORMOLU_ENABLE -}"
   exec "normal <<<<"
 endfunction
 
