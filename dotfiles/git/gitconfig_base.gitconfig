@@ -39,6 +39,7 @@
 	last = log --stat -1 -p --show-signature
 	dfc = diff --cached
 	dfs = diff --stat
+	dfu = diff @{upstream}
 
 	# Diff against previous value of a branch
 	# e.g. after a new commit, diff changes by the commit
