@@ -15,7 +15,8 @@ BASHRCBASE_PATH="$BASHRC_YUI/bashrc_base"
 IS_MAC=$( uname | grep Darwin || echo '' )
 
 _base_main() {
-	echo "Loading ${BASH_SOURCE[0]}"
+	echo "bash $BASH_VERSION" >&2
+	echo "Loading ${BASH_SOURCE[0]}" >&2
 	_base_setupOptions
 	_base_setupEnv
 	_base_setupAlias

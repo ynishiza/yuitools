@@ -75,6 +75,12 @@ zuW/zuG     in-memory only
 editing:
 gD          duplicate current selection 
 
+
+vim-abolish:
+crc 				Convert to camelcase
+crs 				Convert to snake case i.e. underscore
+
+
 NERDTree:
 A           Maximize/minimize
 C           Change current directory to selected

@@ -18,6 +18,10 @@ call plug#begin('~/.vim/plugged')
   " Commentary: easy commenting out
   Plug 'tpope/vim-commentary'
 
+  " Abolish: name format conversion
+  " e.g. camel case <-> underscore
+  Plug 'tpope/vim-abolish'
+
   " vim-unimpaired: bracket mapping
   Plug 'tpope/vim-unimpaired'
 

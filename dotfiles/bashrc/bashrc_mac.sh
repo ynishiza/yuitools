@@ -2,7 +2,7 @@
 
 NEWLINE=$'\n'
 _mac_main() {
-	echo "Loading ${BASH_SOURCE[0]}"
+	echo "Loading ${BASH_SOURCE[0]}" >&2
 	_mac_setupAlias
 	_mac_setupEnv
 	_mac_setupCustomVariables

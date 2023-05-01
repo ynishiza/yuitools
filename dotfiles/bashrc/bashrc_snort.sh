@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-echo "Loading ${BASH_SOURCE[0]}"
+echo "Loading ${BASH_SOURCE[0]}" >&2
 if which snort >/dev/null
 then
 	# macOS Mojave snort workaround
