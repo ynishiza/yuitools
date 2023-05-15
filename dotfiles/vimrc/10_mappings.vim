@@ -141,7 +141,7 @@ map <leader>tq :tabclose<cr>
 map zz zOzczO
 
 
-"" g commands
+"" Editing commands
 "
 " gD: duplicate current selection and comment out one
 "     Useful when testing a change while keeping old one for safety.
@@ -149,6 +149,9 @@ map zz zOzczO
 "       int x = 1     == gD ==>     // int x = 1
 "                                   int x = 1
 vmap gD yPgvgc
+
+" Un-newline: i.e. put current line back in previous line
+map d<enter> 0dwi<bs><space><esc>
 
 
 " Reload

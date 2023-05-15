@@ -74,6 +74,7 @@ zuW/zuG     in-memory only
 
 editing:
 gD          duplicate current selection 
+d<enter> 		un-newline
 
 
 vim-abolish:
