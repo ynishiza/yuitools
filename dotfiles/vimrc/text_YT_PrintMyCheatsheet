@@ -78,8 +78,9 @@ d<enter> 		un-newline
 
 
 vim-abolish:
-crc 				Convert to camelcase
-crs 				Convert to snake case i.e. underscore
+crc 				camelCase
+crp					PascalCase
+cr_ 				snake_case
 
 
 NERDTree:

@@ -128,8 +128,14 @@ endfunction
 function! YT_BashTemplate()
   let s:template=readfile(s:scriptdir . "/text_YT_BashTemplate.sh")
 
-  " note: need to ESC to prevent indents
-  exec 'normal i' . join(s:template, "\<ESC>:normal o\<ESC>i")
+  " note:
+  " - need to use o+ESC+i instead of CR to prevent indents
+  " - need to temporarily disable o option for formatoptions to prevent the
+  "   next line from becoming a comment
+  " set formatoptions-=cro
+  set paste
+  exec 'normal i' . join(s:template, "\<CR>")
+  set nopaste
 
   " Ensure appropriate tabs
   call YT_EditWithTabs(2)
