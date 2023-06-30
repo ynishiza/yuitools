@@ -1,0 +1,23 @@
+#!/bin/bash
+cat <<EOF
+== Shell bindings ==
+# Use 'bind -p' to see all bindings
+ctrl-b    back one char
+ctrl-g    forward one char
+alt-f     forward word
+ctrl-l    forward word
+ctrl-a    beginning of line
+ctrl-e    to end of line
+
+ctrl-h    delete one char
+ctrl-w    remove one word
+alt-b     back word
+ctrl-i    complete
+
+
+== fzf ==
+ctrl-T
+ctrl-R
+alt-C
+
+EOF

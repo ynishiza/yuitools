@@ -8,7 +8,8 @@ Custom mappings:
 <space>d    Redraw
 <space>h    History
 <space>.    Repeat last command
-<c-k>     Escape
+<c-k>       Escape
+<c-n>       Toggle Japanese keyboard (im_control.vim plugin)
 
 === Windows ===
 <space>s    Save

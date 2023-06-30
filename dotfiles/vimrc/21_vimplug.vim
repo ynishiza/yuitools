@@ -2,6 +2,7 @@
 let s:lua_support = has('nvim-0.5')
 
 call plug#begin('~/.vim/plugged')
+
   " solarized: color scheme
   Plug 'altercation/vim-colors-solarized'
 
@@ -36,9 +37,6 @@ call plug#begin('~/.vim/plugged')
     Plug 'Valloric/YouCompleteMe'
   endif
 
-  " coc: another autocompletion?
-  " Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
   " fzf: fuzzy find plugin
   Plug 'junegunn/fzf'
 
@@ -63,6 +61,10 @@ call plug#begin('~/.vim/plugged')
     " github: https://github.com/glacambre/firenvim
     Plug 'glacambre/firenvim', { 'do': { _ -> firenvim#install(0) } }
   endif
+
+  " im_control: easy switching in Japanese keyboard
+  " e.g. Japanese keyboard automatically disabled when not editing
+  Plug 'fuenor/im_control.vim'
 
   """"""""""""""""""""""""""" Syntastic """""""""""""""""""""""""""
 

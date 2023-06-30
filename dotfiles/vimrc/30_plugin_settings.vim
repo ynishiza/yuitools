@@ -1,4 +1,3 @@
-" if neobundle#is_installed('Nvim-R')
 if YT_PlugInstalled('Nvim-R')
   function! _initNvimR()
     " omnicomplete: show the arguments of a function.
@@ -14,7 +13,6 @@ if YT_PlugInstalled('nerdtree')
 endif
 
 
-" if neobundle#is_installed('lintr')
 if YT_PlugInstalled('lintr')
   function! _YT_InitLintr()
     " note: check only passively, since lintr is a bit slow.
@@ -58,7 +56,6 @@ if YT_PlugInstalled('vim-colors-solarized')
 endif
 
 
-" if neobundle#is_installed('vim-airline')
 if YT_PlugInstalled('vim-airline')
   " Off for now until configured properly
   function! _EnableAirline()
@@ -93,4 +90,31 @@ if YT_PlugInstalled('vim-airline')
   let g:airline_theme = "solarized"
 
   " autocmd VimEnter * call _EnableAirline()
+endif
+
+if YT_PlugInstalled('im_control.vim')
+  " Reference: https://qiita.com/2no/items/7c9c6ab60275fd865b02
+  "
+  " Trigger input source (English/Japanese) from vim
+  if has('mac')
+    let IM_CtrlMode = 1
+
+    function! IMCtrl(cmd)
+      let cmd = a:cmd
+      if cmd == 'On'
+        let res = system('osascript -e "tell application \"System Events\" to keystroke (key code {104})" > /dev/null 2>&1')
+      elseif cmd == 'Off'
+        let res = system('osascript -e "tell application \"System Events\" to keystroke (key code {102})" > /dev/null 2>&1')
+      elseif cmd == 'Toggle'
+        let res = system('osascript -e "tell application \"System Events\" to keystroke (key code {55, 49})" > /dev/null 2>&1')
+      endif
+      return ''
+    endfunction
+
+    " 「日本語入力固定モード」のMacVimKaoriya対策を無効化
+    let IM_CtrlMacVimKaoriya = 0
+
+    " ctrl+jで日本語入力固定モードをOnOff
+    inoremap <silent> <C-n> <C-^><C-r>=IMState('FixMode')<CR>
+  endif
 endif
