@@ -74,9 +74,6 @@ call plug#begin('~/.vim/plugged')
   " TypeScript syntastic plugin
   Plug 'Quramy/tsuquyomi'
 
-  " taglist: ctags sidebar
-  Plug 'vim-scripts/taglist.vim'
-
   """"""""""""""""""""""""""" neovim 0.5: Treesitter """""""""""""""""""""""""""
 
   if s:lua_support

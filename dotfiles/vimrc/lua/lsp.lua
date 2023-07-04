@@ -79,6 +79,16 @@ yt_lsp_server_settings = {
     }
    },
 
+   -- Home: https://github.com/hrsh7th/vscode-langservers-extracted
+   -- Installation
+   --  $ npm install -g vscode-langservers-extracted
+   cssls = { filetypes={ "css", "scss" } },
+
+   -- Home: https://github.com/hrsh7th/vscode-langservers-extracted
+   -- Installation
+   --  $ npm install -g vscode-langservers-extracted
+   html = { filetypes={ "html" } },
+
    -- Home: https://github.com/facebook/flow
    -- Installation
    --  $ npm install -g flow-bin

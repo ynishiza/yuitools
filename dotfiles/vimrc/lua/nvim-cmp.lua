@@ -26,10 +26,10 @@ cmp.setup({
   },
   sources = {
     --{ name = 'vsnip', max_item_count = 0 },
-    { name = 'nvim_lsp', max_item_count = 10 },
-    { name = 'treesitter', max_item_count = 10 },
-    { name = 'buffer', max_item_count = 10 },
-    { name = 'path', max_item_count = 10 },
+    { name = 'nvim_lsp', max_item_count = 20 },
+    { name = 'treesitter', max_item_count = 20 },
+    { name = 'buffer', max_item_count = 20 },
+    { name = 'path', max_item_count = 20 },
     { name = 'luasnip' },
   }
 })
