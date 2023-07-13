@@ -21,6 +21,9 @@ exec "luafile " . g:yt_vimrc_path . "/lua/nvim-cmp.lua"
 " config:  LSP
 exec "luafile " . g:yt_vimrc_path . "/lua/lsp.lua"
 
+" config: firenvim
+exec "luafile " . g:yt_vimrc_path . "/lua/firenvim.lua"
+
 function! YT_LspRestart()
   LspStop
   call YT_BufferGarbageCollect()

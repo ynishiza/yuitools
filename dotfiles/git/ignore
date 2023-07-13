@@ -20,6 +20,8 @@
 # Flow (JS static analyzer)
 .flowconfig         
 .bashrc
+# Stack (Haskell build tool)
+.stack_work/
 
 # macos
 .DS_Store
@@ -29,3 +31,4 @@ localyui
 
 # 
 .nvmrc
+node_modules
