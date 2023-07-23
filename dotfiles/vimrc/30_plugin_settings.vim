@@ -12,7 +12,6 @@ if YT_PlugInstalled('nerdtree')
   map <leader>N :NERDTree<cr>
 endif
 
-
 if YT_PlugInstalled('lintr')
   function! _YT_InitLintr()
     " note: check only passively, since lintr is a bit slow.

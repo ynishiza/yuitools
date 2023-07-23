@@ -10,6 +10,7 @@ gO                  (big o) Show table of contents
 
 # Common pages
 :h help.txt             List of all help pages
+:h help-summary         Help syntax 
 :h option-summary       List of options
 :h index                List of builtin maps + commands
 :h builtin-functions    List of builtin functions
@@ -28,6 +29,7 @@ gO                  (big o) Show table of contents
 :h ]                e.g. ]  motion
 :h ctrl-r           e.g. <c-r>  redo
 :h ctrl-w_=         e.g. <c-r>= resize windows
+:h g                g commands
 :h <esc>
 :h <space>
 
@@ -73,14 +75,15 @@ zU          in-memory only
 zuW/zuG     in-memory only
 
 editing:
+gq          Apply format
 gD          duplicate current selection 
-d<enter> 		un-newline
+d<enter>    un-newline
 
 
 vim-abolish:
-crc 				camelCase
-crp					PascalCase
-cr_ 				snake_case
+crc         camelCase
+crp         PascalCase
+cr_         snake_case
 
 
 NERDTree:

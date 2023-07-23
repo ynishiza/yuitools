@@ -21,7 +21,7 @@
 .flowconfig         
 .bashrc
 # Stack (Haskell build tool)
-.stack_work/
+.stack-work/
 
 # macos
 .DS_Store

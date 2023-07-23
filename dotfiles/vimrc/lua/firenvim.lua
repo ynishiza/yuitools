@@ -14,6 +14,15 @@ vim.g.firenvim_config = {
             priority = 1,
             takeover = "never"
         },
+        -- Disable in google's search text box
+        ["www.google.com"] = {
+            priority = 1,
+            takeover = "never"
+        },
+        ["www.google.co.jp"] = {
+            priority = 1,
+            takeover = "never"
+        },
         [".*"] = {
             cmdline  = "neovim",
             content  = "text",

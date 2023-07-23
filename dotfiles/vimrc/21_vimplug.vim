@@ -71,9 +71,6 @@ call plug#begin('~/.vim/plugged')
   " syntactic: syntax check
   Plug 'scrooloose/syntastic'
 
-  " TypeScript syntastic plugin
-  Plug 'Quramy/tsuquyomi'
-
   """"""""""""""""""""""""""" neovim 0.5: Treesitter """""""""""""""""""""""""""
 
   if s:lua_support

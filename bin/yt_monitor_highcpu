@@ -53,7 +53,7 @@ declare -A NOTIFICATION_TIMER=()
 # i.e.
 #			NOTIFICATION_BUFFER_COUNTER[key] == NOTIFICATION_BUFFER_TRIGGER
 declare -A NOTIFICATION_BUFFER_COUNTER=()
-if which terminal-notifier; then HAS_TERMINAL_NOTIFIER=1; else HAS_TERMINAL_NOTIFIER=; fi
+if which terminal-notifier; then HAS_TERMINAL_NOTIFIER=1; else HAS_TERMINAL_NOTIFIER=""; fi
 
 # Logging
 # note: include user id in name
@@ -62,6 +62,57 @@ FILE_PREFIX="/tmp/$(id -u)_$(basename "$0")"
 LOGFILE="${FILE_PREFIX}.log"
 echo logs in "$LOGFILE"
 touch "$LOGFILE"
+
+# Usage
+usage() {
+	cat <<END
+$0 [--test|-t] [--disable-terminal-notifier] [-|--help]
+  -t, --test                      use test values
+  --disable-terminal-notifier     don't use terminal-notifier
+  -h, --help                      show this help
+END
+}
+
+USAGE_EXITCODE=200
+# shellcheck disable=SC2120
+usageAndExit() {
+	usage
+	if [[ $# = 1 ]]; then exit "$1"; else exit "$USAGE_EXITCODE"; fi
+}
+
+
+main() {
+	# step: parse options
+	while [[ $# -gt 0 ]]
+	do
+		case "$1" in
+			# case: Test
+			-t|--test)
+				MINCPU=1
+				DEFAULT_SLEEP=1
+				NOTIFICATION_TIMEOUT=10
+				NOTIFICATION_BUFFER_TRIGGER=2
+				;;
+			--disable-terminal-notifier)
+				HAS_TERMINAL_NOTIFIER=""
+				;;
+			-h|--help)
+				usageAndExit 0
+				;;
+			-*)
+				echo "Unknown option $1" >&2
+				usageAndExit
+				;;
+			# case: implicit start of positional argument
+			*)
+				break
+				;;
+			esac
+		shift
+	done
+	start
+}
+
 writelog_base() {
 	local line
 	local level="$1"
@@ -169,7 +220,7 @@ start() {
 		# shellcheck disable=SC2206
 		entry_array=($entry)
 		IFS=$OLDIFS
-		if [[ "${#entry_array[@]}" -gt 0 ]]; then has_entries=1; else has_entries=; fi
+		if [[ "${#entry_array[@]}" -gt 0 ]]; then has_entries=1; else has_entries=""; fi
 
 
 		## step: print notification per entry
@@ -258,10 +309,16 @@ onError() {
 		logfile_error="${LOGFILE}.$(date '+%s')"
 		cp -f "$LOGFILE" "$logfile_error"
 
+		title="$(basename "$0")"
 		message="$(date '+%H:%M:%S') Error. Logs in $logfile_error"
-		terminal-notifier -title "$(basename "$0")" -message "$message" -execute "open $logfile_error"
+		if [[ $HAS_TERMINAL_NOTIFIER ]]
+		then
+			terminal-notifier -title "$title" -message "$message" -execute "open $logfile_error"
+		else
+			osascript -e "display notification \"$message\" with title \"$title\""
+		fi
 }
 trap onExit EXIT
 trap onError ERR
 
-(start)
+(main "$@")
