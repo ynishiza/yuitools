@@ -1,9 +1,10 @@
 #!/bin/bash
-cat <<EOF
+cat <<EOF | less
 == Shell bindings ==
 # Use 'bind -p' to see all bindings
 ctrl-b    back one char
-ctrl-g    forward one char
+alt-b 		back one word
+ctrl-f    forward one char
 alt-f     forward word
 ctrl-l    forward word
 ctrl-a    beginning of line
@@ -14,6 +15,24 @@ ctrl-w    remove one word
 alt-b     back word
 ctrl-i    complete
 
+
+== less commands ==
+-N 						line numbers
+-I 						ignore case
+-J 						status column
+F 						follow
+() [] {}			Jump to braces
+m<tag>				mark
+'<tag>				jump to mark
+&<pattern>		show only matches
+& 						cancel
+
+
+
+== man ==
+man 1 chmod					 specify man section
+man -k abc def 			 search for "abc def" in title
+man -K abc def 			 search for "abc def" in content
 
 == fzf ==
 ctrl-T

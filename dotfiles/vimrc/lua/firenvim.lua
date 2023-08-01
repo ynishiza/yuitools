@@ -14,6 +14,10 @@ vim.g.firenvim_config = {
             priority = 1,
             takeover = "never"
         },
+        ["meet.google.com"] = {
+            priority = 1,
+            takeover = "never"
+        },
         -- Disable in google's search text box
         ["www.google.com"] = {
             priority = 1,

@@ -136,7 +136,6 @@ _base_setupAlias() {
 	alias rm="rm -i"
 	alias cp="cp -i"
 	alias mv="mv -i"
-	alias less="less -N"
 
 	alias yt_doublequote="sed -e 's/\(.*\)/\"\1\"/'"
 	alias yt_singlequote="sed -e \"s/\(.*\)/'\1'/\""
@@ -194,6 +193,12 @@ _base_setupEnv() {
 	# EDITOR: default editor
 	if which nvim >/dev/null; then EDITOR=nvim; else EDITOR=vim; fi
 	export EDITOR
+
+	# LESS: default less options
+	# -N 		line number
+	# -M 		show file % + line number in status prompt
+	# -J 		show status column on left
+	export LESS="-N -J --save-marks --incsearch -M -F -R"
 
 	_setupPath
 }

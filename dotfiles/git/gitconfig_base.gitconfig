@@ -2,6 +2,10 @@
 	fileMode = false
 	editor = vim
 	whitespace = trailing-space
+
+	# -R 	show color
+	# -F  use less only if doesn't fit in a single screen
+	pager = LESS= less -FR --LONG-PROMPT --incsearch			
 [push]
 	default = nothing
 [alias]
@@ -15,7 +19,7 @@
 	b = branch
 	c = commit
 	co = checkout
-	df = diff
+	df = diff --stat -p
 	dfword = diff --word-diff
 	dfstat = diff --stat
 	dfsum = diff --summary
