@@ -156,7 +156,6 @@ _base_setupAlias() {
 	alias yt_dotenv-export="export \$(cat .env | grep -v '^#' | xargs)"
 }
 
-
 _base_setupFunction() {
 	yt_PrintSystemInfo() {
 		echo "Bash:$SHELL $BASH_VERSION"
