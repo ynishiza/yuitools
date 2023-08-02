@@ -27,14 +27,20 @@ _mac_setupAlias() {
 	alias ls="ls -G"
 	alias ll="ls -alFG"		# G=color F=show type
 	alias la="ls -AG"
+
+	## ps
 	_PSCOLUMNS="pid,ppid,user,%cpu,%mem,rss,vsz,comm"
 	# shellcheck disable=SC2139
 	alias yt_macos_pscpu="yt_CommandWithLess ps -Ar -o $_PSCOLUMNS"
 	# shellcheck disable=SC2139
-	alias yt_macos_pscpu="yt_CommandWithLess ps -Ar -o $_PSCOLUMNS"
-	# shellcheck disable=SC2139
 	alias yt_macos_psmem="yt_CommandWithLess ps -Am -o $_PSCOLUMNS"
-	alias yt_macos_psid="yt_CommandWithLess ps -Ao pid,ppid,pgid,rgid,user,uid,tt,command"
+	# Detailed ps
+	alias yt_macos_ps="yt_CommandWithLess ps -Ao pid,ppid,pgid,rgid,user,uid,tt,command"
+	# Get a list of running apps
+	# To use with killall
+	# shellcheck disable=SC2139
+	alias yt_macos_psapp="ps -o comm -u $UID | grep 'Applications\/.*app' | sort -u | grep -v Xcode | less"
+
 	alias yt_macos_shutdown="sudo /sbin/shutdown -h now"
 
 	# Sar

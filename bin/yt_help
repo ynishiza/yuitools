@@ -3,7 +3,7 @@ cat <<EOF | less
 == Shell bindings ==
 # Use 'bind -p' to see all bindings
 ctrl-b    back one char
-alt-b 		back one word
+alt-b     back one word
 ctrl-f    forward one char
 alt-f     forward word
 ctrl-l    forward word
@@ -16,27 +16,33 @@ alt-b     back word
 ctrl-i    complete
 
 
-== less commands ==
--N 						line numbers
--I 						ignore case
--J 						status column
-F 						follow
-() [] {}			Jump to braces
-m<tag>				mark
-'<tag>				jump to mark
-&<pattern>		show only matches
-& 						cancel
-
-
-
 == man ==
-man 1 chmod					 specify man section
-man -k abc def 			 search for "abc def" in title
-man -K abc def 			 search for "abc def" in content
+man 1 chmod           specify man section
+man -k abc def        search for "abc def" in title
+man -K abc def        search for "abc def" in content
+
+
+== process ==
+killall "Google Chrome"
+killall firefox
+
+
+== less commands ==
+-N            line numbers
+-I            ignore case
+-J            status column
+F             follow
+() [] {}      Jump to braces
+m<tag>        mark
+'<tag>        jump to mark
+''            previous mark
+&<pattern>    show only matches
+&             cancel
+
 
 == fzf ==
-ctrl-T
-ctrl-R
-alt-C
+ctrl-T        search file
+ctrl-R        search history
+alt-C         cd into directory
 
 EOF

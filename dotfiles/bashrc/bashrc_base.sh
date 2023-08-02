@@ -136,10 +136,10 @@ _base_setupAlias() {
 	alias rm="rm -i"
 	alias cp="cp -i"
 	alias mv="mv -i"
+	alias killall="killall -I"
 
 	alias yt_doublequote="sed -e 's/\(.*\)/\"\1\"/'"
 	alias yt_singlequote="sed -e \"s/\(.*\)/'\1'/\""
-	alias yt_timecmd="/usr/bin/time /bin/bash -c"
 
 	# To enable <C-S> to work in vim.
 	alias vim="stty stop '' -ixoff; vim"
