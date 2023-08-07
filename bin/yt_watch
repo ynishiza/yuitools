@@ -2,34 +2,47 @@
 #
 # watch command
 #
+set -euo pipefail
+
+SLEEP=2
 
 printUsage() {
 	echo "watch [-n SLEEP ] COMMAND"
 }
 
-if [[ $# == 0 ]]
-then
-	printUsage
-	exit 1
-fi
+main() {
+	if [[ $# = 0 ]]; then usageAndExit; fi
 
-getopts n: OPTNAME
-if [[ $OPTNAME == "n" ]]
-then
-	SLEEP=$OPTARG
-	shift 2
-else
-	SLEEP=2
-fi
+	while [[ $# -gt 0 ]]
+	do
+		case "$1" in
+			-n)
+				SLEEP=$2
+				shift
+				;;
+			*)
+				break
+				;;
+			esac
+		shift
+	done
 
-COMMAND=$@
-echo "$COMMAND"
+	COMMAND=$@
 
-while :
-do
-	clear
-	echo "$COMMAND [${SLEEP} s]"
-	echo ""
-	eval "$COMMAND"
-	sleep $SLEEP
-done
+	start
+}
+
+start() {
+	echo "$COMMAND"
+
+	while :
+	do
+		clear
+		echo "$COMMAND [${SLEEP} s]"
+		echo ""
+		eval "$COMMAND"
+		sleep "$SLEEP"
+	done
+}
+
+(main "$@")

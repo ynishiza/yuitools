@@ -1,7 +1,32 @@
 -- https://github.com/glacambre/firenvim#understanding-firenvims-configuration-object
+--
+--   cmdline    =   neovim|firenvim|none
+--
+--   priority   =   #
+--      Priority when multiple settings match
+--
+--   content    =   text|html
+--      How to fetch content
+--
+--   selector   =   <CSS selector>
+--
+--   takeover   =   always|empty|never|nonempty|once
+--      When to take over elements
+--      empty/nonempty = take over only if empty/nonempty
+--
+--
 vim.g.firenvim_config = {
     globalSettings = { alt = "all" },
     localSettings = {
+        -- Disable in file content
+        ["github.com.*/blob/.*"] = {
+          priority = 0,
+          takeover = "never"
+        },
+        ["jsonlint"] = {
+          priority = 1,
+          takeover = "never"
+        },
         -- Disable in google chat
         -- Breaks @mentions
         ["mail.google.com/chat"] = {

@@ -1,6 +1,28 @@
 #!/usr/bin/env bash
 set -eu -o pipefail
 
+usage() {
+	cat <<END
+$(basename "$0") file [file ...]
+
+Clears *.swp files
+END
+}
+
+main() {
+	[[ $# == 0 ]] && usage && exit 1
+
+	SWPREGEX="s[uvw][a-z]"
+	DIRSWP_REGEX=".*/\.${SWPREGEX}$"
+	FILESWP_REGEX=".*/\.[a-zA-Z0-9%_()| \.]*\.${SWPREGEX}$"
+
+	for dir in "$@"
+	do
+		delete_swap "$dir" "$DIRSWP_REGEX"
+		delete_swap "$dir" "$FILESWP_REGEX"
+	done
+}
+
 delete_swap() {
   local dir
   local regex=$2
@@ -15,7 +37,7 @@ delete_swap() {
   if [[ ! $dir ]]; then echo "No directory provided"; exit 1; fi
   if [[ ! -d $dir ]]; then echo "$1 is not a directory"; exit 1; fi
 
-  if [[ ${#files} = 0 ]]; then return; fi
+	if [[ ${#files[@]} = 0 ]]; then return; fi
   (IFS=$'\n' && echo "${files[*]}")
   echo "Delete these files? (y/n)"
 
@@ -34,13 +56,4 @@ remove_files() {
   done
 }
 
-SWPREGEX="s[uvw][a-z]"
-DIRSWP_REGEX=".*/\.${SWPREGEX}$"
-FILESWP_REGEX=".*/\.[a-zA-Z0-9%_()| \.]*\.${SWPREGEX}$"
-
-
-for dir in "$@"
-do
-  delete_swap "$dir" "$DIRSWP_REGEX"
-  delete_swap "$dir" "$FILESWP_REGEX"
-done
+(main "$@")

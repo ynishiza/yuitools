@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+#!/usr/bin/env python3
 import sys
 
 if len(sys.argv) != 4: raise Exception("%s file fromEncoding toEncoding" % (sys.argv[0]))
@@ -10,4 +10,4 @@ with open(filename, 'r') as f:
     s = f.read()
     result = s.decode(fromEncoding).encode(toEncoding)
     if toEncoding == "base64": result = result.replace("\n", "")
-    print result
+    print(result)

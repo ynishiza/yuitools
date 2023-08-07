@@ -14,7 +14,10 @@ require'nvim-treesitter.configs'.setup {
     "python",
     "regex",
     "vim",
-    -- "haskell",     NOT working. Error like: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
+
+    -- Known issue
+    -- May produce errors like: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
+    "haskell"
   },
   -- List of parsers to ignore installing
   ignore_install = {},

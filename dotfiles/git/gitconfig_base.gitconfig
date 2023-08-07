@@ -5,7 +5,14 @@
 
 	# -R 	show color
 	# -F  use less only if doesn't fit in a single screen
-	pager = LESS= less -FR --LONG-PROMPT --incsearch			
+	pager = LESS= less -FR --LONG-PROMPT --incsearch
+[pretty]
+	# colors
+	# - yellow: SHA1
+	# - blue: branch
+	# - red:
+	# - green: author
+	ls = %C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s
 [push]
 	default = nothing
 [alias]
@@ -30,13 +37,8 @@
 
 	## Log
 	#
-	# colors
-	# - yellow: SHA1
-	# - blue: branch
-	# - red:
-	# - green: author
-	lsa = log --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s	\"
-	ls = log -10 --format=\"%C(yellow) %h %Cred %cr %C(green) %G? %an %C(blue)%d %Creset %s \"
+	lsa = log --pretty=ls
+	ls = log -10 --pretty=ls
 	lg = log --graph
 	lp = log -p --show-signature
 	lst = log --stat --show-signature

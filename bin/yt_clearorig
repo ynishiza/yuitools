@@ -1,7 +1,22 @@
 #!/usr/bin/env bash
-set -o errexit
-set -o pipefail
-set -o nounset
+set -eu -o pipefail
+
+usage() {
+	cat <<END
+$(basename "$0") file [file ...]
+
+Clears *.orig files
+END
+}
+
+main() {
+	[[ $# == 0 ]] && usage && exit 1
+
+	for dir in "$@"
+	do
+		clearOrig "$dir"
+	done
+}
 
 clearOrig() {
 	local DIR=$1
@@ -24,7 +39,4 @@ clearOrig() {
 	fi
 }
 
-for dir in "$@"
-do
-	clearOrig "$dir"
-done
+(main "$@")
