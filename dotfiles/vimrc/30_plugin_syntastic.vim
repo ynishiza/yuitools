@@ -31,6 +31,8 @@ if YT_PlugInstalled('syntastic')
   let g:syntastic_javascript_checkers = ["jshint", "eslint"]
   let g:syntastic_r_checkers = ["lintr"]
   let g:syntastic_tex_checkers = ["chktex"]
+  " No checkers for haskell since it conflicts with the language server
+  let g:syntastic_haskell_checkers=[]
 
   function! SyntasticDebugSetLevel(level)
     let g:syntastic_debug=a:level

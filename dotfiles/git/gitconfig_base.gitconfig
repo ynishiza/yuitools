@@ -26,6 +26,7 @@
 	b = branch
 	c = commit
 	co = checkout
+	cop = checkout -p
 	df = diff --stat -p
 	dfword = diff --word-diff
 	dfstat = diff --stat
