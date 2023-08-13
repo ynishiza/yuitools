@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 set -eu -o pipefail
+# set -x
 
 # shellcheck disable=SC2034
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
@@ -11,6 +12,13 @@ IS_MAC=$( uname | grep Darwin || echo '' )
 
 LOG="/tmp/$(basename "$0")_$(date +%s)"
 touch "$LOG"
+
+writeLog() {
+	printf "%s" "$*" | tee -a "$LOG"
+}
+writeDebugLog() {
+	printf "%s" "$*" >> "$LOG"
+}
 
 # Usage
 usage() {
@@ -32,7 +40,7 @@ cleanup() {
 	code="$?"
 	if [[ "$code" -eq 0 ]]
 	then
-		echo "success"
+		echo "done"
 	elif [[ "$code" -ne "$USAGE_EXITCODE" ]]
 	then
 		# case: error other than usage message
@@ -41,7 +49,7 @@ cleanup() {
 	exit "$code"
 }
 onError() {
-	echo "error"
+	echo "error. Logs in $LOG"
 }
 # cleanup: on script exit
 # Both success and fail
@@ -85,6 +93,7 @@ main() {
 	done
 
 	searchPath="$*"
+	[[ ! -d $searchPath ]] && echo "Search path $searchPath does not exist" && usageAndExit
 
 	# note: readlink options
 	# -f = canonical link
@@ -92,6 +101,7 @@ main() {
 	readlinkOpt="-f"
 	[[ -n "$IS_MAC" ]] && readlinkOpt=""
 
+	# DOES NOT WORK
 	# while read -r resPath
 	# do
 	# done < <(find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print)
@@ -99,14 +109,37 @@ main() {
 	# note: use array loop instead of the `CMD | while read do ...done` trick
 	# The while trick does not allow prompting
 
-	# shellcheck disable=SC2086,SC2207
-	files=($(find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print))
+	# NOTE: 
+	# - IFS to split the array by ONLY newline instead of default (newline, whitespace, tab)
+	# - need to run command before changing the IFS because this affects expansion of searchOptions
+	#  	e.g.
+	# 		searchOptions="-maxdepth 2"
+	# 		IFS=$'\n'
+	# 		$(find "$searchPath" $searchOptions) 			ERROR 'find: -maxdepth 2 : unknown primary or operator'
+	#
+	# shellcheck disable=SC2086
+	result=$(find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print)
+	OLDIFS=$IFS
+	IFS=$'\n'
+	# shellcheck disable=SC2206
+	files=($result)
+	IFS=$OLDIFS
+	writeLog "# broken links found: ${#files[@]}" $'\n'
+	writeDebugLog "${files[@]}" $'\n' 
+
 	for linksrc in "${files[@]}"
 	do
 		# shellcheck disable=SC2086
+		echo "$linksrc" >> "$LOG"
 		linktarget="$(readlink $readlinkOpt "$linksrc")"
-		echo "$linksrc -> $linktarget" | tee "$LOG"
-		[[ "$removeLinks" ]] && rm -f "$linksrc"
+		linktext="$linksrc -> $linktarget"
+		writeLog "$(printf "broken link:  %s" "$linktext")"
+		if [[ "$removeLinks" ]] 
+		then
+			writeLog $'\t' "REMOVED"
+			rm "$linksrc"
+		fi
+		writeLog $'\n'
 	done
 
 	echo "log in $LOG"
