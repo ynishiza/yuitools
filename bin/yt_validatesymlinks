@@ -136,11 +136,13 @@ main() {
 		writeLog "$(printf "broken link:  %s" "$linktext")"
 		if [[ "$removeLinks" ]] 
 		then
-			writeLog $'\t' "REMOVED"
+			writeLog $'\t' "$(printf "\e[31m%s\e[0m\n" REMOVED)"
 			rm "$linksrc"
 		fi
 		writeLog $'\n'
 	done
+
+	[[ ! "$removeLinks" && "${#files[@]}" -gt 0 ]] && echo "Use -r to remove the link"
 
 	echo "log in $LOG"
 }

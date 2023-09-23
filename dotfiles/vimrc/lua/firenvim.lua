@@ -18,7 +18,7 @@
 vim.g.firenvim_config = {
     globalSettings = { alt = "all" },
     localSettings = {
-        -- Disable in file content
+        -- Disable in github file content
         ["github.com.*/blob/.*"] = {
           priority = 0,
           takeover = "never"
@@ -39,11 +39,14 @@ vim.g.firenvim_config = {
             priority = 1,
             takeover = "never"
         },
+        -- Disable in google meet's chat
+        -- Text area is too small
         ["meet.google.com"] = {
             priority = 1,
             takeover = "never"
         },
         -- Disable in google's search text box
+        -- Too small
         ["www.google.com"] = {
             priority = 1,
             takeover = "never"

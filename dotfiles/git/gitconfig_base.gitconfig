@@ -17,8 +17,9 @@
 	default = nothing
 [alias]
 	# Config
-	aliases = "! git config --get-regex 'alias.*' | sort"
-	cls = config --list
+	aliases = "! git config --get-regex 'alias.*' | sort | less"
+	configall = config --list
+	dfcm = "!f() { cat <(git lp develop~1..develop) ; }; f "
 
 	## Shortcuts
 	#
@@ -33,8 +34,11 @@
 	dfsum = diff --summary
 	dt = difftool
 	m = merge
+	mmaster = merge origin/master
+	mmain = merge origin/main
 	mt = mergetool
-	f = fetch
+	f = fetch --prune
+	fo = fetch origin --prune --tags
 
 	## Log
 	#
@@ -87,11 +91,7 @@
 
 	# Misc
 	pop = stash pop
-	configall = config --get-regexp '.*'
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
-	fo = fetch origin --prune --tags
-	mmaster = merge origin/master
-	mmain = merge origin/main
 
 [credential]
 	helper = store

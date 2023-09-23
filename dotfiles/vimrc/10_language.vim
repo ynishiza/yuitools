@@ -167,6 +167,9 @@ aug yuitools
 
   autocmd FileType crontab set commentstring=#%s
   autocmd FileType swift set commentstring=//%s
+
+  " For snort *.rule files
+  autocmd FileType hog set commentstring=#%s
 aug END
 
 aug yuitools_trailingwhitespace

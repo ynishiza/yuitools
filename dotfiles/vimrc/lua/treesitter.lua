@@ -19,6 +19,7 @@ require'nvim-treesitter.configs'.setup {
     -- May produce errors like: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
     "haskell"
   },
+
   -- List of parsers to ignore installing
   ignore_install = {},
 

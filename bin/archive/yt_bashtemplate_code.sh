@@ -5,6 +5,7 @@ set -eu -o pipefail
 __dir="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 # shellcheck disable=SC2034
 __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
+__scriptname="$(basename "$0")"
 
 # use [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
@@ -12,7 +13,7 @@ IS_MAC=$( uname | grep Darwin || echo '' )
 # Usage
 usage() {
 	cat <<END
- $0 [-d|--debug] [-f|--file NAME] [-] [ARG]
+ $__scriptname [-d|--debug] [-f|--file NAME] [-] [ARG]
 END
 }
 

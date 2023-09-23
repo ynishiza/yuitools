@@ -2,17 +2,17 @@
 cat <<EOF | less
 == Shell bindings ==
 # Use 'bind -p' to see all bindings
-ctrl-b    			back one char
-alt-b     			back one word
-ctrl-f    			forward one char
+ctrl-b          back one char
+alt-b           back one word
+ctrl-f          forward one char
 alt-f,ctrl-l    forward word
-ctrl-a    			beginning of line
-ctrl-e    			to end of line
+ctrl-a          beginning of line
+ctrl-e          to end of line
 
-ctrl-h    			delete one char
-ctrl-w    			remove one word
-alt-b     			back word
-ctrl-i    			complete
+ctrl-h          delete one char
+ctrl-w          remove one word
+alt-b           back word
+ctrl-i          complete
 
 
 == man ==
@@ -43,5 +43,11 @@ m<tag>        mark
 ctrl-T        search file
 ctrl-R        search history
 alt-C         cd into directory
+
+
+== ncdu ==
+ncdu -o /tmp/ncdu ~/                  output to file (faster)
+ncdu -f /tmp/ncdu                     read from file
+ncdu --exclude CloudStorage /Library  exclude file
 
 EOF
