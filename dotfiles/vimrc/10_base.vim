@@ -27,6 +27,7 @@ set ttimeoutlen=100
 " list option
 " - Using sensible.vim
 " set listchars=tab:>-,eol:$,nbsp:»
+set listchars+=eol:$
 
 " display option
 " uhex = show invisible characters as hex instead of caret notation

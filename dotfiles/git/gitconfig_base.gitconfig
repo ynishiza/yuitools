@@ -29,6 +29,7 @@
 	co = checkout
 	cop = checkout -p
 	df = diff --stat -p
+	dfbase = diff --stat -p --merge-base
 	dfword = diff --word-diff
 	dfstat = diff --stat
 	dfsum = diff --summary
@@ -62,6 +63,10 @@
 	dfprev3 = diff @{3}
 	dfprev4 = diff @{4}
 	dfprev5 = diff @{5}
+	dfprev6 = diff @{6}
+	dfprev7 = diff @{7}
+	dfprev8 = diff @{8}
+	dfprev9 = diff @{9}
 
 	## Branch
 	bv = branch -vv
@@ -108,3 +113,5 @@
 	tool = vimdiff
 [difftool]
 	prompt = true
+[rerere]
+	enabled = true
