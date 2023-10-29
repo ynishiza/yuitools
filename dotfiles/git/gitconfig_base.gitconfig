@@ -3,8 +3,8 @@
 	editor = vim
 	whitespace = trailing-space
 
-	# -R 	show color
-	# -F  use less only if doesn't fit in a single screen
+	# -R	show color
+	# -F	use less only if doesn't fit in a single screen
 	pager = LESS= less -FR --LONG-PROMPT --incsearch
 [pretty]
 	# colors
@@ -29,7 +29,10 @@
 	co = checkout
 	cop = checkout -p
 	df = diff --stat -p
-	dfbase = diff --stat -p --merge-base
+	dfmergebase = df --merge-base		# merge base i.e. common ancestor
+	dfupstream = df @{u}						# upstream
+	dfc = diff --cached
+	dfs = diff --stat
 	dfword = diff --word-diff
 	dfstat = diff --stat
 	dfsum = diff --summary
@@ -49,13 +52,10 @@
 	lp = log -p --show-signature
 	lst = log --stat --show-signature
 	last = log --stat -1 -p --show-signature
-	dfc = diff --cached
-	dfs = diff --stat
-	dfu = diff @{upstream}
 
 	# Diff against previous value of a branch
 	# e.g. after a new commit, diff changes by the commit
-	# 		i.e. in this case, same as `diff HEAD~`
+	#			i.e. in this case, same as `diff HEAD~`
 	# e.g. after a rebase, diff changes by the rebase
 	# e.g. after a commit ammend, diff changes by the ammend
 	dfprev = diff @{1}			# previous
