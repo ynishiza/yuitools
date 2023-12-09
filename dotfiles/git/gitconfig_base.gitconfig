@@ -91,12 +91,13 @@
 	caS = commit --amend -S
 	caa = commit --amend -a
 	uncommit = reset --soft HEAD~
-	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ "$A" = 'y' ]; then git reset --hard HEAD; else exit 1; fi"
+	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ \"$A\" = 'y' ]; then git reset --hard HEAD; else exit 1; fi"
 	cob = checkout -b
 
 	# Misc
 	pop = stash pop
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
+	rerereclearall = "!f() { [[ ! -d .git/rr-cache ]] && exit 0; echo 'Clear rerere cache? (y/n)'; read A;  if [ \"$A\" = 'y' ]; then rm -rf .git/rr-cache; else exit 1; fi; }; f"
 
 [credential]
 	helper = store
