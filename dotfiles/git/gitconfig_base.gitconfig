@@ -31,7 +31,7 @@
 	df = diff --stat -p
 	dfmergebase = df --merge-base		# merge base i.e. common ancestor
 	dfupstream = df @{u}						# upstream
-	dfc = diff --cached
+	dfc = diff --cached --stat -p
 	dfs = diff --stat
 	dfword = diff --word-diff
 	dfstat = diff --stat
