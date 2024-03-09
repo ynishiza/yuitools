@@ -95,6 +95,10 @@ if YT_PlugInstalled('im_control.vim')
   " Reference: https://qiita.com/2no/items/7c9c6ab60275fd865b02
   "
   " Trigger input source (English/Japanese) from vim
+  "
+  " IMPORTANT: need to set Accessibility permission to allow osascript to emit
+  " keystroke events
+  "    System Preferences -> Privacy & Security -> Accessibility -> iTerm
   if has('mac')
     let IM_CtrlMode = 1
 

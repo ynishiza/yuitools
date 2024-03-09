@@ -64,3 +64,4 @@ vim.g.firenvim_config = {
         }
     }
 }
+

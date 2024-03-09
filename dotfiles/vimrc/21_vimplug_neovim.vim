@@ -23,6 +23,7 @@ exec "luafile " . g:yt_vimrc_path . "/lua/lsp.lua"
 
 " config: firenvim
 exec "luafile " . g:yt_vimrc_path . "/lua/firenvim.lua"
+set guifont=Fira_Code:h14
 
 function! YT_LspRestart()
   LspStop
