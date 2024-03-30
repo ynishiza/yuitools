@@ -139,8 +139,22 @@ writelog_debug() {
 	writelog_base "debug" "$*"
 }
 
-
 writelog_base "info" "HAS_TERMINAL_NOTIFIER=$HAS_TERMINAL_NOTIFIER MINCPU=$MINCPU NOTIFICATION_TIMEOUT=$NOTIFICATION_TIMEOUT NOTIFICATION_BUFFER_TRIGGER=$NOTIFICATION_BUFFER_TRIGGER"
+
+osa_notification() {
+	local message="$2"
+	local title="$1"
+
+	# The osascript may fail if the title or message contains invalid characters
+	# e.g. error if the title contains a double quote
+	#
+	#   $ osascript -e "display notification \"aaa\" with title \"a\"\""
+	# 	syntax error: A identifier can’t go after this “"”. (-2740)
+	if ! osascript -e "display notification \"$message\" with title \"$title\""
+	then
+		echo "ERROR: Failed to display osascript notification with message=$message title=$title"
+	fi
+}
 
 timeout_notifications() {
 	TIMESTAMP=$(date '+%s')
@@ -242,7 +256,7 @@ start() {
 			#			terminal-notifier[7172:3511296] -[__NSSingleObjectArrayI length]: unrecognized selector sent to instance 0x7faf31705760
 			#			terminal-notifier[7172:3511296] -[__NSSingleObjectArrayI length]: unrecognized selector sent to instance 0x7faf31705760
 			#
-			processKey=$(echo "$cmd" | sed -E "s/[\(\)]//g")
+			processKey=$(echo "$cmd" | sed -E "s/[\(\)]\",//g")
 			ROW_COUNT=$((ROW_COUNT + 1))
 
 			notify() {
@@ -257,7 +271,7 @@ start() {
 					local onclick="echo 'ppid:pid=$ppid:$pid cpu%=$cpu mem%=$mem time=$time user=$user cmd=$cmd'	>$infoFile && open $infoFile & sleep 60 && rm -f $infoFile"
 					terminal-notifier -execute "$onclick" -group "$processKey" -title "$title" -message "$message" -timeout 10 >/dev/null 2>&1
 				else
-					osascript -e "display notification \"$message\" with title \"$title\""
+					osa_notification "$title" "$message"
 				fi
 				logger -i -t "$0" "$title: $message"
 			}
@@ -315,10 +329,11 @@ onError() {
 		then
 			terminal-notifier -title "$title" -message "$message" -execute "open $logfile_error"
 		else
-			osascript -e "display notification \"$message\" with title \"$title\""
+			osa_notification "$title" "$message"
 		fi
 }
 trap onExit EXIT
 trap onError ERR
 
+osa_notification "$0" "start"
 (main "$@")
