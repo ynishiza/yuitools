@@ -1,10 +1,16 @@
-" nvim-0.5
+"  nvim-0.5
 let s:lua_support = has('nvim-0.5')
 
 call plug#begin('~/.vim/plugged')
 
   " solarized: color scheme
-  Plug 'altercation/vim-colors-solarized'
+  if s:lua_support
+    Plug 'craftzdog/solarized-osaka.nvim'
+  else
+    " Note: no longer working on neovim 0.10
+    " Check :colorscheme
+    Plug 'altercation/vim-colors-solarized'
+  endif
 
   " gpg editing
   Plug 'jamessan/vim-gnupg'

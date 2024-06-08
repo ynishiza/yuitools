@@ -17,13 +17,19 @@ exec "luafile " . g:yt_vimrc_path . "/lua/trouble.lua"
 " config: nvim-cmp (completion plugin)
 exec "luafile " . g:yt_vimrc_path . "/lua/nvim-cmp.lua"
 
-
 " config:  LSP
 exec "luafile " . g:yt_vimrc_path . "/lua/lsp.lua"
 
 " config: firenvim
 exec "luafile " . g:yt_vimrc_path . "/lua/firenvim.lua"
 set guifont=Fira_Code:h14
+
+" simple config
+lua<<EOF
+-- config: solarized
+vim.cmd[[colorscheme solarized-osaka]]
+
+EOF
 
 function! YT_LspRestart()
   LspStop
