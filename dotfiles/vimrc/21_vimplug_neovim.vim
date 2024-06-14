@@ -6,14 +6,6 @@ exec "luafile " . g:yt_vimrc_path . "/lua/treesitter.lua"
 set foldmethod=expr
 set foldexpr=nvim_treesitter#foldexpr()
 
-
-" config: twilight (treesitter plugin)
-exec "luafile " . g:yt_vimrc_path . "/lua/twilight.lua"
-
-" config: trouble (LSP plugin)
-exec "luafile " . g:yt_vimrc_path . "/lua/trouble.lua"
-
-
 " config: nvim-cmp (completion plugin)
 exec "luafile " . g:yt_vimrc_path . "/lua/nvim-cmp.lua"
 
@@ -24,11 +16,24 @@ exec "luafile " . g:yt_vimrc_path . "/lua/lsp.lua"
 exec "luafile " . g:yt_vimrc_path . "/lua/firenvim.lua"
 set guifont=Fira_Code:h14
 
-" simple config
+
+" Inline simple configs
 lua<<EOF
 -- config: solarized
 vim.cmd[[colorscheme solarized-osaka]]
 
+-- config: trouble (LSP plugin)
+require("trouble").setup {
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+  -- refer to the configuration section below
+}
+
+-- config: twilight (treesitter plugin)
+require("twilight").setup {
+  -- your configuration comes here
+  -- or leave it empty to use the default settings
+}
 EOF
 
 function! YT_LspRestart()
