@@ -58,15 +58,15 @@
 	#			i.e. in this case, same as `diff HEAD~`
 	# e.g. after a rebase, diff changes by the rebase
 	# e.g. after a commit ammend, diff changes by the ammend
-	dfprev = diff @{1}			# previous
-	dfprev2 = diff @{2}			# 2 changes ago
-	dfprev3 = diff @{3}
-	dfprev4 = diff @{4}
-	dfprev5 = diff @{5}
-	dfprev6 = diff @{6}
-	dfprev7 = diff @{7}
-	dfprev8 = diff @{8}
-	dfprev9 = diff @{9}
+	dfprev = diff --stat -p @{1}			# previous
+	dfprev2 = diff --stat -p @{2}			# 2 changes ago
+	dfprev3 = diff --stat -p @{3}
+	dfprev4 = diff --stat -p @{4}
+	dfprev5 = diff --stat -p @{5}
+	dfprev6 = diff --stat -p @{6}
+	dfprev7 = diff --stat -p @{7}
+	dfprev8 = diff --stat -p @{8}
+	dfprev9 = diff --stat -p @{9}
 
 	## Branch
 	bv = branch -vv
