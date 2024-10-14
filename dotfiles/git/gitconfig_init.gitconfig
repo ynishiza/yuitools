@@ -2,6 +2,8 @@
 	path = ~/.yui_dotfiles/git/gitconfig_base.gitconfig
 	path = ~/.yui_dotfiles/git/gitconfig_gerrit.gitconfig
 	path = ~/.yui_dotfiles/git/gitconfig_nvim.gitconfig
+	path = ~/.yui_dotfiles/git/delta_themes.gitconfig
+	path = ~/.yui_dotfiles/git/gitconfig_delta.gitconfig
 [core]
 	editor = nvim
 	excludesfile = ~/.yui_dotfiles/git/ignore

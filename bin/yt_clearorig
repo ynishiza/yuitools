@@ -23,7 +23,7 @@ clearOrig() {
 	local ORIGFILES
 
 	if [[ ! -d "$DIR" ]]; then echo "No directory $DIR"; exit 1; fi
-	ORIGFILES=$(find "$DIR" -name "*.orig")
+	ORIGFILES=$(find "$DIR" -name "*.orig" -o -name "*_REMOTE_*" -o -name "*_LOCAL_*" -o -name "*_BASE_*" -o -name "*_BACKUP_*")
 
 	if [[ -z "$ORIGFILES" ]]; then exit 0; fi
 
