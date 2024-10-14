@@ -1,0 +1,28 @@
+# Use git-delta for diff
+#
+# Install with
+#
+# 	$ brew install git-delta
+#
+# Reference https://dandavison.github.io/delta/introduction.html
+[core]
+	pager = delta
+
+[interactive]
+	diffFilter = delta --color-only
+
+[delta]
+	navigate = true
+	; side-by-side = true
+	line-numbers = true
+	dark = true
+	; features = collored-torogon
+	; features = hoopoe
+	; features = colibri
+	; features = platypus
+
+[merge]
+	conflictstyle = diff3
+
+[diff]
+	colorMoved = default
