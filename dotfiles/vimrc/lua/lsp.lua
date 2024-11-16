@@ -42,13 +42,20 @@ yt_lsp_default_bindings = function(client, bufnr)
   -- mapping: code manipulation
   buf_set_keymap('n', '<leader><leader>R', '<cmd>lua vim.lsp.buf.rename()<CR>', opts)
   buf_set_keymap('n', '<leader><leader>C', '<cmd>lua vim.lsp.buf.code_action()<CR>', opts)
-  buf_set_keymap('n', '<leader><leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
+  buf_set_keymap('n', '<leader><leader>F', '<cmd>lua vim.lsp.buf.format {async=true}<CR>', opts)
+  -- September 2023: DEPRECATED
+  -- buf_set_keymap('n', '<leader><leader>F', '<cmd>lua vim.lsp.buf.formatting()<CR>', opts)
 
   -- mapping : diagnostics
-  buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
-  buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
-  buf_set_keymap('n', '<leader><leader>E', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
-  buf_set_keymap('n', '<leader><leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
+  vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
+  vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
+  vim.keymap.set('n', '<leader><leader>E', vim.diagnostic.setloclist, opts)
+  vim.keymap.set('n', '<leader><leader>ee', vim.diagnostic.open_float, opts)
+  -- September 2023: DEPRECATED
+  -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
+  -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
+  -- buf_set_keymap('n', '<leader><leader>E', '<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>', opts)
+  -- buf_set_keymap('n', '<leader><leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 end
 
 
@@ -114,7 +121,18 @@ yt_lsp_server_settings = {
    --  $ npm install -g typescript-language-server
    tsserver = {
      filetypes={"typescript","typescriptreact","typescript.tsx"},
-     cmd = { "typescript-language-server", "--stdio", "--log-level", "4", "--tsserver-log-file", "/tmp/tsserver.txt" },
+     cmd = { "typescript-language-server", "--stdio", "--log-level", "4" },
+     -- Initialization options: https://github.com/typescript-language-server/typescript-language-server#initializationoptions
+     init_options = {
+       hostInfo = "neovim",
+       tsserver = {
+         logDirectory = "/tmp/tsserver",
+         logVerbosity = "normal"
+       },
+     },
+     -- OLD way of specifying log file
+     -- cmd = { "typescript-language-server", "--stdio", "--log-level", "4", "--tsserver-log-file", "/tmp/tsserver2.txt" },
+     -- root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", ".git")
   },
 
   -- Home: https://github.com/apple/sourcekit-lsp
@@ -130,7 +148,9 @@ yt_lsp_server_settings = {
 -- note: nvim_cmp capabilities
 -- See: https://github.com/neovim/nvim-lspconfig#keybindings-and-completion
 local capabilities = vim.lsp.protocol.make_client_capabilities()
-capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
+capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
+-- September 2023: DEPRECATED
+-- capabilities = require('cmp_nvim_lsp').update_capabilities(capabilities)
 
 -- note: global function for updating LSP settings
 -- e.g. set custom settings in a project.

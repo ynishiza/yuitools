@@ -83,8 +83,9 @@ set autoindent
 " t = autowrap at textwidth
 " c = autowrap comments at text width
 " q = allow formatting text with gq
-" r = automatically continue comment on new line
-set formatoptions=tcqr
+" r = automatically continue comment on new line after hitting Enter
+" o = automatically continue comment on new line after o or O
+set formatoptions=tcqro
 
 
 " == Buffer ==

@@ -5,6 +5,7 @@
 # 	$ brew install git-delta
 #
 # Reference https://dandavison.github.io/delta/introduction.html
+#
 [core]
 	pager = delta
 
@@ -16,6 +17,28 @@
 	; side-by-side = true
 	line-numbers = true
 	dark = true
+	; light = true
+
+	; Syntax themes
+	; See
+	;   delta --list-syntax-themes
+	;
+	; - Dark themes
+	; syntax-theme = 1337
+	; syntax-theme = ansi
+	; syntax-theme = Solarized
+	; syntax-theme = Nord
+	; syntax-theme = base16
+	syntax-theme = zenburn
+	; syntax-theme = Dracula
+	;
+	; - Light themes
+	; syntax-theme = Github
+	;
+
+	; Custom themes
+	; Defined in ./delta_themes.gitconfig
+	;
 	; features = collored-torogon
 	; features = hoopoe
 	; features = colibri
