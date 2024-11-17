@@ -119,7 +119,8 @@ yt_lsp_server_settings = {
    -- Home: https://github.com/theia-ide/typescript-language-server
    -- Installation
    --  $ npm install -g typescript-language-server
-   tsserver = {
+   -- [DEPRECATED 2024/11] tsserver = {
+   ts_ls = {
      filetypes={"typescript","typescriptreact","typescript.tsx"},
      cmd = { "typescript-language-server", "--stdio", "--log-level", "4" },
      -- Initialization options: https://github.com/typescript-language-server/typescript-language-server#initializationoptions
