@@ -46,27 +46,28 @@
 
 	## Log
 	#
+	# --unified=, -U 	lines of context
 	lsa = log --pretty=ls
 	ls = log -10 --pretty=ls
 	lg = log --graph
-	lp = log -p --show-signature
+	lp = log -p --show-signature -U10
 	lst = log --stat --show-signature
-	last = log --stat -1 -p --show-signature
+	last = log --stat -1 -p --show-signature -U10
 
 	# Diff against previous value of a branch
 	# e.g. after a new commit, diff changes by the commit
 	#			i.e. in this case, same as `diff HEAD~`
 	# e.g. after a rebase, diff changes by the rebase
 	# e.g. after a commit ammend, diff changes by the ammend
-	dfprev = diff --stat -p @{1}			# previous
-	dfprev2 = diff --stat -p @{2}			# 2 changes ago
-	dfprev3 = diff --stat -p @{3}
-	dfprev4 = diff --stat -p @{4}
-	dfprev5 = diff --stat -p @{5}
-	dfprev6 = diff --stat -p @{6}
-	dfprev7 = diff --stat -p @{7}
-	dfprev8 = diff --stat -p @{8}
-	dfprev9 = diff --stat -p @{9}
+	dfprev = diff --stat -p -U10 @{1}			  # previous
+	dfprev2 = diff --stat -p -U10 @{2}			# 2 changes ago
+	dfprev3 = diff --stat -p -U10 @{3}
+	dfprev4 = diff --stat -p -U10 @{4}
+	dfprev5 = diff --stat -p -U10 @{5}
+	dfprev6 = diff --stat -p -U10 @{6}
+	dfprev7 = diff --stat -p -U10 @{7}
+	dfprev8 = diff --stat -p -U10 @{8}
+	dfprev9 = diff --stat -p -U10 @{9}
 
 	## Branch
 	bv = branch -vv
