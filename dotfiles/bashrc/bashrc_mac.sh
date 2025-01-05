@@ -236,12 +236,19 @@ _base_setupTools() {
 	# e.g. HOMEBREW_PREFIX
 	eval "$(brew shellenv)"
 
+  # HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS
+	# Ref: https://docs.brew.sh/Manpage
+	# Number of days to keep old versions until cleanup
+  export HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS=180
+
 	# HOMEBREW_NO_INSTALL_CLEANUP
 	# Ref: https://docs.brew.sh/Manpage
 	# By default, `brew cleanup` deletes old versions.
 	# In particular, brew runs 'brew cleanup' after install/upgrade i.e. removes old version files
 	# Disable this.
-	export HOMEBREW_NO_INSTALL_CLEANUP=1			
+	#
+	# UPDATE December 2024: use HOMEBREW_CLEANUP_PERIODIC_FULL_DAYS instead
+	# export HOMEBREW_NO_INSTALL_CLEANUP=1
 
 	# HOMEBREW_NO_INSTALLED_DEPENDENTS_CHECK
 	# Ref: https://docs.brew.sh/Manpage
