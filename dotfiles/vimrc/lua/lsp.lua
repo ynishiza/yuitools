@@ -101,6 +101,17 @@ yt_lsp_server_settings = {
    --  $ npm install -g flow-bin
    flow = { filetypes={"javascript"} },
 
+   gopls = {
+     filetypes={"go", "gomod", "gowork"},
+     analyses = {
+       unusedparams = true,
+       nilness = true,
+       assign = true,
+     },
+     staticcheck = true,
+     gofumpt = true
+   },
+
    -- Home: https://github.com/mads-hartmann/bash-language-server
    -- Installation
    --  $ npm install -g bash-language-server
