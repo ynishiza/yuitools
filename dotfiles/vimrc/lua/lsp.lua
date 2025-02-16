@@ -101,7 +101,14 @@ yt_lsp_server_settings = {
    --  $ npm install -g flow-bin
    flow = { filetypes={"javascript"} },
 
+   -- Home: https://pkg.go.dev/golang.org/x/tools/gopls#readme-editors
+   -- Installation
+   --  $ go install golang.org/x/tools/gopls@latest
+   --  $ go install golang.org/x/tools/gopls@v0.9.5    # for Go 1.15
+   --  Check compatible version on link above
    gopls = {
+     -- use explicit path
+     cmd = { "gopls" },
      filetypes={"go", "gomod", "gowork"},
      analyses = {
        unusedparams = true,

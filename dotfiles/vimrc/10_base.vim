@@ -145,6 +145,11 @@ set incsearch
 "set ignorecase
 "
 
+" == Quick fix ==
+"
+" Cfilter, Lfilter for list filtering
+packadd cfilter
+
 " == Mouse ==
 "
 " Don't allow using mouse
