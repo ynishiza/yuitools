@@ -44,6 +44,9 @@ endfunction
 map <leader><leader>R :call YT_LspRestart()<cr>
 command! -nargs=0 YTLspConfigured echo (exists('b:yt_lspconfig') ? 'attached' : 'not attached')
 command! -nargs=0 YTLspGetLogPath lua vim.cmd('echo "'..vim.lsp.get_log_path()..'"')
+command! -nargs=0 YTLspGetLogLevel lua print(vim.lsp.log_levels[vim.lsp.log.get_level()])
+command! -nargs=0 YTLspSetLogWarn lua vim.lsp.set_log_level(3))
+command! -nargs=0 YTLspSetLogDebug lua vim.lsp.set_log_level(1))
 command! -nargs=0 YTLspShowLogs lua vim.cmd('tabedit'..vim.lsp.get_log_path())
 
 map <leader>LI :LspInfo<CR>

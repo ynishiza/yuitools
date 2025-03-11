@@ -1,6 +1,7 @@
 -- ====== Base ======
 -- trace, debug, info, warn, error
 vim.lsp.set_log_level("warn")
+-- vim.lsp.set_log_level("debug")
 
 
 -- ====== LSP default keybindings + settings ======

@@ -166,6 +166,7 @@ aug yuitools
   autocmd FileType sshconfig call YT_EditWithTabs(2)
   autocmd FileType go call YT_EditWithTabs(2)
 
+  autocmd FileType sql set commentstring=--%s
   autocmd FileType crontab set commentstring=#%s
   autocmd FileType swift set commentstring=//%s
 

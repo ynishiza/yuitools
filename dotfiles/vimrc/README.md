@@ -19,6 +19,10 @@ e.g. custom `hls` settings
 ```
 -- <project>/.vimrc
 lua<<EOF
+
+-- trace, debug, info, warn, error
+vim.lsp.set_log_level("debug")
+
 local nvim_lsp = require("lspconfig")
 yt_lsp_update_settings("hls", {
   filetypes={"haskell", "lhaskell" },

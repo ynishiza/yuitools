@@ -102,16 +102,39 @@
 
 [credential]
 	helper = store
+[commit]
+	# show diff in commit editor
+	verbose = true
 [merge]
 	tool = vimdiff
 	conflictstyle = diff3
+[branch]
+	sort = -committerdate
+[tag]
+	sort = version:refname
+[push]
+	followTags = true
+[fetch]
+	prune = true
+	all = true
 [mergetool]
 	prompt = true
-[color]
-	branch = 1
 [gitreview]
 	remote = origin
+
+[color]
+	branch = 1
+[column]
+	# Output in columns where possible
+	ui = auto
+
 [diff]
+	# Prefer histogram
+	# Ref: https://blog.gitbutler.com/how-git-core-devs-configure-git/
+	algorithm = histogram
+	colorMoved = plain
+	mnemonicPrefix = true
+	renames = true
 	tool = vimdiff
 [difftool]
 	prompt = true
