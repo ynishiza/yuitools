@@ -1,0 +1,28 @@
+# Slackware Linux upgradepkg completion                    -*- shell-script -*-
+
+_comp_cmd_upgradepkg()
+{
+    local cur prev words cword comp_args
+    _comp_initialize -- "$@" || return
+
+    if [[ $cur == -* ]]; then
+        _comp_compgen -- -W '--dry-run --install-new --reinstall --verbose'
+        return
+    fi
+
+    if [[ $cur == ?*%* ]]; then
+        prev="${cur%%?(\\)%*}"
+        cur="${cur#*%}"
+        local nofiles=""
+        compopt -o filenames
+        _comp_compgen -- -P "$prev%" -f -X "!*.@(t[bgxl]z)" || nofiles=set
+        _comp_compgen -a -- -P "$prev%" -S '/' -d
+        [[ $nofiles ]] && compopt -o nospace
+        return
+    fi
+
+    _comp_compgen_filedir 't[bglx]z'
+} &&
+    complete -F _comp_cmd_upgradepkg upgradepkg
+
+# ex: filetype=sh

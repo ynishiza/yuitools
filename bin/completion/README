@@ -1,0 +1,18 @@
+# `bash_completions`
+
+Obtained from https://github.com/scop/bash-completion/
+
+# How to add completions
+
+Install bash completion v2
+
+```
+$ brew install bash_completion@2
+```
+
+Link in `bash_completions.d`
+
+```
+$ cd /opt/homebrew/etc/bash_completion.d
+$ ln -s ~/.yui_tools/bin/completion/ghcup.bash
+```

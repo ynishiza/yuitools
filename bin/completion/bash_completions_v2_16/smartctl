@@ -1,0 +1,120 @@
+# bash completion for smartctl(8)                          -*- shell-script -*-
+
+_comp_cmd_smartctl__device()
+{
+    case $cur in
+        areca* | 3ware* | megaraid* | cciss*)
+            _comp_compgen -- -W '${cur%%,*},{0..31}'
+            ;;
+        hpt*)
+            _comp_compgen -- -W 'hpt,{1..4}/{1..8} hpt,{1..4}/{1..8}/{1..5}'
+            ;;
+        *)
+            _comp_compgen -- -W 'ata scsi sat usbcypress usbjmicron usbsunplus
+                marvell areca 3ware hpt megaraid cciss auto test'
+            case "${COMPREPLY[@]}" in
+                areca | 3ware | hpt | megaraid | cciss)
+                    compopt -o nospace
+                    ;;
+            esac
+            ;;
+    esac
+}
+_comp_cmd_smartctl__test()
+{
+    [[ $cur == @(pending|scttempint|vendor), ]] && return
+    _comp_compgen -- -W 'offline short long conveyance select, select,redo
+        select,next afterselect,on afterselect,off pending, scttempint,
+        vendor,'
+    [[ ${COMPREPLY-} == *, ]] && compopt -o nospace
+}
+_comp_cmd_smartctl__drivedb()
+{
+    local prefix=
+    if [[ $cur == +* ]]; then
+        prefix=+
+        cur="${cur#+}"
+    fi
+    _comp_compgen_filedir h && [[ $prefix ]] &&
+        _comp_compgen -Rv COMPREPLY -- -P "$prefix" -W '"${COMPREPLY[@]}"'
+}
+
+_comp_cmd_smartctl()
+{
+    local cur prev words cword was_split comp_args
+    _comp_initialize -s -- "$@" || return
+
+    local noargopts='!(-*|*[qdTbrnsoSlvFPBt]*)'
+    # shellcheck disable=SC2254
+    case $prev in
+        --quietmode | -${noargopts}q)
+            _comp_compgen -- -W 'errorsonly silent noserial'
+            return
+            ;;
+        --device | -${noargopts}d)
+            _comp_cmd_smartctl__device
+            return
+            ;;
+        --tolerance | -${noargopts}T)
+            _comp_compgen -- -W 'normal conservative permissive verypermissive'
+            return
+            ;;
+        --badsum | -${noargopts}b)
+            _comp_compgen -- -W 'warn exit ignore'
+            return
+            ;;
+        --report | -${noargopts}r)
+            _comp_compgen -- -W 'ioctl ataioctl scsiioctl'
+            return
+            ;;
+        --nocheck | -${noargopts}n)
+            _comp_compgen -- -W 'never sleep standby idle'
+            return
+            ;;
+        --smart | --offlineauto | --saveauto | -${noargopts}[soS])
+            _comp_compgen -- -W 'on off'
+            return
+            ;;
+        --log | -${noargopts}l)
+            _comp_compgen -- -W 'error selftest selective directory background
+                sasphy sasphy,reset sataphy sataphy,reset scttemp scttempsts
+                scttemphist scterc gplog smartlog xerror xselftest'
+            return
+            ;;
+        --vendorattribute | -${noargopts}v)
+            _comp_compgen -- -W 'help 9,minutes 9,seconds 9,halfminutes 9,temp
+                192,emergencyretractcyclect 193,loadunload 194,10xCelsius
+                194,unknown 198,offlinescanuncsectorct 200,writeerrorcount
+                201,detectedtacount 220,temp'
+            return
+            ;;
+        --firmwarebug | -${noargopts}F)
+            _comp_compgen -- -W 'none samsung samsung2 samsung3 swapid'
+            return
+            ;;
+        --presets | -${noargopts}P)
+            _comp_compgen -- -W 'use ignore show showall'
+            return
+            ;;
+        --drivedb | -${noargopts}B)
+            _comp_cmd_smartctl__drivedb
+            return
+            ;;
+        --test | -${noargopts}t)
+            _comp_cmd_smartctl__test
+            return
+            ;;
+    esac
+
+    [[ $was_split ]] && return
+
+    if [[ $cur == -* ]]; then
+        _comp_compgen_help
+        [[ ${COMPREPLY-} == *= ]] && compopt -o nospace
+    else
+        _comp_compgen -c "${cur:-/dev/}" filedir
+    fi
+} &&
+    complete -F _comp_cmd_smartctl smartctl
+
+# ex: filetype=sh
