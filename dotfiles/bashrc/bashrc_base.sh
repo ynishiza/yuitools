@@ -144,6 +144,10 @@ _base_setupAlias() {
 	# To enable <C-S> to work in vim.
 	alias vim="stty stop '' -ixoff; vim"
 
+	# Cleanup swap files older than 1week
+	# Ref: https://superuser.com/questions/480367/whats-the-easiest-way-to-delete-vim-swapfiles-ive-already-recovered-from
+	alias yt_nvim_cleanswap="find ~/.local/state/nvim/swap -name \"*sw[klmnop]\" -atime +1w -delete"
+
 	# Include local node_modules in path
 	# https://stackoverflow.com/questions/9679932/how-to-use-package-installed-locally-in-node-modules
 	alias yt_npm-exec='PATH=$(npm bin):$PATH'

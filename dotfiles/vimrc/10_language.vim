@@ -187,6 +187,7 @@ aug yuitools_trailingwhitespace
         \*.lua,
         \*.tex,
         \*.vim,
+        \*.sql,
         \ :YTRemoveTrailingWhitespace
 aug END
 
