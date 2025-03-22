@@ -92,8 +92,10 @@ set formatoptions=tcqro
 "
 " newtab: open new buffer from Quickfix list in a new tab
 " usetab: option for newtab. If the same buffer has already been opened in a
-" newtab, use the same tab instead of opening a new one.
-set switchbuf+=newtab
+" newtab: use the same tab instead of opening a new one.
+" split: open new buffer in horizontal split.
+" vsplit: open new buffer in vertical split.
+set switchbuf=uselast,vsplit
 
 
 " == Fold ==

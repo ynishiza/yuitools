@@ -1,0 +1,20 @@
+\set PROMPT1 '%~%x%# '
+
+-- show executed SQL by command
+-- \set ECHO queries
+-- \set ECHO_HIDDEN on     
+
+\set ON_ERROR_STOP on   
+\set ON_ERROR_ROLLBACK interactive    
+
+\pset linestyle 'unicode'
+\pset unicode_border_linestyle single
+\pset unicode_column_linestyle single
+\pset unicode_header_linestyle double
+-- \x
+
+set intervalstyle to 'postgres_verbose';
+
+\setenv LESS '-iMFXSx4R'
+
+\conninfo

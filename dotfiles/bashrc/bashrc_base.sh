@@ -171,10 +171,14 @@ _base_setupFunction() {
 	# Bug: printing here caused problems when uploading with scp.
 
 	# shellcheck disable=SC2120
-	yt_DotEnvExport() {
+	yt_DotEnvExportBase() {
 		local envname="${1:-.env}"
+		[[ ! $# -eq 1 ]] && echo "Missing environment file" && usage && return 1
+
+		local envname="$1"
+		[[ ! -f "$envname" ]] && echo "Not a file: $envname" && return 1
+
 		echo "yt_DotEnvExport $envname" >&2
-		[[ $# -gt 1 ]] && envname=$1
 		while read -r line
 		do
 			# Skip comment
@@ -183,10 +187,15 @@ _base_setupFunction() {
 			export "$line"
 		done < "$envname"
 	}
+	yt_DotEnvExport() {
+		yt_DotEnvExportBase "${1:-.env}"
+	}
 
-	yt_DotEnvUse() {
+	yt_DotEnvExec() {
+		local envfile=$1
+		shift 1
 		# shellcheck disable=SC2068,SC2119
-		( yt_DotEnvExport; $@ )
+		( yt_DotEnvExport "$envfile"; $@ )
 	}
 }
 
