@@ -188,6 +188,7 @@ aug yuitools_trailingwhitespace
         \*.tex,
         \*.vim,
         \*.sql,
+        \*psqlrc,
         \ :YTRemoveTrailingWhitespace
 aug END
 
@@ -203,6 +204,8 @@ aug yuitools_filetype
   autocmd BufRead *.conf set filetype=conf
   autocmd BufRead *.gitconfig set filetype=gitconfig
   autocmd BufRead *.sshconfig set filetype=sshconfig
+  autocmd BufRead *.psqlrc set filetype=sql
+  autocmd BufRead *psqlrc set filetype=sql
 aug END
 
   " JSON

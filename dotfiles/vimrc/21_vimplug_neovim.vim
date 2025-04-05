@@ -19,22 +19,22 @@ set guifont=Fira_Code:h14
 
 " Inline simple configs
 lua<<EOF
+
 -- config: solarized
+--
+-- See editor.lua for default highlights
+-- https://github.com/craftzdog/solarized-osaka.nvim/blob/main/lua/solarized-osaka/groups/editor.lua
 require("solarized-osaka").setup {
   -- your configuration comes here
   -- or leave it empty to use the default settings
 
-  -- NOTE: use "day".
-  -- Otherwise, visual selection is hard to see.
-  style = "day", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
-  -- style = "storm", -- The theme comes in three styles, `storm`, `moon`, a darker variant `night` and `day`
   transparent = true, -- Enable this to disable setting the background color
   terminal_colors = true, -- Configure the colors used when opening a `:terminal` in [Neovim](https://github.com/neovim/neovim)
   styles = {
     -- Style to be applied to different syntax groups
     -- Value is any valid attr-list value for `:help nvim_set_hl`
-    comments = { italic = true },
-    keywords = { italic = true },
+    comments = { italic = false },
+    keywords = { italic = false },
     functions = {},
     variables = {},
     -- Background styles. Can be "dark", "transparent" or "normal"
@@ -54,9 +54,24 @@ require("solarized-osaka").setup {
 
   --- You can override specific highlights to use other groups or a hex color
   --- function will be called with a Highlights and ColorScheme table
+  --
+  -- Available colors: https://github.com/craftzdog/solarized-osaka.nvim/blob/main/lua/solarized-osaka/colors.lua
+  -- Available highlights: https://github.com/craftzdog/solarized-osaka.nvim/tree/main/lua/solarized-osaka/groups
+  --
+  -- e.g. in editor.lua
+  --
+  --       highlights.diffAdded = { fg = colors.green500 },
+  --
   ---@param highlights Highlights
   ---@param colors ColorScheme
-  on_highlights = function(highlights, colors) end,
+  on_highlights = function(highlights, colors)
+    -- editor.lua: https://github.com/craftzdog/solarized-osaka.nvim/blob/main/lua/solarized-osaka/groups/editor.lua
+    highlights.Visual = {
+      -- NOTE: original is colors.base02
+      -- Hard to see with solarized dark
+      bg = colors.base1
+    }
+  end,
 }
 vim.cmd[[colorscheme solarized-osaka]]
 

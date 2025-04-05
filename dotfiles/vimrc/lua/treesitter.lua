@@ -35,7 +35,16 @@ require'nvim-treesitter.configs'.setup {
     -- enable = false,
 
     -- list of language that will be disabled
-    disable = { "c", "rust" },
+    --
+    -- default
+    -- disable = { "c", "rust" },
+    disable = function(lang, bufnr)
+        if lang == "go" then
+          -- Commenting object blocks in a large file is slow.
+          return vim.api.nvim_buf_line_count(bufnr) > 10000
+        end
+        return false
+    end,
 
     -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
     -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).

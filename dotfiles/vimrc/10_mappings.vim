@@ -183,6 +183,7 @@ map <leader>cn :cc<cr>
 map <leader>cn :cnext<cr>
 map <leader>cp :cprevious<cr>
 map <leader>cw :cwindow<cr>
+map <leader>cW :exec "copen " . winheight(0) / 2 <cr>
 map <leader>cc :close<cr>
 
 

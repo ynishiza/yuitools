@@ -10,6 +10,11 @@ printUsage() {
 	echo "watch [-n SLEEP ] COMMAND"
 }
 
+usageAndExit() {
+	printUsage
+	exit 1
+}
+
 main() {
 	if [[ $# = 0 ]]; then usageAndExit; fi
 

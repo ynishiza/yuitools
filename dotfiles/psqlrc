@@ -1,20 +1,279 @@
-\set PROMPT1 '%~%x%# '
+-- off while loading
+\timing off
 
--- show executed SQL by command
--- \set ECHO queries
--- \set ECHO_HIDDEN on     
+-- ################## Variables ##################
+-- lower|upper|preserve-lower|preserve-upper
+\set COMP_KEYWORD_CASE preserve-upper
 
-\set ON_ERROR_STOP on   
-\set ON_ERROR_ROLLBACK interactive    
+-- Prompt
+--   %n    user name
+--   %m    host
+--   %>    port
+--   %/    DB name
+--   %x    <empty>
+--         *        in transaction
+--         !
+--         ?
+--   %#    # if super user
+--         > otherwise
+\set PROMPT1 '%n@%m:%>%[%033[34m%]/%/%[%033[0m%][state=%[%033[31m%]%x%[%033[0m%]]%# '
 
+-- on|off
+\set AUTOCOMMIT on
+
+-- ECHO: what inputs to echo
+--   all          all i.e. queries + commands
+--   queries      queries only
+--   errors       error queries only
+--   none
+\set ECHO errors
+--   on           echo system queries
+--   off
+--   noexec
+\set ECHO_HIDDEN off
+
+-- History
+--   ignoredups     ignore repeats
+--   ignorespace    ignore empty lines
+--   ignoreboth
+\set HISTCONTROL ignoreboth
+\set HISTSIZE 10000
+\set HISTFILE ~/.psql_history- :DBNAME
+
+-- ON_ERROR_STOP: how to handle error in a batch process
+--  on          stop on error
+--  off         ignore error continue on error [default]
+--  interactive
+\set ON_ERROR_STOP on
+-- ON_ERROR_ROLLBACK: how to handle error in a transaction
+--  on          ignore error and continue
+--  off         abort transaction [default]
+--  interactive
+\set ON_ERROR_ROLLBACK interactive
+
+-- SINGLELINE: execute query on new line instead of ;
+-- on|off
+\set SINGLELINE off
+-- SINGLESTEP: confirm before running each query
+-- on|off
+\set SINGLESTEP off
+
+-- on|off
+\set QUIET off
+\set SHOW_CONTEXT errors
+\set VERBOSITY default
+
+
+-- ################## Env Variables ##################
+-- Environment variables
+-- Basic
+\setenv LESS '-iMFXSx4R'
+\setenv EDITOR 'nvim -c ":set filetype=sql"'
+
+
+-- ################## Print options ##################
 \pset linestyle 'unicode'
-\pset unicode_border_linestyle single
-\pset unicode_column_linestyle single
-\pset unicode_header_linestyle double
--- \x
-
 set intervalstyle to 'postgres_verbose';
 
-\setenv LESS '-iMFXSx4R'
+-- null: how to display NULL [default: empty string]
+\pset null 'NULL'
 
-\conninfo
+-- expanded: on|off|auto
+-- Use \gx or \g (expanded=on) if needed
+\pset expanded off
+
+-- tuples_only: on|off
+\pset tuples_only off
+
+
+-- ##################  Alias ##################
+--
+-- yc: count
+\set yc 'select count(*) from '
+
+\set yconfigfind 'select name, setting, unit, category, vartype, context, sourcefile, reset_val from pg_settings where name ~ '
+\set yconfigs 'select name, category, short_desc from pg_settings order by category, name'
+\set ytablesample 'tablesample bernoulli'
+
+-- e.g. \g (:gformat_aligned)
+\set gformat_aligned 'format=aligned'
+\set gformat_unaligned 'format=unaligned'
+\set gformat_csv 'format=csv'
+\set gformat_html 'format=html'
+\set gtuples_only_on 'tuples_only=on'
+\set gtuples_only_off 'tuples_only=off'
+
+
+-- ##################  Tables ##################
+--
+-- yroles
+select $$
+with
+  membership as (
+    select
+      a.member oid,
+      array_agg(rolname) rolenames
+    from pg_auth_members a
+    inner join pg_authid r on a.roleid = r.oid
+    group by a.member
+  ),
+  roles as (
+    select
+      r.oid,
+      r.rolname as name,
+      r.rolvaliduntil,
+      r.rolsuper as superuser,
+      r.rolinherit as inherit,
+      membership.rolenames as rolenames,
+      array_remove(
+      (cast(array[] as text array)
+        || case when rolcreatedb then 'CREATEDB' else null end
+        || case when rolcreaterole then 'CREATEROLE' else null end
+        || case when rolcanlogin then 'LOGIN' else null end
+        || case when rolreplication then 'REPLICATION' else null end
+			), null) as privileges,
+      case r.rolconnlimit when -1 then 'unlimited' else format('%s', r.rolconnlimit) end as connections,
+      r.rolconfig as configs
+    from  pg_roles r
+    left outer join membership on r.oid = membership.oid
+  )
+table roles
+$$ yroles \gset
+
+-- ytables
+select $$
+select
+	c.oid,
+	c.relname as name,
+	nspname as namespace,
+	c.relowner as owner,
+	c.reltuples as tuples,
+	c.relispartition as is_partition,
+	relkind as kind,
+	c.reloptions as storage,
+	c.relacl as acl,
+	pks.names as primary_key
+from pg_class c
+inner join pg_namespace n on n.oid = c.relnamespace
+left outer join (
+	select
+		att.attrelid as relid,
+		array_agg(att.attname) as names
+	from pg_index as ind
+	inner join pg_attribute as att on ind.indrelid = att.attrelid and att.attnum=any(ind.indkey) and ind.indisprimary
+	group by relid
+	order by relid
+) pks
+	on pks.relid = c.oid
+where
+	(c.relkind = 'r' OR c.relkind = 'p')
+$$ ytables \gset
+
+-- yfunctions
+select $$
+select
+	oid,
+	proname as name,
+	pg_get_functiondef(oid) as function
+from pg_proc
+where prokind = 'f'
+$$ as yfunctions \gset
+
+
+-- ################## Info ##################
+select $$
+select
+  current_user as user,
+  current_catalog as DB,
+  current_schema as schema,
+  current_schemas(true),
+  :'SERVER_VERSION_NAME' as version,
+
+  -- client settings
+  current_setting('search_path') as search_path,
+  current_setting('transaction_read_only') as "is read only?",
+  :'ENCODING' as encoding,
+
+  -- server settings
+  case when inet_server_addr() is not null then format('%s:%s', inet_server_addr()::text, inet_server_port()) else 'socket' end as host,
+
+  -- DB settings
+  current_setting('shared_buffers') as shared_buffers,
+  current_setting('work_mem') as work_mem,
+  current_setting('listen_addresses') as listen_addresses,
+  current_setting('port') as port
+$$ yinfo \gset
+
+select $$
+select
+  -- DB settings
+  current_setting('data_directory') as data_directory,
+  current_setting('config_file') as config_file
+$$ yinfo_server \gset
+
+
+-- ################## Help ##################
+select $$
+HELP
+
+:yhelp
+:ycheat
+:yinfo                          Current session info
+:yinfo_server                   Server info
+
+:yconfigs \gx                            List configs
+:yconfigfind 'transaction%' \gx          Find effective config
+
+:ytables
+:yroles
+
+:yc mytable;                              select COUNT(*) from mytable;
+
+$$ _yhelp \gset
+\set yhelp '\\echo :_yhelp'
+
+select $$
+Cheatsheet
+
+========== Access control ==========
+\dg+ yui*                         Attributes of current user
+\dg+                              Attributes of all users
+\drg+                             Role GRANTs
+
+========== System tables ==========
+
+pg_settings         Effective configurations
+pg_authid           Roles
+pg_authmembers      Role membership
+
+pg_class            Tables, sequences, views
+pg_attributes       Table columns
+
+$$ _ycheat \gset
+\set ycheat '\\echo :_ycheat'
+
+
+-- ################## Other ##################
+-- Ref: https://gist.github.com/kmoppel/d27bf1d31affcc26f56fd3a9bd596477
+\set sa 'select pid, usename,  now() - query_start as query_age, now() - xact_start as xact_age, wait_event_type, wait_event, query from pg_stat_activity where state != \'idle\' and pid != pg_backend_pid() and (datname = current_database() or datname is null) order by now() - query_start desc limit 20;'
+
+\set sat 'select pid, usename,  now() - query_start as query_age, now() - xact_start as xact_age, wait_event_type, wait_event, query::varchar(100) from pg_stat_activity where state != \'idle\' and pid != pg_backend_pid() and (datname = current_database() or datname is null) order by now() - query_start desc limit 5;'
+
+\set conf 'select name as setting, current_setting(name) as value from pg_settings where name = ANY(\'{shared_buffers,work_mem,max_connections,random_page_cost,max_wal_size,checkpoint_timeout,checkpoint_completion_target,default_statistics_target,effective_cache_size,autovacuum,jit,shared_preload_libraries,max_parallel_workers_per_gather,autovacuum_vacuum_scale_factor,autovacuum_vacuum_cost_delay,autovacuum_analyze_scale_factor,effective_io_concurrency,autovacuum_max_workers,synchronous_commit,synchronous_standby_names,listen_addresses,log_destination,fsync,full_page_writes,huge_pages,hot_standby_feedback,log_min_duration_statement,log_min_duration_sample,log_statement,log_statement_sample_rate,max_locks_per_transaction,max_worker_processes,password_encryption,recovery_min_apply_delay,server_version,temp_buffers,temp_file_limit,track_functions,track_io_timing,wal_buffers,wal_compression,wal_recycle,wal_segment_size,archive_mode,archive_command}\') /*and boot_val is distinct from reset_val*/ order by 1;'
+select $$
+select now() - pg_postmaster_start_time() as uptime;
+$$ up \gset
+
+
+-- ################## Init ##################
+-- show execution time
+:yinfo \gx
+
+select setting = 'on' as _is_read_only from pg_settings where name = 'transaction_read_only' \gset
+\if :_is_read_only
+\echo "==================================================================="
+\echo "==================== IMPORTANT: READ ONLY MODE ===================="
+\echo "==================================================================="
+\endif
+
+\timing on
