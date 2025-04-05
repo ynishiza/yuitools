@@ -227,7 +227,8 @@ _setupPath() {
 	PATH=/usr/sbin:$PATH
 	PATH=/usr/local/bin:/usr/local/sbin:/usr/sbin:$PATH
 	PATH="$MY_BIN:$PATH"
-	PATH=$HOME/.bin:$PATH
+	[[ -d "$HOME/bin" ]] && PATH="$HOME/bin:$PATH"
+	[[ -d "$HOME/.bin" ]] && PATH=$HOME/.bin:$PATH
 	export PATH_BAK
 	export PATH
 }

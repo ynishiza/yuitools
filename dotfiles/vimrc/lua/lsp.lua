@@ -155,6 +155,58 @@ yt_lsp_server_settings = {
      -- root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", ".git")
   },
 
+  -- [DISABLED 04/05/2025] clunky
+  -- Home: https://github.com/supabase-community/postgres-language-server
+  -- postgres_lsp = {
+  --    filetypes={ "sql" },
+  --    cmd = { "postgrestools", "lsp-proxy", "--log-path", "/tmp/postgres_lsp.log" },
+  -- },
+
+   -- Home: https://github.com/sqls-server/sqls
+   -- Plugin: https://github.com/nanotee/sqls.nvim
+   --
+   -- LSP for PostgreSQL
+   -- Installation
+   --   $ https://github.com/sqls-server/sqls
+   --
+   -- [DISABLED 03/10/2025] sqls doesn't even start.
+   -- Dies immediately with just output
+   --
+   --    sqls   Killed:9
+   -- sqls = {
+   --   on_attach = function(client, bufnr)
+   --     print('sql')
+   --     require('sqls').on_attach(client, bufnr)
+   --     yt_lsp_default_bindings(client, bufnr)
+   --    end,
+   --   cmd = { "sqls" },
+   --   filetypes={"sql"},
+   --    settings = {
+   --      sqls = {
+   --        connections = {
+   --          {
+   --            driver = "postgresql",
+   --            dataSourceName = "host=localhost port=5432 user=yuinishizawa dbname=postgres"
+   --          }
+   --        }
+   --      }
+   --    }
+   -- },
+
+   -- Home: https://github.com/joe-re/sql-language-server
+   -- LSP for PostgreSQL
+   --
+   -- [DISABLED 03/10/2025] shows errors even for simple statements
+   --   DROP TABLE t1, t2;
+   --   ERROR: Expected "--", ".", "/*", ";", [ \t\n\r], [A-Za-z0-9_], or end of input but "," found.
+   -- i.e doesn't like multiple DROPS.
+   -- Old?
+   -- sqlls = {
+   --   cmd = {  'sql-language-server', 'up', '--debug', '--method', 'stdio' },
+   --   filetypes = { 'sql', 'psql' },
+   --   root_pattern = nvim_lsp.util.root_pattern(".sqllsrc.json")
+   -- },
+
   -- Home: https://github.com/apple/sourcekit-lsp
   -- LSP for Swift
   -- Installation
