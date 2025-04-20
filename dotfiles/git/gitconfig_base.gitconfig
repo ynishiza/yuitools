@@ -53,6 +53,7 @@
 	lp = log -p --show-signature -U10
 	lst = log --stat --show-signature
 	last = log --stat -1 -p --show-signature -U10
+	refls = reflog show --pretty=ls
 
 	# Diff against previous value of a branch
 	# e.g. after a new commit, diff changes by the commit

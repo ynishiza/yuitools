@@ -21,6 +21,14 @@ man -k abc def        search for "abc def" in title
 man -K abc def        search for "abc def" in content
 
 
+== shell ==
+# history
+!1
+!-1
+echo !1           print history
+echo !1:q         quote e.g. "ls -l ."
+echo !1:x         quote each word e.g. ls -l .   "ls" "-l" "."
+
 == process ==
 killall "Google Chrome"
 killall firefox
@@ -50,4 +58,33 @@ ncdu -o /tmp/ncdu ~/                  output to file (faster)
 ncdu -f /tmp/ncdu                     read from file
 ncdu --exclude CloudStorage /Library  exclude file
 
+
+== Scripting ==
+((1+1))             expression
+
+\${A:-abc}          default
+\${A/x/X}           replace x with X
+\${A[@]}           
+
+\${#A[@]}           length
+\${A[@]}            array members
+\${!A[@]}           array keys
+
+# string
+"\$A" == "abc"
+"\$A" != "abc"
+"\$A" =~ abc.       regex
+-n "\$A"            non-empty
+-z "\$A"            empty
+
+# number
+"\$A" -eq 1
+"\$A" -ne 1
+"\$A" -ge 1
+
+# files
+-e "\$A"          exists
+-f "\$A"          regular file
+-d "\$A"          directory
+-L "\$A"          symbolic ink
 EOF

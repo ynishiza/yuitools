@@ -9,7 +9,7 @@ __file="${__dir}/$(basename "${BASH_SOURCE[0]}")"
 # Usage
 usage() {
   cat <<END
- $0 [-f|--file NAME] [-] [ARG]
+ $0 [-d|--dir NAME] [-] [ARG]
 END
 }
 
@@ -43,14 +43,14 @@ main() {
   if [[ $# = 0 ]]; then usageAndExit; fi
 
   # step: parse options
-  local filename=
+  local dirname=
   while [[ $# -gt 0 ]]
   do
     echo "a $1 b"
     case "$1" in
       # case: option with value
-      -f|--file)
-        filename="$2"
+      -d|--dir)
+        dirname="$2"
         shift
         ;;
       # case: explicit start of positional arguments
@@ -72,8 +72,19 @@ main() {
     shift
   done
 
-  echo "filename=$filename"
+  echo "dirname=$dirname"
   echo "positional: $*"
+
+  [[ ! -d "$dirname" ]] && echo "$dirname does not exist" && usageAndExit
+
+  # Array
+  local -a array
+  # shellcheck disable=SC2207
+  array=($(ls "$dirname"))
+  for v in "${array[@]}"
+  do
+    echo "file: $v"
+  done
 }
 
 (main "$@")

@@ -2,6 +2,13 @@
 --langmap=markdown:.markdown.md.rst
 --regex-markdown=/^(##* +.+)/\1/h,header/
 
+--langdef=golang
+--langmap=golang:.go
+--regex-golang=/^type +([_a-zA-Z0-9]+) /\1/t,type/
+--regex-golang=/^const +([_a-zA-Z0-9]+) /\1/c,const/
+--regex-golang=/^func +([_a-zA-Z0-9]+)\(/\1/f,function/
+--regex-golang=/^func +\([_a-zA-Z0-9\* ]*\) +([_a-zA-Z0-9]+)\(/\1/m,method/
+
 --langdef=haskell
 --langmap=haskell:.hs
 --regex-haskell=/^([_a-zA-Z0-9]+)[ \t]+=/\1/c,binding/
