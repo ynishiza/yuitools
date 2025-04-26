@@ -2,6 +2,11 @@
 --langmap=markdown:.markdown.md.rst
 --regex-markdown=/^(##* +.+)/\1/h,header/
 
+--langdef=sql
+--langmap=sql:.sql
+--regex-sql=/^ *create +(or +replace +)?function +([_a-zA-Z0-9\.]+)/\2/a,function/i
+--regex-sql=/^ *create +(or +replace +)?procedure +([_a-zA-Z0-9\.]+)/\2/b,procedure/i
+
 --langdef=golang
 --langmap=golang:.go
 --regex-golang=/^type +([_a-zA-Z0-9]+) /\1/t,type/

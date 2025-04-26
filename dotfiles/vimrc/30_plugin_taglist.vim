@@ -5,6 +5,7 @@
 let tlist_markdown_settings="markdown;h:header"
 let tlist_haskell_settings="haskell;c:binding;d:type;e:class;f:signature;p:it;q:describe"
 let tlist_go_settings="golang;t:type;c:const;f:function;m:method"
+let tlist_sql_settings="sql;t:table;a:function;b:procedure"
 let tlist_r_settings = "r;f:function;c:class"
 let tlist_php_settings="php;f:function;d:constant;a:class"
 let tlist_javascript_settings_base = "javascript;e:class;d:class_property;q:constant;r:@module;n:@property;t:@class;o:@method;u:@construct;g:export;j:describe;k:it"

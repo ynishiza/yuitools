@@ -102,6 +102,7 @@ set intervalstyle to 'postgres_verbose';
 \set gformat_html 'format=html'
 \set gtuples_only_on 'tuples_only=on'
 \set gtuples_only_off 'tuples_only=off'
+\set yreload_psqlrc '\\i ~/.psqlrc'
 
 
 -- ##################  Tables ##################
@@ -172,12 +173,81 @@ $$ ytables \gset
 -- yfunctions
 select $$
 select
-	oid,
+	pro.oid,
 	proname as name,
-	pg_get_functiondef(oid) as function
-from pg_proc
-where prokind = 'f'
+	nspname as namespace,
+  format('%s(%s)', proname, pg_get_function_identity_arguments(pro.oid)) as identity,
+  prokind as kind,
+	pg_get_functiondef(pro.oid) as function
+from pg_proc pro
+left outer join pg_namespace nsp on nsp.oid = pro.pronamespace
+where prokind = 'f' OR prokind = 'p'
 $$ as yfunctions \gset
+
+-- ytypes
+select $$
+SELECT
+  t.oid AS oid,
+  typname AS name,
+  n.nspname AS namespace,
+
+  -- type
+  CASE
+    WHEN t.typtype = 'b' THEN 'base'::text
+    WHEN t.typtype = 'c' THEN 'composite'
+    WHEN t.typtype = 'c' THEN 'table'
+    WHEN t.typtype = 'e' THEN 'enum'
+    WHEN t.typtype = 'd' THEN 'domain'
+    ELSE t.typtype::text
+  END as type,
+  CASE
+    WHEN t.typtype = 'c' THEN compositeColumns.columns
+    WHEN t.typtype = 'e' THEN enumCols.columns
+    ELSE NULL
+  END AS values
+FROM pg_type t
+INNER JOIN pg_namespace n
+ON t.typnamespace = n.oid
+
+LEFT OUTER JOIN pg_class class
+ON t.typrelid = class.oid
+
+-- table columns
+LEFT OUTER JOIN (
+  SELECT
+    attrelid AS tableid,
+    array_agg(attname) AS columns
+  FROM  pg_attribute
+  WHERE
+    attrelid is not null
+    AND attname NOT IN (
+      -- ignore builtin columns
+      'cmin',
+      'cmax',
+      'xmin',
+      'xmax',
+      'tableoid',
+      'ctid'
+    )
+  group by attrelid
+) AS compositeColumns
+ON t.typrelid = compositeColumns.tableid
+
+-- enum labels
+LEFT OUTER JOIN (
+  SELECT
+    atttypid AS typeid,
+    array_agg(attname) AS columns
+  FROM  pg_attribute
+  WHERE atttypid is not null
+  group by atttypid
+) AS enumCols
+ON t.oid = enumCols.typeid
+
+-- filter out automatic composite type of tables
+WHERE NOT (t.typtype = 'c' AND class.relkind <> 'c')
+$$ ytypes \gset
+
 
 
 -- ################## Info ##################
@@ -186,6 +256,7 @@ select
   current_user as user,
   current_catalog as DB,
   current_schema as schema,
+  'pg_temp' as temporary_namespace,
   current_schemas(true),
   :'SERVER_VERSION_NAME' as version,
 
@@ -271,9 +342,19 @@ $$ up \gset
 
 select setting = 'on' as _is_read_only from pg_settings where name = 'transaction_read_only' \gset
 \if :_is_read_only
-\echo "==================================================================="
-\echo "==================== IMPORTANT: READ ONLY MODE ===================="
-\echo "==================================================================="
+\echo "======================================================================================"
+\echo "                                                                                      "
+\echo "                                                                                      "
+\echo "          ######  #######    #    ######     ####### #     # #       #     #          "
+\echo "          #     # #         # #   #     #    #     # ##    # #        #   #           "
+\echo "          #     # #        #   #  #     #    #     # # #   # #         # #            "
+\echo "          ######  #####   #     # #     #    #     # #  #  # #          #             "
+\echo "          #   #   #       ####### #     #    #     # #   # # #          #             "
+\echo "          #    #  #       #     # #     #    #     # #    ## #          #             "
+\echo "          #     # ####### #     # ######     ####### #     # #######    #             "
+\echo "                                                                                      "
+\echo "                                                                                      "
+\echo "======================================================================================"
 \endif
 
 \timing on
