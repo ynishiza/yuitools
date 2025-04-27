@@ -86,7 +86,20 @@ set intervalstyle to 'postgres_verbose';
 \pset tuples_only off
 
 
--- ##################  Alias ##################
+-- ################## Session settings ##################
+--
+-- Ref: https://www.postgresql.org/docs/current/plpgsql-development-tips.html
+--
+-- none | all | <comma delimited options>
+--
+-- where options are:
+--   shadowed_variables
+--   strict_multi_assignment
+--   too_many_rows
+SET plpgsql.extra_warnings='none';
+SET plpgsql.extra_errors='all';
+
+-- ################## Alias ##################
 --
 -- yc: count
 \set yc 'select count(*) from '
@@ -95,13 +108,19 @@ set intervalstyle to 'postgres_verbose';
 \set yconfigs 'select name, category, short_desc from pg_settings order by category, name'
 \set ytablesample 'tablesample bernoulli'
 
+\set pgls '\\dtS+ pg_*'
+\set pgvls '\\dvS+ pg_*'
+
 -- e.g. \g (:gformat_aligned)
-\set gformat_aligned 'format=aligned'
-\set gformat_unaligned 'format=unaligned'
-\set gformat_csv 'format=csv'
-\set gformat_html 'format=html'
-\set gtuples_only_on 'tuples_only=on'
-\set gtuples_only_off 'tuples_only=off'
+\set format_aligned 'format=aligned'
+\set format_unaligned 'format=unaligned'
+\set format_csv 'format=csv'
+\set format_html 'format=html'
+\set tuples_only_on 'tuples_only=on'
+\set tuples_only_off 'tuples_only=off'
+\set gx '\\g (expanded=on)'
+\set gul '\\g (format=unaligned expanded=off)'
+\set gal '\\g (format=aligned expanded=off)'
 \set yreload_psqlrc '\\i ~/.psqlrc'
 
 
@@ -258,6 +277,7 @@ select
   current_schema as schema,
   'pg_temp' as temporary_namespace,
   current_schemas(true),
+  :'HISTFILE' as history_file,
   :'SERVER_VERSION_NAME' as version,
 
   -- client settings
@@ -300,12 +320,6 @@ HELP
 
 :yc mytable;                              select COUNT(*) from mytable;
 
-$$ _yhelp \gset
-\set yhelp '\\echo :_yhelp'
-
-select $$
-Cheatsheet
-
 ========== Access control ==========
 \dg+ yui*                         Attributes of current user
 \dg+                              Attributes of all users
@@ -314,11 +328,47 @@ Cheatsheet
 ========== System tables ==========
 
 pg_settings         Effective configurations
+pg_file_settings    Settings of
+                      postgres.conf
+                      postgres.auto.conf (ALTER SYSTEM)
 pg_authid           Roles
 pg_authmembers      Role membership
 
 pg_class            Tables, sequences, views
 pg_attributes       Table columns
+
+$$ _yhelp \gset
+\set yhelp '\\echo :_yhelp'
+
+
+-- ################## Cheatsheet ##################
+select $$
+Cheatsheet
+
+== Types ==
+NUMERIC(5, 2)       precision=5 scale=2
+                    XXX.YY
+INT ARRAY[10]
+INT ARRAY           unlimited length
+
+
+== format string ==
+%s
+%I      identifier
+%L      literal
+%2$s    explicit position
+
+
+== expressions ==
+1=ANY(ARRAY[1,2,3])                   containment
+1=ALL(ARRAY[1,2,3])
+ARRAY(
+  SELECT x * 2                        map
+  FROM UNNEST(ARRAY[1,2,3]) t(x)
+  WHERE x > 1                         filter
+  ORDER BY x DESC                     sort
+)
+
 
 $$ _ycheat \gset
 \set ycheat '\\echo :_ycheat'
