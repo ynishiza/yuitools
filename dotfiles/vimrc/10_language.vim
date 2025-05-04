@@ -187,8 +187,8 @@ aug yuitools_trailingwhitespace
         \*.lua,
         \*.tex,
         \*.vim,
-        \*.sql,
-        \*psqlrc,
+        \*.sql,*psqlrc,
+        \*.go,
         \ :YTRemoveTrailingWhitespace
 aug END
 

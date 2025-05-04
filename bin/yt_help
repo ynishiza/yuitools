@@ -21,6 +21,15 @@ man -k abc def        search for "abc def" in title
 man -K abc def        search for "abc def" in content
 
 
+== permissions ==
+100   u=x
+200   u=w
+400   u=r
+500   u=xr
+700   u=all
+750   u=all g=rx
+
+
 == shell ==
 # history
 !1
@@ -64,7 +73,7 @@ ncdu --exclude CloudStorage /Library  exclude file
 
 \${A:-abc}          default
 \${A/x/X}           replace x with X
-\${A[@]}           
+\${A[@]}
 
 \${#A[@]}           length
 \${A[@]}            array members
