@@ -123,6 +123,8 @@ call plug#begin('~/.vim/plugged')
     " cmp-nvim-lsp: lsp suggestions
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'ray-x/cmp-treesitter'
+
+    Plug 'nanotee/sqls.nvim'
   endif
 
 

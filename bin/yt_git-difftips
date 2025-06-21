@@ -32,7 +32,7 @@ main() {
 	BEFORE=$2
 	AFTER=$3
 	# shellcheck disable=SC2140
-	vimdiff <(git log -p "$BEFORE~$NUM_COMMITS".."$BEFORE") <(git log -p "$AFTER~$NUM_COMMITS".."$AFTER")
+	EDITOR=nvim vimdiff <(git log -p "$BEFORE~$NUM_COMMITS".."$BEFORE") <(git log -p "$AFTER~$NUM_COMMITS".."$AFTER")
 }
 
 (main "$@")

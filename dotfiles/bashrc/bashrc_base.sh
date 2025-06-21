@@ -83,6 +83,12 @@ _base_setupTools() {
 		sudo gpgconf --launch gpg-agent gpg dirmngr
 	}
 
+	# similar to sudo --validate
+	# i.e. set cached password
+	yt_gpg_validate() {
+		echo a | gpg --sign -a > /tmp/.gpg_temp
+	}
+
 	# GPG_TTY:
 	# Tell gpg-agent which tty to use.
 	# See 'man gpg-agent'

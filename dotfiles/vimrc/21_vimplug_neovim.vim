@@ -102,5 +102,6 @@ command! -nargs=0 YTLspGetLogLevel lua print(vim.lsp.log_levels[vim.lsp.log.get_
 command! -nargs=0 YTLspSetLogWarn lua vim.lsp.set_log_level(3))
 command! -nargs=0 YTLspSetLogDebug lua vim.lsp.set_log_level(1))
 command! -nargs=0 YTLspShowLogs lua vim.cmd('tabedit'..vim.lsp.get_log_path())
+command! -nargs=0 YTCmlReload lua require("cmp")
 
 map <leader>LI :LspInfo<CR>

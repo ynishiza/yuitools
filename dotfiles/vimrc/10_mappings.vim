@@ -4,6 +4,7 @@
 "  <Tab> = tab
 "  <Space> = space
 "  <cr> = return
+"  <bs> = backspace
 "
 "  <F1> = F1
 "  <F2> = F2
@@ -13,7 +14,7 @@
 "  <M-A> = Meta-A (alt/option on Mac)
 "  <D-A> = Command-A (Mac only)
 "
-" See :help-keycodes for keys
+" See :help keycodes for keys
 
 
 "" Idiomatic
@@ -152,6 +153,7 @@ vmap gD yPgvgc
 
 " Un-newline: i.e. put current line back in previous line
 map d<enter> 0dwi<bs><space><esc>
+map d<enter> :s/^\s*/<cr>0i<bs><space><esc>
 
 
 " Reload

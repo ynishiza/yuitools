@@ -55,6 +55,14 @@ vim.g.firenvim_config = {
             priority = 1,
             takeover = "never"
         },
+        ["app.lokalise.com"] = {
+          priority = 0,
+          takeover = "never"
+        },
+        ["jira.fastretailing.com"] = {
+          priority = 0,
+          takeover = "never"
+        },
         [".*"] = {
             cmdline  = "neovim",
             content  = "text",

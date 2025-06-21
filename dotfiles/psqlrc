@@ -4,7 +4,7 @@
 
 -- ################## Variables ##################
 -- lower|upper|preserve-lower|preserve-upper
-\set COMP_KEYWORD_CASE preserve-upper
+\set COMP_KEYWORD_CASE upper
 
 -- Prompt
 --   %n    user name
@@ -195,9 +195,13 @@ select
 	relkind as kind,
 	c.reloptions as storage,
 	c.relacl as acl,
-	pks.names as primary_key
+	primary_key.names as primary_key,
+  description.description as description
 from pg_class c
 inner join pg_namespace n on n.oid = c.relnamespace
+-- note: objsubid = 0 for table comments only i.e. exclude subobjects such as comment descriptions
+left outer join (SELECT * FROM pg_description WHERE objsubid = 0) description on c.oid = description.objoid
+-- column names
 left outer join (
 	select
 		att.attrelid as relid,
@@ -206,25 +210,28 @@ left outer join (
 	inner join pg_attribute as att on ind.indrelid = att.attrelid and att.attnum=any(ind.indkey) and ind.indisprimary
 	group by relid
 	order by relid
-) pks
-	on pks.relid = c.oid
+) primary_key
+	on primary_key.relid = c.oid
 where
 	(c.relkind = 'r' OR c.relkind = 'p')
 $$ ytables \gset
+\set ytables_where_name 'SELECT * FROM (:ytables) ytables WHERE name ~'
 
 -- yfunctions
 select $$
 select
 	pro.oid,
-	proname as name,
-	nspname as namespace,
+  format('%s (%s)', rolname, rol.oid) AS role,
+	nspname || '.' || proname as name,
   format('%s(%s)', proname, pg_get_function_identity_arguments(pro.oid)) as identity,
   prokind as kind,
   pg_get_function_result(pro.oid) as RETURNS
 from pg_proc pro
-left outer join pg_namespace nsp on nsp.oid = pro.pronamespace
+left outer join pg_namespace nsp on nsp.oid = pronamespace
+left outer join pg_authid rol on rol.oid = proowner
 where prokind = 'f' OR prokind = 'p'
 $$ as yfunctions \gset
+\set yfunctions_where_name 'SELECT * FROM (:yfunctions) yfunctions WHERE name ~'
 
 select $$
 select
@@ -298,7 +305,7 @@ ON t.oid = enumCols.typeid
 -- filter out automatic composite type of tables
 WHERE NOT (t.typtype = 'c' AND class.relkind <> 'c')
 $$ ytypes \gset
-
+\set ytypes_where_name 'SELECT * FROM (:ytypes) ytypes WHERE name ~'
 
 
 -- ################## Info ##################
@@ -315,6 +322,7 @@ select
 
   -- client settings
   current_setting('search_path') as search_path,
+  current_setting('client_min_messages') as client_min_messages,
   current_setting('transaction_read_only') as "is read only?",
   :'ENCODING' as encoding,
 
@@ -363,7 +371,9 @@ HELP
 :ytables
 :yroles
 
-:yc mytable;                              select COUNT(*) from mytable;
+:yc mytable;                              SELECT COUNT(*) FROM mytable;
+SELECT *
+FROM mytable :ytablesample(0.1);          TABLESAMPLE BERNOULLI(0.1)
 
 ========== Access control ==========
 \dg+ yui*                         Attributes of current user

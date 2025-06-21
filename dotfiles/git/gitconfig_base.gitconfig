@@ -71,8 +71,11 @@
 	dfprev9 = diff --stat -p -U10 @{9}
 
 	## Branch
-	bv = branch -vv
-	bva = branch -vv -a
+	bvv = branch -vv
+	# e.g. of the form
+	#   master                                    ba8c57d 2025-05-04 [refs/remotes/origin/master] <yui.nishizawa@gmail.com> subject
+	bv = branch -v --format '%(if)%(HEAD)%(then)%(color:green)*%(end)%(align:40,left)%(refname:lstrip=2) %(end) %(color:default) %(objectname:short) %(committerdate:short) %(if)%(upstream)%(then)[%(color:blue)%(upstream:short) %(color:default)%(upstream:track,nobracket)] %(end)%(committeremail) %(subject) '
+	bva = bv -a
 
 	# Reference: https://stackoverflow.com/questions/5188320/how-can-i-get-a-list-of-git-branches-ordered-by-most-recent-commit
 	rbv = rbva --count 20

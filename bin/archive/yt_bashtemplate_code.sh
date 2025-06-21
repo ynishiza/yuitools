@@ -9,6 +9,7 @@ __scriptname="$(basename "$0")"
 
 # use [[ -n $IS_MAC ]] if is mac.
 IS_MAC=$( uname | grep Darwin || echo '' )
+LOG="/tmp/log_$(date +%Y%m%d_%H_%M_%S).txt"
 
 # Usage
 usage() {
@@ -28,7 +29,7 @@ cleanup() {
 	code="$?"
 	if [[ "$code" -eq 0 ]]
 	then
-		echo "success"
+		echo "success" | tee -a "$LOG"
 	elif [[ "$code" -ne "$USAGE_EXITCODE" ]]
 	then
 		# case: error other than usage message
@@ -37,7 +38,7 @@ cleanup() {
 	exit "$code"
 }
 onError() {
-	echo "error"
+	echo "error" >&2 | tee -a "$LOG"
 }
 # cleanup: on script exit
 # Both success and fail
@@ -70,7 +71,7 @@ main() {
 				;;
 			# case: error handling
 			-*)
-				echo "Unknown option $1" >&2
+				echo "Unknown option $1" >&2 | tee -a "$LOG"
 				usageAndExit
 				;;
 			# case: implicit start of positional argument
@@ -81,7 +82,7 @@ main() {
 		shift
 	done
 
-	echo "filename=$filename"
+	echo "filename=$filename" | tee -a "$LOG"
 	echo "positional: $*"
 }
 
