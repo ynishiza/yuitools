@@ -18,9 +18,19 @@ call plug#begin('~/.vim/plugged')
   " NERDTREE: file explorer
   Plug 'scrooloose/nerdtree'
 
-  " airline: vim powerline
-  Plug 'bling/vim-airline'
-  Plug 'vim-airline/vim-airline-themes'
+  " status line plugin
+  "
+  if s:lua_support
+    " lualine: neovim status line
+    Plug 'nvim-lualine/lualine.nvim'
+  else
+    " [DISABLED 2025/06]
+    " Rendering issues in tmux
+    "
+    " airline: vim powerline
+    Plug 'bling/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+  endif
 
   " Commentary: easy commenting out
   Plug 'tpope/vim-commentary'

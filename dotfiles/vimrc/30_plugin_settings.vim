@@ -6,10 +6,13 @@ if YT_PlugInstalled('Nvim-R')
   au Filetype r call _initNvimR()
 endif
 
-
 if YT_PlugInstalled('nerdtree')
   map <leader>n :NERDTreeToggle<cr>
   map <leader>N :NERDTree<cr>
+endif
+
+if YT_PlugInstalled('undotree')
+  map <F9> :UndotreeToggle<cr>
 endif
 
 if YT_PlugInstalled('lintr')
@@ -27,7 +30,6 @@ if YT_PlugInstalled('lintr')
 endif
 
 if YT_PlugInstalled('vim-airline')
-  map <F9> :UndotreeToggle<cr>
   call YT_devWriteLog("loaded vim-airline settings")
 endif
 
@@ -65,18 +67,18 @@ if YT_PlugInstalled('vim-airline')
     endif
 
     " unicode symbols
-    let g:airline_left_sep = '»'
-    let g:airline_left_sep = '▶'
-    let g:airline_right_sep = '«'
-    let g:airline_right_sep = '◀'
-    let g:airline_symbols.linenr = '␊'
-    let g:airline_symbols.linenr = '␤'
-    let g:airline_symbols.linenr = '¶'
-    let g:airline_symbols.branch = '⎇'
-    let g:airline_symbols.paste = 'ρ'
-    let g:airline_symbols.paste = 'Þ'
-    let g:airline_symbols.paste = '∥'
-    let g:airline_symbols.whitespace ='Ξ'
+    " let g:airline_left_sep = '»'
+    " let g:airline_left_sep = '▶'
+    " let g:airline_right_sep = '«'
+    " let g:airline_right_sep = '◀'
+    " let g:airline_symbols.linenr = '␊'
+    " let g:airline_symbols.linenr = '␤'
+    " let g:airline_symbols.linenr = '¶'
+    " let g:airline_symbols.branch = '⎇'
+    " let g:airline_symbols.paste = 'ρ'
+    " let g:airline_symbols.paste = 'Þ'
+    " let g:airline_symbols.paste = '∥'
+    " let g:airline_symbols.whitespace ='Ξ'
 
     " See ~/.vim/bundle/vim-airline/autoload/airline/themes
     " For some reason,
@@ -86,7 +88,7 @@ if YT_PlugInstalled('vim-airline')
 
   "" Theme selection
   " See https://github.com/vim-airline/vim-airline-themes/tree/master/autoload/airline/themes
-  let g:airline_theme = "solarized"
+  " let g:airline_theme = "solarized"
 
   " autocmd VimEnter * call _EnableAirline()
 endif

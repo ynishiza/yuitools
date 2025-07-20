@@ -34,6 +34,32 @@ gO                  (big o) Show table of contents
 :h <space>
 
 
+special characters
+Ctrl-v000			Nul  
+Ctrl-vx00			Nul hex
+Ctrl-vu0000   Nul unicode
+
+# e.g.
+Ctrl-vx09 		ctrl-t
+Ctrl-vx0a 		ctrl-n
+Ctrl-vx0d 		ctrl-r
+Ctrl-vx41			'A'
+Ctrl-vx61			'a'
+Ctrl-vu3041		'あ'
+  
+
+buffer:
+:ls
+  a    active buffer i.e. loaded in some visible window
+	h 	 hidden buffer i.e. loaded before but no window
+	u 	 unlisted
+	%a   current active buffer
+	#		 alternate buffer
+	+    modified i.e. unsaved changes
+	-    non-modifiable e.g. 
+	=    read only
+
+
 window:
 2<c-w>>       2 units Wider
 2<c-w><       2 units Narrower

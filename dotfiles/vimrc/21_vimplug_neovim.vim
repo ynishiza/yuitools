@@ -16,10 +16,13 @@ exec "luafile " . g:yt_vimrc_path . "/lua/lsp.lua"
 exec "luafile " . g:yt_vimrc_path . "/lua/firenvim.lua"
 set guifont=Fira_Code:h14
 
+" config: lualine
+exec "luafile " . g:yt_vimrc_path . "/lua/lualine.lua"
+set guifont=Fira_Code:h14
+
 
 " Inline simple configs
 lua<<EOF
-
 -- config: solarized
 --
 -- See editor.lua for default highlights

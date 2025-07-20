@@ -166,6 +166,7 @@ aug yuitools
   autocmd FileType sshconfig call YT_EditWithTabs(2)
   autocmd FileType go call YT_EditWithTabs(2)
 
+  autocmd FileType sql call YT_EditWithSpaces(2)
   autocmd FileType sql set commentstring=--%s
   autocmd FileType crontab set commentstring=#%s
   autocmd FileType swift set commentstring=//%s
@@ -189,6 +190,8 @@ aug yuitools_trailingwhitespace
         \*.vim,
         \*.sql,*psqlrc,
         \*.go,
+        \Makefile,
+        \*.groovy,
         \ :YTRemoveTrailingWhitespace
 aug END
 
