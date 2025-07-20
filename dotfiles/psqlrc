@@ -134,7 +134,7 @@ SET plpgsql.print_strict_params='on';
 -- ##################  Tables ##################
 
 SELECT $$
-select
+SELECT
   name,
   category,
   vartype as type,
@@ -143,25 +143,25 @@ select
   reset_val as default,
   setting as current_value,
   context as current_context,
-  sourcefile from pg_settings
-where name ~
+  sourcefile FROM pg_settings
+WHERE name ~
 $$ yconfigfind \gset
-\set yconfigs 'select name, category, short_desc from pg_settings order by category, name'
+\set yconfigs 'SELECT name, category, short_desc FROM pg_settings ORDER BY category, name'
 
 --
 -- yroles
-select $$
+SELECT $$
 with
   membership as (
-    select
+    SELECT
       a.member oid,
       array_agg(rolname) rolenames
-    from pg_auth_members a
-    inner join pg_authid r on a.roleid = r.oid
-    group by a.member
+    FROM pg_auth_members a
+    INNER JOIN pg_authid r on a.roleid = r.oid
+    GROUP BY a.member
   ),
   roles as (
-    select
+    SELECT
       r.oid,
       r.rolname as name,
       r.rolvaliduntil,
@@ -170,22 +170,22 @@ with
       membership.rolenames as rolenames,
       array_remove(
       (cast(array[] as text array)
-        || case when rolcreatedb then 'CREATEDB' else null end
-        || case when rolcreaterole then 'CREATEROLE' else null end
-        || case when rolcanlogin then 'LOGIN' else null end
-        || case when rolreplication then 'REPLICATION' else null end
+        || CASE WHEN rolcreatedb THEN 'CREATEDB' ELSE null end
+        || CASE WHEN rolcreaterole THEN 'CREATEROLE' ELSE null end
+        || CASE WHEN rolcanlogin THEN 'LOGIN' ELSE null end
+        || CASE WHEN rolreplication THEN 'REPLICATION' ELSE null end
 			), null) as privileges,
-      case r.rolconnlimit when -1 then 'unlimited' else format('%s', r.rolconnlimit) end as connections,
+      case r.rolconnlimit when -1 THEN 'unlimited' ELSE format('%s', r.rolconnlimit) end as connections,
       r.rolconfig as configs
-    from  pg_roles r
-    left outer join membership on r.oid = membership.oid
+    FROM  pg_roles r
+    LEFT OUTER JOIN membership on r.oid = membership.oid
   )
 table roles
 $$ yroles \gset
 
 -- ytables
-select $$
-select
+SELECT $$
+SELECT
 	c.oid,
 	c.relname as name,
 	nspname as namespace,
@@ -197,53 +197,53 @@ select
 	c.relacl as acl,
 	primary_key.names as primary_key,
   description.description as description
-from pg_class c
-inner join pg_namespace n on n.oid = c.relnamespace
+FROM pg_class c
+INNER JOIN pg_namespace n on n.oid = c.relnamespace
 -- note: objsubid = 0 for table comments only i.e. exclude subobjects such as comment descriptions
-left outer join (SELECT * FROM pg_description WHERE objsubid = 0) description on c.oid = description.objoid
+LEFT OUTER JOIN (SELECT * FROM pg_description WHERE objsubid = 0) description on c.oid = description.objoid
 -- column names
-left outer join (
-	select
+LEFT OUTER JOIN (
+	SELECT
 		att.attrelid as relid,
-		array_agg(att.attname) as names
-	from pg_index as ind
-	inner join pg_attribute as att on ind.indrelid = att.attrelid and att.attnum=any(ind.indkey) and ind.indisprimary
-	group by relid
-	order by relid
+		array_agg(att.attname ORDER BY att.attnum) as names
+	FROM pg_index as ind
+	INNER JOIN pg_attribute as att on ind.indrelid = att.attrelid and att.attnum=any(ind.indkey) and ind.indisprimary
+	GROUP BY relid
+	ORDER BY relid
 ) primary_key
 	on primary_key.relid = c.oid
-where
+WHERE
 	(c.relkind = 'r' OR c.relkind = 'p')
 $$ ytables \gset
 \set ytables_where_name 'SELECT * FROM (:ytables) ytables WHERE name ~'
 
 -- yfunctions
-select $$
-select
+SELECT $$
+SELECT
 	pro.oid,
   format('%s (%s)', rolname, rol.oid) AS role,
 	nspname || '.' || proname as name,
   format('%s(%s)', proname, pg_get_function_identity_arguments(pro.oid)) as identity,
   prokind as kind,
   pg_get_function_result(pro.oid) as RETURNS
-from pg_proc pro
-left outer join pg_namespace nsp on nsp.oid = pronamespace
-left outer join pg_authid rol on rol.oid = proowner
-where prokind = 'f' OR prokind = 'p'
+FROM pg_proc pro
+LEFT OUTER JOIN pg_namespace nsp on nsp.oid = pronamespace
+LEFT OUTER JOIN pg_authid rol on rol.oid = proowner
+WHERE prokind = 'f' OR prokind = 'p'
 $$ as yfunctions \gset
 \set yfunctions_where_name 'SELECT * FROM (:yfunctions) yfunctions WHERE name ~'
 
-select $$
-select
+SELECT $$
+SELECT
 	pro.oid,
 	pg_get_functiondef(pro.oid) as function
-from pg_proc pro
-where (prokind = 'f' OR prokind = 'p')
+FROM pg_proc pro
+WHERE (prokind = 'f' OR prokind = 'p')
 AND proname ~
 $$ as yfunctiondef \gset
 
 -- ytypes
-select $$
+SELECT $$
 SELECT
   t.oid AS oid,
   typname AS name,
@@ -287,7 +287,7 @@ LEFT OUTER JOIN (
       'tableoid',
       'ctid'
     )
-  group by attrelid
+  GROUP BY attrelid
 ) AS compositeColumns
 ON t.typrelid = compositeColumns.tableid
 
@@ -298,7 +298,7 @@ LEFT OUTER JOIN (
     array_agg(attname) AS columns
   FROM  pg_attribute
   WHERE atttypid is not null
-  group by atttypid
+  GROUP BY atttypid
 ) AS enumCols
 ON t.oid = enumCols.typeid
 
@@ -309,8 +309,8 @@ $$ ytypes \gset
 
 
 -- ################## Info ##################
-select $$
-select
+SELECT $$
+SELECT
   '=========' as "==== CLient ====",
   current_catalog as DB,
   format('%s (%s)', current_user, to_regrole(current_user)::oid) as user,
@@ -329,27 +329,27 @@ select
   -- DB settings
   '=========' as "==== Server ====",
   -- server settings
-  case when inet_server_addr() is not null then format('%s:%s', inet_server_addr()::text, inet_server_port()) else 'socket' end as host,
+  CASE WHEN inet_server_addr() is not null THEN format('%s:%s', inet_server_addr()::text, inet_server_port()) ELSE 'socket' end as host,
   -- DB settings
   current_setting('listen_addresses') as listen_addresses,
   current_setting('port') as port,
   current_setting('shared_buffers') as shared_buffers,
   current_setting('work_mem') as work_mem,
-  (select array_to_string(array_agg(extname), ',') from pg_extension) as extensions
+  (SELECT array_to_string(array_agg(extname), ',') FROM pg_extension) as extensions
 \gx
 $$ yinfo \gset
 
-select $$
-select
+SELECT $$
+SELECT
   -- DB settings
   -- NOTE: ADMIN privilege
   current_setting('data_directory') as data_directory,
   -- NOTE: ADMIN privilege
   current_setting('config_file') as config_file,
-  case current_setting('logging_collector')
-    when 'on' then (format('%s/%s', current_setting('log_directory'), current_setting('log_filename')))::text
-    else NULL
-  end as log_file,
+  CASE current_setting('logging_collector')
+      WHEN 'on' THEN (format('%s/%s', current_setting('log_directory'), current_setting('log_filename')))::text
+      ELSE NULL
+  END as log_file,
   -- NOTE: ADMIN privilege
   current_setting('shared_preload_libraries') as shared_preload_libraries
 \gx
@@ -357,7 +357,7 @@ $$ yinfo_server \gset
 
 
 -- ################## Help ##################
-select $$
+SELECT $$
 HELP
 
 :yhelp
@@ -397,7 +397,7 @@ $$ _yhelp \gset
 
 
 -- ################## Cheatsheet ##################
-select $$
+SELECT $$
 Cheatsheet
 
 == Types ==
@@ -431,13 +431,13 @@ $$ _ycheat \gset
 
 -- ################## Other ##################
 -- Ref: https://gist.github.com/kmoppel/d27bf1d31affcc26f56fd3a9bd596477
-\set sa 'select pid, usename,  now() - query_start as query_age, now() - xact_start as xact_age, wait_event_type, wait_event, query from pg_stat_activity where state != \'idle\' and pid != pg_backend_pid() and (datname = current_database() or datname is null) order by now() - query_start desc limit 20;'
+\set sa 'SELECT pid, usename,  now() - query_start as query_age, now() - xact_start as xact_age, wait_event_type, wait_event, query FROM pg_stat_activity WHERE state != \'idle\' and pid != pg_backend_pid() and (datname = current_database() or datname is null) ORDER BY now() - query_start desc limit 20;'
 
-\set sat 'select pid, usename,  now() - query_start as query_age, now() - xact_start as xact_age, wait_event_type, wait_event, query::varchar(100) from pg_stat_activity where state != \'idle\' and pid != pg_backend_pid() and (datname = current_database() or datname is null) order by now() - query_start desc limit 5;'
+\set sat 'SELECT pid, usename,  now() - query_start as query_age, now() - xact_start as xact_age, wait_event_type, wait_event, query::varchar(100) FROM pg_stat_activity WHERE state != \'idle\' and pid != pg_backend_pid() and (datname = current_database() or datname is null) ORDER BY now() - query_start desc limit 5;'
 
-\set conf 'select name as setting, current_setting(name) as value from pg_settings where name = ANY(\'{shared_buffers,work_mem,max_connections,random_page_cost,max_wal_size,checkpoint_timeout,checkpoint_completion_target,default_statistics_target,effective_cache_size,autovacuum,jit,shared_preload_libraries,max_parallel_workers_per_gather,autovacuum_vacuum_scale_factor,autovacuum_vacuum_cost_delay,autovacuum_analyze_scale_factor,effective_io_concurrency,autovacuum_max_workers,synchronous_commit,synchronous_standby_names,listen_addresses,log_destination,fsync,full_page_writes,huge_pages,hot_standby_feedback,log_min_duration_statement,log_min_duration_sample,log_statement,log_statement_sample_rate,max_locks_per_transaction,max_worker_processes,password_encryption,recovery_min_apply_delay,server_version,temp_buffers,temp_file_limit,track_functions,track_io_timing,wal_buffers,wal_compression,wal_recycle,wal_segment_size,archive_mode,archive_command}\') /*and boot_val is distinct from reset_val*/ order by 1;'
-select $$
-select now() - pg_postmaster_start_time() as uptime;
+\set conf 'SELECT name as setting, current_setting(name) as value FROM pg_settings WHERE name = ANY(\'{shared_buffers,work_mem,max_connections,random_page_cost,max_wal_size,checkpoint_timeout,checkpoint_completion_target,default_statistics_target,effective_cache_size,autovacuum,jit,shared_preload_libraries,max_parallel_workers_per_gather,autovacuum_vacuum_scale_factor,autovacuum_vacuum_cost_delay,autovacuum_analyze_scale_factor,effective_io_concurrency,autovacuum_max_workers,synchronous_commit,synchronous_standby_names,listen_addresses,log_destination,fsync,full_page_writes,huge_pages,hot_standby_feedback,log_min_duration_statement,log_min_duration_sample,log_statement,log_statement_sample_rate,max_locks_per_transaction,max_worker_processes,password_encryption,recovery_min_apply_delay,server_version,temp_buffers,temp_file_limit,track_functions,track_io_timing,wal_buffers,wal_compression,wal_recycle,wal_segment_size,archive_mode,archive_command}\') /*and boot_val is distinct FROM reset_val*/ ORDER BY 1;'
+SELECT $$
+SELECT now() - pg_postmaster_start_time() as uptime;
 $$ up \gset
 
 
@@ -445,7 +445,7 @@ $$ up \gset
 -- show execution time
 :yinfo
 
-select setting = 'on' as _is_read_only from pg_settings where name = 'transaction_read_only' \gset
+SELECT setting = 'on' as _is_read_only FROM pg_settings WHERE name = 'transaction_read_only' \gset
 \if :_is_read_only
 \echo "======================================================================================"
 \echo "                                                                                      "

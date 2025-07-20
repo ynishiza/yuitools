@@ -28,6 +28,7 @@
 	c = commit
 	co = checkout
 	cop = checkout -p
+	cob = checkout --track -b
 	df = diff --stat -p
 	dfmergebase = df --merge-base		# merge base i.e. common ancestor
 	dfupstream = df @{u}						# upstream
