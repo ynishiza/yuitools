@@ -131,6 +131,10 @@ call plug#begin('~/.vim/plugged')
     Plug 'hrsh7th/cmp-buffer'
     Plug 'hrsh7th/cmp-path'
     " cmp-nvim-lsp: lsp suggestions
+    "
+    " 2025/08: fix commit
+    " Latest uses Neovim 11 LSP syntax
+    " Plug 'hrsh7th/cmp-nvim-lsp', { 'commit': 'a8912b88ce488f411177fc8aed358b04dc246d7b' }
     Plug 'hrsh7th/cmp-nvim-lsp'
     Plug 'ray-x/cmp-treesitter'
 
@@ -215,5 +219,4 @@ endif
 
 function! YT_PlugInstalled(name)
   return has_key(g:plugs, a:name)
-  " return !empty(glob('~/.vim/plugged/' . a:name))
 endfunction

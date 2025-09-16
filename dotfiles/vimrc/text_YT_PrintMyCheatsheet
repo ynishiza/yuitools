@@ -16,6 +16,13 @@ gO                  (big o) Show table of contents
 :h builtin-functions    List of builtin functions
 :h pattern              Search + replace
 
+# Neovim 
+:h nvim								Main nvim help
+:h nvim-features				
+:h lsp
+:h lua
+:h treesitter
+
 # Help by feature
 :h 'number'         Specify option 
 :h :echo            Specify command

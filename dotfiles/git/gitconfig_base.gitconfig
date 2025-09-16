@@ -141,6 +141,7 @@
 	mnemonicPrefix = true
 	renames = true
 	tool = vimdiff
+	context = 8
 [difftool]
 	prompt = true
 [rerere]

@@ -8,7 +8,7 @@ _stack()
         CMDLINE=(${CMDLINE[@]} --bash-completion-word $arg)
     done
 
-    COMPREPLY=( $(/usr/local/bin/stack "${CMDLINE[@]}") )
+    COMPREPLY=( $(stack "${CMDLINE[@]}") )
 }
 
 complete -o filenames -F _stack stack

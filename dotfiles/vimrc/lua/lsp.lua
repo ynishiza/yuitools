@@ -52,6 +52,7 @@ yt_lsp_default_bindings = function(client, bufnr)
   vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
   vim.keymap.set('n', '<leader><leader>E', vim.diagnostic.setloclist, opts)
   vim.keymap.set('n', '<leader><leader>ee', vim.diagnostic.open_float, opts)
+
   -- September 2023: DEPRECATED
   -- buf_set_keymap('n', '[d', '<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>', opts)
   -- buf_set_keymap('n', ']d', '<cmd>lua vim.lsp.diagnostic.goto_next()<CR>', opts)
@@ -59,6 +60,12 @@ yt_lsp_default_bindings = function(client, bufnr)
   -- buf_set_keymap('n', '<leader><leader>ee', '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>', opts)
 end
 
+-- note: diagnostics config
+vim.diagnostic.config({
+  -- [Neovim 0.11] Show diagnostics
+  -- Reference: https://github.com/neovim/neovim/issues/33073
+  virtual_text = true
+})
 
 ---- ====== LSP language settings ======
 --
