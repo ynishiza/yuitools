@@ -81,6 +81,7 @@ window:
 <c-w>p        Previous window
 
 fold:
+zx          Update folds
 zi          Toggle on/off
 zj          Next fold
 zk          Previous

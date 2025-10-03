@@ -133,227 +133,231 @@ SET plpgsql.print_strict_params='on';
 
 -- ##################  Tables ##################
 
-SELECT $$
-SELECT
-  name,
-  category,
-  vartype as type,
-  enumvals,
-  unit,
-  reset_val as default,
-  setting as current_value,
-  context as current_context,
-  sourcefile FROM pg_settings
-WHERE name ~
-$$ yconfigfind \gset
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.yconfigs AS
+  SELECT
+    name,
+    category,
+    vartype as type,
+    enumvals,
+    unit,
+    reset_val as default,
+    setting as current_value,
+    context as current_context,
+    sourcefile FROM pg_settings;
+COMMIT;
 \set yconfigs 'SELECT name, category, short_desc FROM pg_settings ORDER BY category, name'
 
 --
 -- yroles
-SELECT $$
-with
-  membership as (
-    SELECT
-      a.member oid,
-      array_agg(rolname) rolenames
-    FROM pg_auth_members a
-    INNER JOIN pg_authid r on a.roleid = r.oid
-    GROUP BY a.member
-  ),
-  roles as (
-    SELECT
-      r.oid,
-      r.rolname as name,
-      r.rolvaliduntil,
-      r.rolsuper as superuser,
-      r.rolinherit as inherit,
-      membership.rolenames as rolenames,
-      array_remove(
-      (cast(array[] as text array)
-        || CASE WHEN rolcreatedb THEN 'CREATEDB' ELSE null end
-        || CASE WHEN rolcreaterole THEN 'CREATEROLE' ELSE null end
-        || CASE WHEN rolcanlogin THEN 'LOGIN' ELSE null end
-        || CASE WHEN rolreplication THEN 'REPLICATION' ELSE null end
-			), null) as privileges,
-      case r.rolconnlimit when -1 THEN 'unlimited' ELSE format('%s', r.rolconnlimit) end as connections,
-      r.rolconfig as configs
-    FROM  pg_roles r
-    LEFT OUTER JOIN membership on r.oid = membership.oid
-  )
-table roles
-$$ yroles \gset
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.yroles AS
+  WITH
+    membership as (
+      SELECT
+        a.member oid,
+        array_agg(rolname) rolenames
+      FROM pg_auth_members a
+      INNER JOIN pg_authid r on a.roleid = r.oid
+      GROUP BY a.member
+    ),
+    roles as (
+      SELECT
+        r.oid,
+        r.rolname as name,
+        r.rolvaliduntil,
+        r.rolsuper as superuser,
+        r.rolinherit as inherit,
+        membership.rolenames as rolenames,
+        array_remove(
+        (cast(array[] as text array)
+          || CASE WHEN rolcreatedb THEN 'CREATEDB' ELSE null end
+          || CASE WHEN rolcreaterole THEN 'CREATEROLE' ELSE null end
+          || CASE WHEN rolcanlogin THEN 'LOGIN' ELSE null end
+          || CASE WHEN rolreplication THEN 'REPLICATION' ELSE null end
+        ), null) as privileges,
+        case r.rolconnlimit when -1 THEN 'unlimited' ELSE format('%s', r.rolconnlimit) end as connections,
+        r.rolconfig as configs
+      FROM  pg_roles r
+      LEFT OUTER JOIN membership on r.oid = membership.oid
+    )
+  table roles;
+COMMIT;
 
 -- ytables
-SELECT $$
-SELECT
-	c.oid,
-	c.relname as name,
-	nspname as namespace,
-	c.relowner as owner,
-	c.reltuples as tuples,
-	c.relispartition as is_partition,
-	relkind as kind,
-	c.reloptions as storage,
-	c.relacl as acl,
-	primary_key.names as primary_key,
-  description.description as description
-FROM pg_class c
-INNER JOIN pg_namespace n on n.oid = c.relnamespace
--- note: objsubid = 0 for table comments only i.e. exclude subobjects such as comment descriptions
-LEFT OUTER JOIN (SELECT * FROM pg_description WHERE objsubid = 0) description on c.oid = description.objoid
--- column names
-LEFT OUTER JOIN (
-	SELECT
-		att.attrelid as relid,
-		array_agg(att.attname ORDER BY att.attnum) as names
-	FROM pg_index as ind
-	INNER JOIN pg_attribute as att on ind.indrelid = att.attrelid and att.attnum=any(ind.indkey) and ind.indisprimary
-	GROUP BY relid
-	ORDER BY relid
-) primary_key
-	on primary_key.relid = c.oid
-WHERE
-	(c.relkind = 'r' OR c.relkind = 'p')
-$$ ytables \gset
-\set ytables_where_name 'SELECT * FROM (:ytables) ytables WHERE name ~'
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.ytables AS
+  SELECT
+    c.oid,
+    c.relname as name,
+    nspname as namespace,
+    c.relowner as owner,
+    c.relpages as pages,
+    c.reltuples as tuples,
+    c.relispartition as is_partition,
+    relkind as kind,
+    c.reloptions as storage,
+    c.relacl as acl,
+    primary_key.names as primary_key,
+    description.description as description
+  FROM pg_class c
+  INNER JOIN pg_namespace n on n.oid = c.relnamespace
+  -- note: objsubid = 0 for table comments only i.e. exclude subobjects such as comment descriptions
+  LEFT OUTER JOIN (SELECT * FROM pg_description WHERE objsubid = 0) description on c.oid = description.objoid
+  -- column names
+  LEFT OUTER JOIN (
+    SELECT
+      att.attrelid as relid,
+      array_agg(att.attname ORDER BY att.attnum) as names
+    FROM pg_index as ind
+    INNER JOIN pg_attribute as att on ind.indrelid = att.attrelid and att.attnum=any(ind.indkey) and ind.indisprimary
+    GROUP BY relid
+    ORDER BY relid
+  ) primary_key
+    on primary_key.relid = c.oid
+  WHERE
+    (c.relkind = 'r' OR c.relkind = 'p')
+    ;
+COMMIT;
 
 -- yfunctions
-SELECT $$
-SELECT
-	pro.oid,
-  format('%s (%s)', rolname, rol.oid) AS role,
-	nspname || '.' || proname as name,
-  format('%s(%s)', proname, pg_get_function_identity_arguments(pro.oid)) as identity,
-  prokind as kind,
-  pg_get_function_result(pro.oid) as RETURNS
-FROM pg_proc pro
-LEFT OUTER JOIN pg_namespace nsp on nsp.oid = pronamespace
-LEFT OUTER JOIN pg_authid rol on rol.oid = proowner
-WHERE prokind = 'f' OR prokind = 'p'
-$$ as yfunctions \gset
-\set yfunctions_where_name 'SELECT * FROM (:yfunctions) yfunctions WHERE name ~'
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.yfunctions AS
+  SELECT
+    pro.oid,
+    format('%s (%s)', rolname, rol.oid) AS role,
+    nspname || '.' || proname as name,
+    format('%s(%s)', proname, pg_get_function_identity_arguments(pro.oid)) as identity,
+    prokind as kind,
+    pg_get_function_result(pro.oid) as RETURNS
+  FROM pg_proc pro
+  LEFT OUTER JOIN pg_namespace nsp on nsp.oid = pronamespace
+  LEFT OUTER JOIN pg_authid rol on rol.oid = proowner
+  WHERE prokind = 'f' OR prokind = 'p';
 
-SELECT $$
-SELECT
-	pro.oid,
-	pg_get_functiondef(pro.oid) as function
-FROM pg_proc pro
-WHERE (prokind = 'f' OR prokind = 'p')
-AND proname ~
-$$ as yfunctiondef \gset
+  CREATE OR REPLACE TEMPORARY VIEW pg_temp.yfunctiondef AS
+    SELECT
+      pro.oid,
+      proname as name,
+      pg_get_functiondef(pro.oid) as function
+    FROM pg_proc pro
+    WHERE (prokind = 'f' OR prokind = 'p');
+COMMIT;
 
 -- ytypes
-SELECT $$
-SELECT
-  t.oid AS oid,
-  typname AS name,
-  n.nspname AS namespace,
-
-  -- type
-  CASE
-    WHEN t.typtype = 'b' THEN 'base'::text
-    WHEN t.typtype = 'c' THEN 'composite'
-    WHEN t.typtype = 'c' THEN 'table'
-    WHEN t.typtype = 'e' THEN 'enum'
-    WHEN t.typtype = 'd' THEN 'domain'
-    ELSE t.typtype::text
-  END as type,
-  CASE
-    WHEN t.typtype = 'c' THEN compositeColumns.columns
-    WHEN t.typtype = 'e' THEN enumCols.columns
-    ELSE NULL
-  END AS values
-FROM pg_type t
-INNER JOIN pg_namespace n
-ON t.typnamespace = n.oid
-
-LEFT OUTER JOIN pg_class class
-ON t.typrelid = class.oid
-
--- table columns
-LEFT OUTER JOIN (
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.ytypes AS
   SELECT
-    attrelid AS tableid,
-    array_agg(attname) AS columns
-  FROM  pg_attribute
-  WHERE
-    attrelid is not null
-    AND attname NOT IN (
-      -- ignore builtin columns
-      'cmin',
-      'cmax',
-      'xmin',
-      'xmax',
-      'tableoid',
-      'ctid'
-    )
-  GROUP BY attrelid
-) AS compositeColumns
-ON t.typrelid = compositeColumns.tableid
+    t.oid AS oid,
+    typname AS name,
+    n.nspname AS namespace,
 
--- enum labels
-LEFT OUTER JOIN (
-  SELECT
-    atttypid AS typeid,
-    array_agg(attname) AS columns
-  FROM  pg_attribute
-  WHERE atttypid is not null
-  GROUP BY atttypid
-) AS enumCols
-ON t.oid = enumCols.typeid
+    -- type
+    CASE
+      WHEN t.typtype = 'b' THEN 'base'::text
+      WHEN t.typtype = 'c' THEN 'composite'
+      WHEN t.typtype = 'c' THEN 'table'
+      WHEN t.typtype = 'e' THEN 'enum'
+      WHEN t.typtype = 'd' THEN 'domain'
+      ELSE t.typtype::text
+    END as type,
+    CASE
+      WHEN t.typtype = 'c' THEN compositeColumns.columns
+      WHEN t.typtype = 'e' THEN enumCols.columns
+      ELSE NULL
+    END AS values
+  FROM pg_type t
+  INNER JOIN pg_namespace n
+  ON t.typnamespace = n.oid
 
--- filter out automatic composite type of tables
-WHERE NOT (t.typtype = 'c' AND class.relkind <> 'c')
-$$ ytypes \gset
-\set ytypes_where_name 'SELECT * FROM (:ytypes) ytypes WHERE name ~'
+  LEFT OUTER JOIN pg_class class
+  ON t.typrelid = class.oid
+
+  -- table columns
+  LEFT OUTER JOIN (
+    SELECT
+      attrelid AS tableid,
+      array_agg(attname) AS columns
+    FROM  pg_attribute
+    WHERE
+      attrelid is not null
+      AND attname NOT IN (
+        -- ignore builtin columns
+        'cmin',
+        'cmax',
+        'xmin',
+        'xmax',
+        'tableoid',
+        'ctid'
+      )
+    GROUP BY attrelid
+  ) AS compositeColumns
+  ON t.typrelid = compositeColumns.tableid
+
+  -- enum labels
+  LEFT OUTER JOIN (
+    SELECT
+      atttypid AS typeid,
+      array_agg(attname) AS columns
+    FROM  pg_attribute
+    WHERE atttypid is not null
+    GROUP BY atttypid
+  ) AS enumCols
+  ON t.oid = enumCols.typeid
+
+  -- filter out automatic composite type of tables
+  WHERE NOT (t.typtype = 'c' AND class.relkind <> 'c');
+COMMIT;
 
 
 -- ################## Info ##################
-SELECT $$
-SELECT
-  '=========' as "==== CLient ====",
-  current_catalog as DB,
-  format('%s (%s)', current_user, to_regrole(current_user)::oid) as user,
-  format('%s (%s)', current_schema, to_regnamespace(current_schema)::oid) as schema,
-  'pg_temp' as temporary_namespace,
-  current_schemas(true),
-  :'HISTFILE' as history_file,
-  :'SERVER_VERSION_NAME' as version,
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.yinfo AS
+  SELECT
+    '=========' as "==== CLient ====",
+    current_catalog as DB,
+    format('%s (%s)', current_user, to_regrole(current_user)::oid) as user,
+    format('%s (%s)', current_schema, to_regnamespace(current_schema)::oid) as schema,
+    'pg_temp' as temporary_namespace,
+    current_schemas(true),
+    :'HISTFILE' as history_file,
+    :'SERVER_VERSION_NAME' as version,
 
-  -- client settings
-  current_setting('search_path') as search_path,
-  current_setting('client_min_messages') as client_min_messages,
-  current_setting('transaction_read_only') as "is read only?",
-  :'ENCODING' as encoding,
+    -- client settings
+    current_setting('search_path') as search_path,
+    current_setting('client_min_messages') as client_min_messages,
+    current_setting('transaction_read_only') as "is read only?",
+    :'ENCODING' as encoding,
 
-  -- DB settings
-  '=========' as "==== Server ====",
-  -- server settings
-  CASE WHEN inet_server_addr() is not null THEN format('%s:%s', inet_server_addr()::text, inet_server_port()) ELSE 'socket' end as host,
-  -- DB settings
-  current_setting('listen_addresses') as listen_addresses,
-  current_setting('port') as port,
-  current_setting('shared_buffers') as shared_buffers,
-  current_setting('work_mem') as work_mem,
-  (SELECT array_to_string(array_agg(extname), ',') FROM pg_extension) as extensions
-\gx
-$$ yinfo \gset
+    -- DB settings
+    '=========' as "==== Server ====",
+    -- server settings
+    CASE WHEN inet_server_addr() is not null THEN format('%s:%s', inet_server_addr()::text, inet_server_port()) ELSE 'socket' end as host,
+    -- DB settings
+    current_setting('listen_addresses') as listen_addresses,
+    current_setting('port') as port,
+    current_setting('shared_buffers') as shared_buffers,
+    current_setting('work_mem') as work_mem,
+    (SELECT array_to_string(array_agg(extname), ',') FROM pg_extension) as extensions;
+COMMIT;
+\set yinfo 'SELECT * FROM yinfo \\gx'
 
-SELECT $$
-SELECT
-  -- DB settings
-  -- NOTE: ADMIN privilege
-  current_setting('data_directory') as data_directory,
-  -- NOTE: ADMIN privilege
-  current_setting('config_file') as config_file,
-  CASE current_setting('logging_collector')
-      WHEN 'on' THEN (format('%s/%s', current_setting('log_directory'), current_setting('log_filename')))::text
-      ELSE NULL
-  END as log_file,
-  -- NOTE: ADMIN privilege
-  current_setting('shared_preload_libraries') as shared_preload_libraries
-\gx
-$$ yinfo_server \gset
+BEGIN READ WRITE;
+CREATE OR REPLACE TEMPORARY VIEW pg_temp.yinfo_server AS
+  SELECT
+    -- DB settings
+    -- NOTE: ADMIN privilege
+    current_setting('data_directory') as data_directory,
+    -- NOTE: ADMIN privilege
+    current_setting('config_file') as config_file,
+    CASE current_setting('logging_collector')
+        WHEN 'on' THEN (format('%s/%s', current_setting('log_directory'), current_setting('log_filename')))::text
+        ELSE NULL
+    END as log_file,
+    -- NOTE: ADMIN privilege
+    current_setting('shared_preload_libraries') as shared_preload_libraries;
+COMMIT;
+\set yinfo_server 'SELECT * FROM yinfo_server \\gx'
 
 
 -- ################## Help ##################
@@ -365,15 +369,14 @@ HELP
 :yinfo                          Current session info
 :yinfo_server                   Server info
 
-:yconfigs \gx                            List configs
-:yconfigfind 'transaction%' \gx          Find effective config
-
-:ytables
-:yroles
-
 :yc mytable;                              SELECT COUNT(*) FROM mytable;
 SELECT *
 FROM mytable :ytablesample(0.1);          TABLESAMPLE BERNOULLI(0.1)
+
+========== Views ==========
+pg_temp.yconfigs
+pg_temp.ytables
+pg_temp.yroles
 
 ========== Access control ==========
 \dg+ yui*                         Attributes of current user
@@ -459,9 +462,13 @@ SELECT setting = 'on' as _is_read_only FROM pg_settings WHERE name = 'transactio
 \echo '  ░██    ░██  ░██         ░██    ░██ ░██   ░██      ░██   ░██  ░██   ░████ ░██             ░██       '
 \echo '  ░██     ░██ ░██████████ ░██    ░██ ░███████        ░██████   ░██    ░███ ░██████████     ░██       '
 \echo '                                                                                                     '
+\echo '                                       Turn off with                                                 '
 \echo '                                                                                                     '
+\echo '                          SET default_transaction_read_only=FALSE                                    '
 \echo '                                                                                                     '
 \echo '====================================================================================================='
+\echo '                                                                                                     '
+
 \endif
 
 \timing on

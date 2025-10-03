@@ -98,7 +98,7 @@
 	caa = commit --amend -a
 	uncommit = reset --soft HEAD~
 	clear = "!echo \"Changes:\"; git status --short --untracked-files=no; echo 'Clear all this? (y/n)'; read A; if [ \"$A\" = 'y' ]; then git reset --hard HEAD; else exit 1; fi"
-	cob = checkout -b
+	coB = checkout -B
 
 	# Misc
 	pop = stash pop
