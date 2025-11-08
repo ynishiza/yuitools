@@ -17,8 +17,8 @@ gO                  (big o) Show table of contents
 :h pattern              Search + replace
 
 # Neovim 
-:h nvim								Main nvim help
-:h nvim-features				
+:h nvim               Main nvim help
+:h nvim-features        
 :h lsp
 :h lua
 :h treesitter
@@ -42,29 +42,28 @@ gO                  (big o) Show table of contents
 
 
 special characters
-Ctrl-v000			Nul  
-Ctrl-vx00			Nul hex
+Ctrl-v000     Nul  
+Ctrl-vx00     Nul hex
 Ctrl-vu0000   Nul unicode
 
 # e.g.
-Ctrl-vx09 		ctrl-t
-Ctrl-vx0a 		ctrl-n
-Ctrl-vx0d 		ctrl-r
-Ctrl-vx41			'A'
-Ctrl-vx61			'a'
-Ctrl-vu3041		'あ'
+Ctrl-vx09     ctrl-t
+Ctrl-vx0a     ctrl-n
+Ctrl-vx0d     ctrl-r
+Ctrl-vx41     'A'
+Ctrl-vx61     'a'
+Ctrl-vu3041   'あ'
   
-
 buffer:
 :ls
   a    active buffer i.e. loaded in some visible window
-	h 	 hidden buffer i.e. loaded before but no window
-	u 	 unlisted
-	%a   current active buffer
-	#		 alternate buffer
-	+    modified i.e. unsaved changes
-	-    non-modifiable e.g. 
-	=    read only
+  h    hidden buffer i.e. loaded before but no window
+  u    unlisted
+  %a   current active buffer
+  #    alternate buffer
+  +    modified i.e. unsaved changes
+  -    non-modifiable e.g. 
+  =    read only
 
 
 window:
@@ -79,6 +78,11 @@ window:
 1<c-w>w       Go to window 1 (1-indexed clockwise)
 <c-w>W        Reverse direction
 <c-w>p        Previous window
+
+search:
+:g/<pattern>/           show search result in list
+:g/<pattern>/normal dw  execute command on search result
+                        e.g.
 
 fold:
 zx          Update folds

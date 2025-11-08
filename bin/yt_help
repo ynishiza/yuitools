@@ -68,6 +68,10 @@ ncdu -f /tmp/ncdu                     read from file
 ncdu --exclude CloudStorage /Library  exclude file
 
 
+== tmux ==
+swap-window -s <source num> -t <target num>     
+
+
 == Scripting ==
 ((1+1))             expression
 

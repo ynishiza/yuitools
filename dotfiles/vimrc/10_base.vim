@@ -57,6 +57,16 @@ set laststatus=2
 set statusline=""
 " show line and column number.
 set ruler
+" default=ltToOCF
+"
+" l     use abbreviations for byte units e.g. B instead of bytes
+" t     truncate file messages at the start with <
+" T     truncate other messages in the middle with ...
+" o
+" O
+" C     don't show messages while scanning completion
+" F     don't show file name when starting edit
+set shortmess-=CF
 
 " Scrolloff
 " minimal lines to keep visible
