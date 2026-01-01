@@ -105,6 +105,21 @@
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
 	rerereclearall = "!f() { [[ ! -d .git/rr-cache ]] && exit 0; echo 'Clear rerere cache? (y/n)'; read A;  if [ \"$A\" = 'y' ]; then rm -rf .git/rr-cache; else exit 1; fi; }; f"
 
+	# Reference: https://etc.octavore.com/2025/12/archiving-git-branches-as-tags/
+	#
+	# Added timestamp
+	#
+	# e.g. mybranch
+	#    branch    mybranch
+	#    tag       archive/20250103_mybranch
+	archive-branch = "!f() { \
+			: git switch; \
+			local git_branch=${1:-$(git branch --show-current)}; \
+			local timetamp=$(date '+%Y%m%d');\
+			git tag -s -m \"$timetamp Branch archive: $git_branch \" archive/${timetamp}_${git_branch} $git_branch &&  \
+			git branch -D $git_branch;  \
+		}; f"
+
 [credential]
 	helper = store
 [commit]
