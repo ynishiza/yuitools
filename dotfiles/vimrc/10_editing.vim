@@ -19,6 +19,8 @@ function! YT_RemoveTrailingWhitespace()
   normal 'a
 endfunction
 
+" Note: function version of %s substitute command.
+" Need to use a function to support variables.
 function! Substitute(range, pattern, new, flags)
   let l:command = a:range . "s/" . a:pattern . "/" . a:new . "/" . a:flags
   execute l:command

@@ -1,3 +1,4 @@
+-- ========== Start v0.9.3 configs ==========
 require'nvim-treesitter.configs'.setup {
   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   -- ensure_installed = "maintained",
@@ -77,3 +78,94 @@ require'nvim-treesitter.configs'.setup {
 -- Fold: use treesitter to fold
 vim.opt.foldmethod = "expr"
 vim.opt.foldexpr = "nvim_treesitter#foldexpr()"
+--
+-- ========== END v0.9.3 configs ==========
+
+-- v0.10 configs
+--
+-- 2026/01 NOT WORKING CURRENTLY
+--
+-- local ts = require('nvim-treesitter')
+-- ts.install(
+--   -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+--   -- ensure_installed = "maintained",
+--   {
+--     "vimdoc",
+--     "luadoc",
+--     "lua",
+--     "bash",
+--     "c",
+--     "comment",
+--     "css",
+--     "go",
+--     "gomod",
+--     "gosum",
+--     "javascript",
+--     "typescript",
+--     "markdown",
+--     "json",
+--     "html",
+--     "python",
+--     "regex",
+--     "vim",
+
+--     -- Known issue
+--     -- May produce errors like: https://github.com/nvim-treesitter/nvim-treesitter/issues/626
+--     "haskell"
+--   },
+--   -- Do not print summary, as this will run at startup always, all the time.
+--   { summary = false }
+-- ):wait(30000)
+
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- vim.wo[0][0].foldmethod = 'expr'
+
+-- -- TODO: not working
+-- vim.api.nvim_create_autocmd('FileType', {
+--   group = vim.api.nvim_create_augroup('ui.treesitter', { clear = true }),
+--   pattern = {
+--     "vimdoc",
+--     "luadoc",
+--     "lua",
+--     "bash",
+--     "sh",
+--     "c",
+--     "comment",
+--     "css",
+--     "go",
+--     "gomod",
+--     "gosum",
+--     "javascript",
+--     "typescript",
+--     "markdown",
+--     "json",
+--     "html",
+--     "python",
+--     "regex",
+--     "vim",
+--     "haskell"
+--   },
+--   callback = function()
+--     print("hello")
+--     -- syntax highlighting, provided by Neovim
+--     -- vim.treesitter.start()
+
+--     -- folds, provided by Neovim
+--     vim.wo.foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+--     vim.wo.foldmethod = 'expr'
+--     vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+--     vim.wo[0][0].foldmethod = 'expr'
+--     -- indentation, provided by nvim-treesitter
+--     vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+--   end,
+-- })
+
+-- Fold: use treesitter to fold
+-- vim.opt.foldmethod = "expr"
+-- vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+-- vim.wo[0][0].foldexpr = 'v:lua.vim.treesitter.foldexpr()'
+-- vim.wo[0][0].foldmethod = 'expr'
+--
+

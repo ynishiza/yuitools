@@ -1,10 +1,6 @@
 "" utils
 exec "luafile " . g:yt_vimrc_path . "/lua/utils.lua"
 
-"" config: nvim-treesitter
-exec "luafile " . g:yt_vimrc_path . "/lua/treesitter.lua"
-set foldmethod=expr
-set foldexpr=nvim_treesitter#foldexpr()
 
 " config: nvim-cmp (completion plugin)
 exec "luafile " . g:yt_vimrc_path . "/lua/nvim-cmp.lua"
@@ -20,6 +16,10 @@ set guifont=Fira_Code:h14
 exec "luafile " . g:yt_vimrc_path . "/lua/lualine.lua"
 set guifont=Fira_Code:h14
 
+"" config: nvim-treesitter
+exec "luafile " . g:yt_vimrc_path . "/lua/treesitter.lua"
+set foldmethod=expr
+set foldexpr=v:lua.vim.treesitter.foldexpr()
 
 " Inline simple configs
 lua<<EOF
