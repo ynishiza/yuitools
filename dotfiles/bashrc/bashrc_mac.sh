@@ -293,11 +293,17 @@ _base_setupTools() {
 			port=${2:-853}
 			certificate=$(echo "" | openssl s_client -connect "${host}:${port}" 2>/dev/null)
 			if [[ ! "$certificate" ]]; then echo "No certificate for ${host}:${port}"; return; fi
+			expiry=$(echo "$certificate" | openssl x509 -enddate -noout)
+			# x509 -pubkey     Public key in PEM format
+			# pkey -pubin      Convert PEM to DER format
+			# dgst, enc 	     Get sha256 hash in base64 format
 			echo "$certificate" |
 				openssl x509 -pubkey -noout |
 				openssl pkey -pubin -outform der |
 				openssl dgst -sha256 -binary |
 				openssl enc -base64
+
+			echo "Expire date: $expiry" >&2
 		}
 	fi
 

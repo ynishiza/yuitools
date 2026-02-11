@@ -428,6 +428,10 @@ ARRAY(
 )
 
 
+== misc ==
+SELECT 1 \g (format=align expanded)                 \g with options
+COPY (SELECT 1) TO STDOUT (format=csv, header)      COPY with options
+
 $$ _ycheat \gset
 \set ycheat '\\echo :_ycheat'
 
