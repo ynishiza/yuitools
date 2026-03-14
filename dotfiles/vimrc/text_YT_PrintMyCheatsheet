@@ -53,7 +53,7 @@ Ctrl-vx0d     ctrl-r
 Ctrl-vx41     'A'
 Ctrl-vx61     'a'
 Ctrl-vu3041   'あ'
-  
+
 buffer:
 :ls
   a    active buffer i.e. loaded in some visible window
@@ -83,6 +83,21 @@ search:
 :g/<pattern>/           show search result in list
 :g/<pattern>/normal dw  execute command on search result
                         e.g.
+
+
+encoding:
+:set encoding=utf-8                 encoding used during edit
+:set fileencoding=utf-8             encoding used for file write
+:set fileencoding=                  use same as encoding
+:set fileencodings=utf-8,latin1     encoding used for file read
+:help encoding-names
+
+file format/type:
+:set filetype=haskell         file type for e.g. tree-sitter, LSP 
+:set fileformat=unix          new line with \n (<NL>)
+:set fileformat=dos           new line with \r\n (<CR><NL>)
+:set fileformat=mac           new line with \r (<CR>)
+  
 
 fold:
 zx          Update folds

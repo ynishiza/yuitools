@@ -68,9 +68,6 @@ vim.diagnostic.config({
 })
 
 ---- ====== LSP language settings ======
---
--- See: https://github.com/neovim/nvim-lspconfig/blob/master/CONFIG.md
-local nvim_lsp = require('lspconfig')
 
 -- note: global yt_lsp_server_settings
 -- To allow it to be overwritten in a local vimrc
@@ -81,11 +78,17 @@ yt_lsp_server_settings = {
    hls = {
     filetypes={"haskell", "lhaskell" },
     cmd={ "haskell-language-server-wrapper", "--logfile", "/tmp/hls.log", "--lsp" },
-    root_dir = function (filepath)
-      return (
-        nvim_lsp.util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project')(filepath)
-        or nvim_lsp.util.root_pattern('*.cabal', 'package.yaml')(filepath)
-      )
+
+    -- 2026/02/03: migrate to nvim 0.11 setup
+    -- root_dir = function (filepath)
+    --   return (
+    --     nvim_lsp.util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project')(filepath)
+    --     or nvim_lsp.util.root_pattern('*.cabal', 'package.yaml')(filepath)
+    --   )
+    -- end,
+    root_dir = function(bufnr, on_dir)
+      local fname = vim.api.nvim_buf_get_name(bufnr)
+      on_dir(nvim_lsp.util.root_pattern('hie.yaml', 'stack.yaml', 'cabal.project', '*.cabal', 'package.yaml')(fname))
     end,
     settings = {
       haskell = {
@@ -107,7 +110,15 @@ yt_lsp_server_settings = {
    -- Home: https://github.com/facebook/flow
    -- Installation
    --  $ npm install -g flow-bin
-   flow = { filetypes={"javascript"} },
+   --
+   -- Requires .flowconfig when using
+   --  $ cd myproject
+   --  $ flow init
+   flow = {
+     cmd = { 'flow', 'lsp' },
+     filetypes={"javascript"},
+     root_markers = { ".flowconfig" }
+   },
 
    -- Home: https://pkg.go.dev/golang.org/x/tools/gopls#readme-editors
    -- Installation
@@ -213,7 +224,6 @@ yt_lsp_server_settings = {
    --   filetypes = { 'sql', 'psql' },
    --   root_pattern = nvim_lsp.util.root_pattern(".sqllsrc.json")
    -- },
-
   -- Home: https://github.com/apple/sourcekit-lsp
   -- LSP for Swift
   -- Installation
@@ -236,11 +246,28 @@ capabilities = require('cmp_nvim_lsp').default_capabilities(capabilities)
 yt_lsp_update_settings = function(name, settings)
   settings.capabilities = capabilities
   settings.autostart = true
-  settings.on_attach = yt_lsp_default_bindings
+  settings.enable = true
+  if settings.on_attach == nil then
+    settings.on_attach = yt_lsp_default_bindings
+  end
   settings.flags = {
     debounce_text_changes = 150
   }
-  nvim_lsp[name].setup(settings)
+  -- 2026/02/03: migrate to nvim 0.11 setup
+  --
+  -- See :help lspconfig-nvim-0.11
+  -- NOTE: 2026/02/23 tried
+  --
+  --   vim    OK
+  --   bash   OK
+  --   go     OK
+  --   hls    Not OK
+  --
+  vim.lsp.enable(name)
+  vim.lsp.config(name, settings)
+
+  -- [DEPRECATED] Old setup
+  -- nvim_lsp[name].setup(settings)
 end
 
 for name, settings in pairs(yt_lsp_server_settings) do
