@@ -26,6 +26,7 @@
 	st = status
 	b = branch
 	c = commit
+	wip = "!git commit -m \"WIP $(date +%Y%m%d_%H%M)\""
 	co = checkout
 	cop = checkout -p
 	cob = checkout --track -b
