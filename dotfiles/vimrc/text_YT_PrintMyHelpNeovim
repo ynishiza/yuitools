@@ -25,9 +25,13 @@ Diagnostics
 <leader>[d          Previous
 <leader>]d          Next
 
-:LspInfo
-:LspStart
-:LspStop            
+
+:help lspconfig
+:checkhealth vim.lsp
+:lsp restart
+:lsp start
+:lsp stop            
+
 
 Troubleshooting
 :YT_LspGetLogPath

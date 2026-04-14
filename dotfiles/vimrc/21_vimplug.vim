@@ -97,8 +97,8 @@ call plug#begin('~/.vim/plugged')
     " NOTE: 2026/01/04
     " Fix on version 0.9.3
     " Version 0.10 breaks folds.
-    " Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
-    Plug 'nvim-treesitter/nvim-treesitter', { 'commit' : 'cfc6f2c117aaaa82f19bcce44deec2c194d900ab' }
+    Plug 'nvim-treesitter/nvim-treesitter', {'do': ':TSUpdate'}
+    " Plug 'nvim-treesitter/nvim-treesitter', { 'commit' : 'cfc6f2c117aaaa82f19bcce44deec2c194d900ab' }
 
     " Twilight: highlight current code
     " https://github.com/folke/twilight.nvim
