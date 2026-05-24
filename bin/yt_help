@@ -72,6 +72,11 @@ ncdu --exclude CloudStorage /Library  exclude file
 swap-window -s <source num> -t <target num>     
 
 
+== yt-dlp ==
+yt-dlp -f 'bestvideo[height>=1080]+bestaudio' -t mp4  ...    as mp4
+yt-dlp -f 'bestvideo[height>=1080]+bestaudio' -t mkv  ...    as mkv
+
+
 == Scripting ==
 ((1+1))             expression
 
