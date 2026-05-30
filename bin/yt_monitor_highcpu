@@ -158,8 +158,8 @@ reset_notification() {
 		done
 	fi
 	writelog_debug "reset key=\"$key\" in NOTIFICATION_TIMER=(${!NOTIFICATION_TIMER[*]})"
-	[[ -v NOTIFICATION_TIMER["$key"] ]] && unset "NOTIFICATION_TIMER[$key]"
-	[[ -v NOTIFICATION_BUFFER_COUNTER["$key"] ]] && unset "NOTIFICATION_BUFFER_COUNTER[$key]"
+	[[ -v NOTIFICATION_TIMER["$key"] ]] && unset 'NOTIFICATION_TIMER[$key]'
+	[[ -v NOTIFICATION_BUFFER_COUNTER["$key"] ]] && unset 'NOTIFICATION_BUFFER_COUNTER[$key]'
 	writelog_debug "notification reset key=$key"
 }
 
