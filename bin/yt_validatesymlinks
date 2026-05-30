@@ -93,7 +93,7 @@ main() {
 	done
 
 	searchPath="$*"
-	[[ ! -d $searchPath ]] && echo "Search path $searchPath does not exist" && usageAndExit
+	[[ ! -d "$searchPath" ]] && echo "Search path $searchPath does not exist" && usageAndExit
 
 	# note: readlink options
 	# -f = canonical link

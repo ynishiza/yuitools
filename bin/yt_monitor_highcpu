@@ -81,38 +81,6 @@ usageAndExit() {
 }
 
 
-main() {
-	# step: parse options
-	while [[ $# -gt 0 ]]
-	do
-		case "$1" in
-			# case: Test
-			-t|--test)
-				MINCPU=1
-				DEFAULT_SLEEP=1
-				NOTIFICATION_TIMEOUT=10
-				NOTIFICATION_BUFFER_TRIGGER=2
-				;;
-			--disable-terminal-notifier)
-				HAS_TERMINAL_NOTIFIER=""
-				;;
-			-h|--help)
-				usageAndExit 0
-				;;
-			-*)
-				echo "Unknown option $1" >&2
-				usageAndExit
-				;;
-			# case: implicit start of positional argument
-			*)
-				break
-				;;
-			esac
-		shift
-	done
-	start
-}
-
 writelog_base() {
 	local line
 	local level="$1"
@@ -157,6 +125,10 @@ osa_notification() {
 }
 
 timeout_notifications() {
+	local key
+	local notified
+	local TIMESTAMP
+
 	TIMESTAMP=$(date '+%s')
 
 	for key in "${!NOTIFICATION_TIMER[@]}"
@@ -165,7 +137,7 @@ timeout_notifications() {
 		TIMEDIFF=$((TIMESTAMP-notified))
 
 		# case: timeout reached
-		if [[ $TIMEDIFF -gt $NOTIFICATION_TIMEOUT ]]
+		if [[ "$TIMEDIFF" -gt "$NOTIFICATION_TIMEOUT" ]]
 		then
 			reset_notification "$key"
 		fi
@@ -175,7 +147,7 @@ reset_notification() {
 	local key="$1"
 	writelog_debug "timeout key=$key timediff=$TIMEDIFF"
 	# note: clear notification on timeout
-	if [[ $HAS_TERMINAL_NOTIFIER ]]
+	if [[ "$HAS_TERMINAL_NOTIFIER" ]]
 	then
 		# bug?: loop until completely reset
 		# Sometimes, terminal-notifier doesn't remove the notification on first call.
@@ -186,8 +158,8 @@ reset_notification() {
 		done
 	fi
 	writelog_debug "reset key=\"$key\" in NOTIFICATION_TIMER=(${!NOTIFICATION_TIMER[*]})"
-	[[ -v NOTIFICATION_TIMER["$key"] ]] && unset NOTIFICATION_TIMER["$key"]
-	[[ -v NOTIFICATION_BUFFER_COUNTER["$key"] ]] && unset NOTIFICATION_BUFFER_COUNTER["$key"]
+	[[ -v NOTIFICATION_TIMER["$key"] ]] && unset "NOTIFICATION_TIMER[$key]"
+	[[ -v NOTIFICATION_BUFFER_COUNTER["$key"] ]] && unset "NOTIFICATION_BUFFER_COUNTER[$key]"
 	writelog_debug "notification reset key=$key"
 }
 
@@ -264,7 +236,7 @@ start() {
 				local title=
 				title="CPU $cpu% CPU"
 				message="$(date '+%H:%M:%S') $cmd"
-				if [[ $HAS_TERMINAL_NOTIFIER ]]
+				if [[ "$HAS_TERMINAL_NOTIFIER" ]]
 				then
 					local infoFile="${FILE_PREFIX}_${pid}.txt"
 					# note: open process info
@@ -307,7 +279,7 @@ start() {
 		## step: sleep for buffer
 		# note: sleep longer if there are entries, to prevent noise.
 		if [[ "$has_entries" ]]; then SLEEP=$RECHECK_SLEEP; else SLEEP=$DEFAULT_SLEEP; fi
-		sleep $SLEEP
+		sleep "$SLEEP"
 	done
 }
 
@@ -319,18 +291,53 @@ onExit() {
 	exit "$code"
 }
 onError() {
+		local logfile_error
+		local message
+		local title
+
 		# note: make copy of log file
 		logfile_error="${LOGFILE}.$(date '+%s')"
 		cp -f "$LOGFILE" "$logfile_error"
 
 		title="$(basename "$0")"
 		message="$(date '+%H:%M:%S') Error. Logs in $logfile_error"
-		if [[ $HAS_TERMINAL_NOTIFIER ]]
+		if [[ "$HAS_TERMINAL_NOTIFIER" ]]
 		then
 			terminal-notifier -title "$title" -message "$message" -execute "open $logfile_error"
 		else
 			osa_notification "$title" "$message"
 		fi
+}
+main() {
+	# step: parse options
+	while [[ $# -gt 0 ]]
+	do
+		case "$1" in
+			# case: Test
+			-t|--test)
+				MINCPU=1
+				DEFAULT_SLEEP=1
+				NOTIFICATION_TIMEOUT=10
+				NOTIFICATION_BUFFER_TRIGGER=2
+				;;
+			--disable-terminal-notifier)
+				HAS_TERMINAL_NOTIFIER=""
+				;;
+			-h|--help)
+				usageAndExit 0
+				;;
+			-*)
+				echo "Unknown option $1" >&2
+				usageAndExit
+				;;
+			# case: implicit start of positional argument
+			*)
+				break
+				;;
+			esac
+		shift
+	done
+	start
 }
 trap onExit EXIT
 trap onError ERR
