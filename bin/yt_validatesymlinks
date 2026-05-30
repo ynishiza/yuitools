@@ -62,6 +62,8 @@ main() {
 	local searchPath=
 	local searchOptions=
 	local removeLinks=
+	local resPath=
+	local files=()
 	while [[ $# -gt 0 ]]
 	do
 		case "$1" in
@@ -110,20 +112,24 @@ main() {
 	# The while trick does not allow prompting
 
 	# NOTE: 
-	# - IFS to split the array by ONLY newline instead of default (newline, whitespace, tab)
 	# - need to run command before changing the IFS because this affects expansion of searchOptions
 	#  	e.g.
 	# 		searchOptions="-maxdepth 2"
 	# 		IFS=$'\n'
 	# 		$(find "$searchPath" $searchOptions) 			ERROR 'find: -maxdepth 2 : unknown primary or operator'
 	#
-	# shellcheck disable=SC2086
-	result=$(find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print)
-	OLDIFS=$IFS
-	IFS=$'\n'
-	# shellcheck disable=SC2206
-	files=($result)
-	IFS=$OLDIFS
+	#
+	# How it works
+	#
+	#   -print0    	  		terminate each result of `find` with null i.e. \0
+	#   IFS= read -d ''	  read until end of line (-d option) without splitting (IFS= )
+	while IFS= read -r -d '' resPath
+	do
+		files+=("$resPath")
+	done < <(
+		# shellcheck disable=SC2086
+		find "$searchPath" $searchOptions -type l ! -exec test -e {} \; -print0
+	)
 	writeLog "# broken links found: ${#files[@]}" $'\n'
 	writeDebugLog "${files[@]}" $'\n' 
 
