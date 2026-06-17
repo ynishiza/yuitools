@@ -1,6 +1,7 @@
 -- ====== Base ======
 -- trace, debug, info, warn, error
-vim.lsp.set_log_level("warn")
+-- vim.lsp.set_log_level("warn")
+vim.lsp.log.set_level("warn")
 -- vim.lsp.set_log_level("debug")
 
 
@@ -173,6 +174,14 @@ yt_lsp_server_settings = {
      -- root_dir = nvim_lsp.util.root_pattern("package.json", "tsconfig.json", ".git")
   },
 
+  -- pylsp (Python Language Server)
+  -- Home: https://github.com/python-lsp/python-lsp-server
+  -- Installation
+  --   $ brew install python-language-server
+  pylsp = {
+    cmd = { "pylsp" }
+  },
+
   -- [DISABLED 04/05/2025] clunky
   -- Home: https://github.com/supabase-community/postgres-language-server
   -- postgres_lsp = {
@@ -263,8 +272,8 @@ yt_lsp_update_settings = function(name, settings)
   --   go     OK
   --   hls    Not OK
   --
-  vim.lsp.enable(name)
   vim.lsp.config(name, settings)
+  vim.lsp.enable(name)
 
   -- [DEPRECATED] Old setup
   -- nvim_lsp[name].setup(settings)

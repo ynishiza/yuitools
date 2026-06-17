@@ -1,5 +1,6 @@
 Troubleshooting:
-:checkhealth      check dependencies (neovim) 
+:checkhealth        check dependencies (neovim) 
+:checkhealth lsp    check dependencies (neovim) 
 
 General:
 <leader><leader>?          Print this help
