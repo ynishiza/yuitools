@@ -1,0 +1,105 @@
+== Shell bindings ==
+# Use 'bind -p' to see all bindings
+ctrl-b          back one char
+alt-b           back one word
+ctrl-f          forward one char
+alt-f,ctrl-l    forward word
+ctrl-a          beginning of line
+ctrl-e          to end of line
+
+ctrl-h          delete one char
+ctrl-w          remove one word
+alt-b           back word
+ctrl-i          complete
+
+
+== man ==
+man 1 chmod           specify man section
+man -k abc def        search for "abc def" in title
+man -K abc def        search for "abc def" in content
+
+
+== permissions ==
+100   u=x
+200   u=w
+400   u=r
+500   u=xr
+700   u=all
+750   u=all g=rx
+
+
+== shell ==
+# history
+!1
+!-1
+echo !1           print history
+echo !1:q         quote e.g. "ls -l ."
+echo !1:x         quote each word e.g. ls -l .   "ls" "-l" "."
+
+== process ==
+killall "Google Chrome"
+killall firefox
+
+
+== less commands ==
+-N            line numbers
+-I            ignore case
+-J            status column
+F             follow
+() [] {}      Jump to braces
+m<tag>        mark
+'<tag>        jump to mark
+''            previous mark
+&<pattern>    show only matches
+&             cancel
+
+
+== fzf ==
+ctrl-T        search file
+ctrl-R        search history
+alt-C         cd into directory
+
+
+== ncdu ==
+ncdu -o /tmp/ncdu ~/                  output to file (faster)
+ncdu -f /tmp/ncdu                     read from file
+ncdu --exclude CloudStorage /Library  exclude file
+
+
+== tmux ==
+swap-window -s <source num> -t <target num>     
+
+
+== yt-dlp ==
+yt-dlp -f 'bestvideo[height>=1080]+bestaudio' -t mp4  ...    as mp4
+yt-dlp -f 'bestvideo[height>=1080]+bestaudio' -t mkv  ...    as mkv
+
+
+== Scripting ==
+((1+1))             expression
+
+\${A:-abc}          default
+\${A/x/X}           replace x with X
+\${A[@]}
+
+\${#A[@]}           length
+\${A[@]}            array members
+\${!A[@]}           array keys
+
+# string
+"\$A" == "abc"
+"\$A" != "abc"
+"\$A" =~ abc.       regex
+-n "\$A"            non-empty
+-z "\$A"            empty
+
+# number
+"\$A" -eq 1
+"\$A" -ne 1
+"\$A" -ge 1
+
+# files
+-e "\$A"          exists
+-f "\$A"          regular file
+-d "\$A"          directory
+-L "\$A"          symbolic ink

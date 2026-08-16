@@ -94,6 +94,8 @@ yt_lsp_server_settings = {
     settings = {
       haskell = {
         formattingProvider = "ormolu"
+        -- formattingProvider = "fourmolu"
+        -- formattingProvider = "stylish-haskell"
       }
     }
    },

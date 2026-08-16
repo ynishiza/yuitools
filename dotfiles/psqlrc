@@ -373,6 +373,20 @@ HELP
 SELECT *
 FROM mytable :ytablesample(0.1);          TABLESAMPLE BERNOULLI(0.1)
 
+========== Alias ==========
+
+\set                see all aliases
+
+\yclear             clear screens
+\yreload_psqlrc '\i ~/.psqlrc'
+
+\format_aligned | unaligned | csv | html
+\tuples_only_on
+\tuples_only_off
+\gx                 expanded
+\gul                unaligned
+\gal                aligned
+
 ========== Views ==========
 pg_temp.yconfigs
 pg_temp.ytables
