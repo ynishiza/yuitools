@@ -4,11 +4,19 @@
 require('lualine').setup {
   options = {
     icons_enabled = false,
+
+    -- See https://github.com/nvim-lualine/lualine.nvim/blob/master/THEMES.md
     -- theme = 'auto',
+    -- theme = 'ayu',
     -- theme = 'ayu_mirage',
     -- theme = 'ayu_dark',
-    theme = 'solarized_light',
     -- theme = 'ayu_light',
+    -- theme = 'dracula',
+    -- theme = 'solarized_light',
+    theme = 'solarized_dark',
+    -- theme = 'powerline',
+    -- theme = 'papercolor_dark',
+    -- theme = 'papercolor_light',
     -- theme = 'iceberg_light',
     component_separators = { left = '|', right = '|'},
     section_separators = { left = '', right = ''},

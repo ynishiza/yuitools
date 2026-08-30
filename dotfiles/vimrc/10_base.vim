@@ -10,7 +10,10 @@ filetype indent on
 "
 " write encoding
 " utf-8 for default encoding. Sometimes, vim uses latin.
+" See :help encoding-names
 set encoding=utf-8
+" read encoding
+set fileencodings=utf-8,sjis,euc-jp
 
 
 " keys

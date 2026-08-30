@@ -86,11 +86,14 @@ search:
 
 
 encoding:
-:set encoding=utf-8                 encoding used during edit
-:set fileencoding=utf-8             encoding used for file write
-:set fileencoding=                  use same as encoding
-:set fileencodings=utf-8,latin1     encoding used for file read
+:set encoding=utf-8                 		encoding used during edit
+:set fileencoding=utf-8                 encoding used for file write
+:set fileencoding=                      use same as encoding
+:set fileencodings=utf-8,latin1     		encoding used for file read
+:set fileencodings=utf-8,sjis,euc-jp    e.g. read Japanese
 :help encoding-names
+
+IMPORTANT: reload buffer with :edit after changing encoding
 
 file format/type:
 :set filetype=haskell         file type for e.g. tree-sitter, LSP 
