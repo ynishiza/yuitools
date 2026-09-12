@@ -180,9 +180,18 @@ yt_lsp_server_settings = {
   -- Home: https://github.com/python-lsp/python-lsp-server
   -- Installation
   --   $ brew install python-language-server
+  --
+  -- To use in virtual environment, install inside the virtual env.
+  -- e.g.
+  --
+  --   $ source ./venv/bin/activate          # activate virtual env
+  --   $ uv pip install python-lsp-server    # install
+  --   $ nvim main.py
+  --
   pylsp = {
     cmd = { "pylsp" }
   },
+
 
   -- [DISABLED 04/05/2025] clunky
   -- Home: https://github.com/supabase-community/postgres-language-server

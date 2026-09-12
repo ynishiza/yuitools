@@ -1,0 +1,38 @@
+default_permissions = "yt_dev"
+
+[features]
+goals = true
+memories = true
+terminal_resize_reflow = true
+network_proxy = true
+js_repl = false
+
+[permissions.yt_dev]
+description = "Edit workspace, block real secrets, allow examples."
+extends = ":workspace"
+
+[permissions.yt_dev.filesystem]
+glob_scan_max_depth = 4
+"~/.ssh" = "deny"
+"~/.aws" = "deny"
+"~/.gnupg" = "deny"
+"~/.kube" = "deny"
+
+[permissions.yt_dev.filesystem.":workspace_roots"]
+"**/.env" = "deny"
+"**/.env.local" = "deny"
+"**/.env.*.local" = "deny"
+"**/.env.development" = "deny"
+"**/.env.production" = "deny"
+"**/.env.staging" = "deny"
+"**/.env.test" = "deny"
+"**/secrets/**" = "deny"
+"**/*secret*" = "deny"
+"**/*.pem" = "deny"
+"**/*.key" = "deny"
+"**/*.p12" = "deny"
+"**/*.pfx" = "deny"
+
+
+# [permissions.yt_dev.network]
+# enabled = false

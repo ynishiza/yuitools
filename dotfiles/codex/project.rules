@@ -1,0 +1,17 @@
+prefix_rule(
+    # The prefix to match.
+    pattern = ["psql", "make"],
+
+    # The action to take when Codex requests to run a matching command.
+    decision = "allow",
+
+    # Optional rationale for why this rule exists.
+    justification = "Allow build commands",
+
+    # `match` and `not_match` are optional "inline unit tests" where you can
+    # provide examples of commands that should (or should not) match this rule.
+    match = [
+    ],
+    not_match = [
+    ],
+)
