@@ -189,6 +189,7 @@ _base_setupFunction() {
 		do
 			# Skip comment
 			if echo "$line" | grep '^#' >/dev/null; then continue; fi
+			if [[ -z "$line" ]]; then continue; fi
 			# shellcheck disable=SC2163
 			export "$line"
 		done < "$envname"

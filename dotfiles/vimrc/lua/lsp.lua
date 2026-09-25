@@ -184,21 +184,130 @@ yt_lsp_server_settings = {
   -- To use in virtual environment, install inside the virtual env.
   -- e.g.
   --
-  --   $ source ./venv/bin/activate          # activate virtual env
-  --   $ uv pip install python-lsp-server    # install
+  --   $ source ./venv/bin/activate               # activate virtual env
+  --   $ uv pip install "python-lsp-server[all]"  # install + all options
   --   $ nvim main.py
   --
+  -- Configuration
+  -- https://github.com/python-lsp/python-lsp-server/blob/develop/CONFIGURATION.md
+  --
+  -- Debugging:
+  -- Check log
+  --
+  --   $ cat ~/.local/state/nvim/lsp.log
+  --
   pylsp = {
-    cmd = { "pylsp" }
+    cmd = { "pylsp" },
+    settings = {
+      pylsp = {
+        configurationSources = {
+          "pycodestyle",
+          -- "flake8",
+        },
+        plugins = {
+          -- Code formatting [Default off]
+          pep8 = {
+            enabled = true,
+          },
+          -- Code formatting [Default]
+          yapf = {
+            enabled = true,
+          },
+
+          -- Error checking [Default off]
+          flake8 = {
+            enabled = false,
+            maxLineLength = 100,
+          },
+          -- Error checking [Default]
+          pyflake = {
+            enabled = true,
+          },
+
+          -- Completion [Default on]
+          -- jedi = {
+          -- },
+          jedi_completion = {
+            enabled = true,
+          },
+          jedi_definition = {
+            enabled = true,
+          },
+          jedi_hover = {
+            enabled = true,
+          },
+          jedi_references = {
+            enabled = true,
+          },
+          jedi_signature_help = {
+            enabled = true,
+          },
+          jedi_symbols = {
+            enabled = true,
+          },
+          jedi_type_definition = {
+            enabled = true,
+          },
+
+          -- Completion [Default off]
+          rope_autoimport = {
+            enabled = false,
+          },
+          rope_completion = {
+            enabled = false,
+          },
+
+          -- Complexity check
+          mccabe = {
+            enabled = true,
+          },
+          -- ?
+          preload = {
+            enabled = true,
+          },
+
+          -- Code linter [Default]
+          pycodestyle = {
+            enabled = true,
+            maxLineLength = 100,
+          },
+
+          -- Doc linter
+          pydocstyle = {
+            enabled = false,
+          },
+
+          -- Linter [Default off]
+          pylint = {
+            enabled = false,
+          },
+        },
+        signature = {
+          formatter = "ruff",
+          -- formatter = "black",
+          line_length = 100,
+          include_docstrings = false,
+        },
+      },
+    },
   },
 
 
   -- [DISABLED 04/05/2025] clunky
   -- Home: https://github.com/supabase-community/postgres-language-server
-  -- postgres_lsp = {
-  --    filetypes={ "sql" },
-  --    cmd = { "postgrestools", "lsp-proxy", "--log-path", "/tmp/postgres_lsp.log" },
-  -- },
+  --
+  -- Installation
+  -- Homebrew:
+  --
+  --   $ brew install postgres-language-server
+  --
+  postgres_lsp = {
+     filetypes={ "sql" },
+     -- cmd = { "postgrestools", "lsp-proxy", "--log-path", "/tmp/postgres_lsp.log" },
+     cmd = { 'postgres-language-server', 'lsp-proxy' },
+     root_markers = { 'postgres-language-server.jsonc' },
+     workspace_required = true,
+  },
 
    -- Home: https://github.com/sqls-server/sqls
    -- Plugin: https://github.com/nanotee/sqls.nvim
