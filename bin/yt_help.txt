@@ -41,6 +41,17 @@ killall "Google Chrome"
 killall firefox
 
 
+== grep ==
+grep -E ...                     extended regex
+grep -n ...                     line numbers
+grep -v ...                     invert
+grep --include "*.py" ...
+grep --exclude-dir ".git" ...
+grep -C 10 ...                  context before & after
+grep -A 10 ...                  context after
+grep -B 10 ...                  context before
+
+
 == less commands ==
 -N            line numbers
 -I            ignore case

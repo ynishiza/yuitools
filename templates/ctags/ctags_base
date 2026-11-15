@@ -72,3 +72,12 @@
 --regex-r=/^([a-zA-Z0-9_\.]+) <- setRefClass/\1/c,class/
 --regex-r=/^([a-zA-Z0-9_\.]+) <- setClass/\1/c,class/
 --regex-r=/^([a-zA-Z0-9_\.]+) <- (NA|NULL|"|'|[0-9]+:[0-9]+|list|data|matrix|array|c|character|numeric|vector)/\1/v,value/
+
+--langdef=typescript
+--langmap=typescript:.ts.tsx
+--regex-typescript=/^(export *)?function +([_a-zA-Z0-9]+)\(/\2/f,function/
+--regex-typescript=/^(export *)?async[ \t]*function +([_a-zA-Z0-9]+)\(/async \2/f,function/
+--regex-typescript=/^(export *)?const +([_a-zA-Z0-9\<\>,]+) *[=:]/\2/q,constant/
+--regex-typescript=/^(export *)?type +([_a-zA-Z0-9\<\>,]+) *=/type \2/t,type/
+--regex-typescript=/^(export *)?interface +([_a-zA-Z0-9]+) */interface \2/t,type/
+

@@ -48,7 +48,7 @@
 
 	## Log
 	#
-	# --unified=, -U 	lines of context
+	# --unified=, -U	lines of context
 	lsa = log --pretty=ls
 	ls = log -10 --pretty=ls
 	lg = log --graph
@@ -62,7 +62,7 @@
 	#			i.e. in this case, same as `diff HEAD~`
 	# e.g. after a rebase, diff changes by the rebase
 	# e.g. after a commit ammend, diff changes by the ammend
-	dfprev = diff --stat -p -U10 @{1}			  # previous
+	dfprev = diff --stat -p -U10 @{1}				# previous
 	dfprev2 = diff --stat -p -U10 @{2}			# 2 changes ago
 	dfprev3 = diff --stat -p -U10 @{3}
 	dfprev4 = diff --stat -p -U10 @{4}
@@ -75,7 +75,7 @@
 	## Branch
 	bvv = branch -vv
 	# e.g. of the form
-	#   master                                    ba8c57d 2025-05-04 [refs/remotes/origin/master] <yui.nishizawa@gmail.com> subject
+	#		master																		ba8c57d 2025-05-04 [refs/remotes/origin/master] <yui.nishizawa@gmail.com> subject
 	bv = branch -v --format '%(if)%(HEAD)%(then)%(color:green)*%(end)%(align:40,left)%(refname:lstrip=2) %(end) %(color:default) %(objectname:short) %(committerdate:short) %(if)%(upstream)%(then)[%(color:blue)%(upstream:short) %(color:default)%(upstream:track,nobracket)] %(end)%(committeremail) %(subject) '
 	bva = bv -a
 
@@ -104,22 +104,44 @@
 	# Misc
 	pop = stash pop
 	test = "!fn() { echo \"Hello $@ There\"; }; fn"
-	rerereclearall = "!f() { [[ ! -d .git/rr-cache ]] && exit 0; echo 'Clear rerere cache? (y/n)'; read A;  if [ \"$A\" = 'y' ]; then rm -rf .git/rr-cache; else exit 1; fi; }; f"
+	rerereclearall = "!f() { [[ ! -d .git/rr-cache ]] && exit 0; echo 'Clear rerere cache? (y/n)'; read A;	if [ \"$A\" = 'y' ]; then rm -rf .git/rr-cache; else exit 1; fi; }; f"
 
 	# Reference: https://etc.octavore.com/2025/12/archiving-git-branches-as-tags/
 	#
 	# Added timestamp
 	#
 	# e.g. mybranch
-	#    branch    mybranch
-	#    tag       archive/20250103_mybranch
+	#		 branch		 mybranch
+	#		 tag			 archive/20250103_mybranch
 	archive-branch = "!f() { \
 			: git switch; \
 			local git_branch=${1:-$(git branch --show-current)}; \
 			local timetamp=$(date '+%Y%m%d');\
 			git tag -s -m \"$timetamp Branch archive: $git_branch \" archive/${timetamp}_${git_branch} $git_branch &&  \
-			git branch -D $git_branch;  \
+			git branch -D $git_branch;	\
 		}; f"
+
+	cheat = "!f() {\n\
+	cat <<'EOF'\n\
+refs: \n\
+@		\n\
+mybranch@{u}     upstream \n\
+mybranch~        -1 commit\n\
+mybranch~2       -2 commits\n\
+\n\
+mybranch@{1}     -1 history\n\
+mybranch@{2}     -2 history\n\
+\n\
+pathspec\n\
+':file.txt'       match exact file\n\
+'*.txt' ':*.sql'  multiple\n\
+':*.txt'          wild card\n\
+':?.txt'          single wild card\n\
+':!.txt'          NOT\n\
+':**/*.txt'       directories\n\
+\n\
+EOF\n\
+}; f"
 
 [credential]
 	helper = store

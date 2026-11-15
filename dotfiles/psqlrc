@@ -216,7 +216,7 @@ CREATE OR REPLACE TEMPORARY VIEW pg_temp.ytables AS
   ) primary_key
     on primary_key.relid = c.oid
   WHERE
-    (c.relkind = 'r' OR c.relkind = 'p')
+    (c.relkind = 'r' OR c.relkind = 'p' OR c.relkind = 'v' OR c.relkind = 'm')
     ;
 COMMIT;
 
